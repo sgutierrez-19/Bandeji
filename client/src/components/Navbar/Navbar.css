@@ -1,0 +1,16 @@
+#basic-navbar-nav:not(.show):not(.collapsing) .mr-auto, .navbar-toggler {
+    position: relative;
+    top: -100px;
+    -webkit-animation: navbarslide 0.5s forwards;
+    -webkit-animation-delay: 0s;
+    animation: navbarslide 0.5s forwards;
+    animation-delay: 0s;
+}
+
+@-webkit-keyframes navbarslide {
+    100% { top: 0; }
+}
+
+@keyframes navbarslide {
+    100% { top: 0; }
+}
