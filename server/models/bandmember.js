@@ -1,5 +1,5 @@
 module.exports = function (sequelize, DataTypes) {
-  var GroupMember = sequelize.define("GroupMember", {
+  var BandMember = sequelize.define("BandMember", {
     createdAt: {
       allowNull: true,
       type: DataTypes.DATE
@@ -12,11 +12,11 @@ module.exports = function (sequelize, DataTypes) {
     freezeTableName: true
   });
 
-  GroupMember.associate = function (models) {
-    GroupMember.belongsTo(models.Instrument);
+  BandMember.associate = function (models) {
+    BandMember.belongsTo(models.Instrument);
   }
 
 
-  return GroupMember;
+  return BandMember;
 };
 

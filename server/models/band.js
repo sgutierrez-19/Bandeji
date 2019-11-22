@@ -24,7 +24,7 @@ module.exports = function(sequelize, DataTypes) {
 
   Band.associate = function(models) {
     Band.belongsToMany(models.Member, {
-        through: models.GroupMember
+        through: models.BandMember
     });
     Band.hasMany(models.lfm);
 };
