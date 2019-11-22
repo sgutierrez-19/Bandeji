@@ -23,3 +23,6 @@ VALUES ("https://www.youtube.com/watch?v=2RtI5UEZlzU", "Anaheim", 25, "Hi, I'm C
 
 INSERT INTO groupmember (BandId, MemberId, InstrumentId)
 VALUES (1, 3, 1), (1, 4, 4), (1, 5, 2);
+
+INSERT INTO memberinstrument (MemberId, InstrumentId)
+VALUES (1, 7), (2, 9), (3,1), (4,4), (5,2);

@@ -23,7 +23,6 @@ router.post("/api/signup", function (req, res) {
   db.User.create({
     email: req.body.email,
     password: req.body.password,      
-    profilePicutre: req.user.profilePicture,
     userName: req.user.userName
   })
     .then(function () {
@@ -56,39 +55,59 @@ router.get("/api/user_data", function (req, res) {
     // Sending back a password, even a hashed password, isn't a good idea
     res.json({
       email: req.user.email,
-      profilePicutre: req.user.profilePicture,
       userName: req.user.userName,
       id: req.user.id
     });
   }
 });
 
-router.get("/api/candles", isAuthenticatedData, function (req, res) {
-  db.Candle.findAll({
-    where: {
-      UserId: req.user.id
-    }
-  })
-    .then(function (dbCandles) {
-      res.json(dbCandles);
-    })
-    .catch(function (err) {
-      res.status(500).json(err);
-    });
-});
-router.post("/api/candles", isAuthenticatedData, function (req, res) {
-  db.Candle.create({
-    name: req.body.name,
-    scent: req.body.scent,
-    height: req.body.height,
+// route for creating a member - used after signup & user is created
+// CREATE MULTIPLE
+router.post("/api/createmember", function (req, res) {
+  db.Member.create({
+    memberName: req.body.memberName,
+    location: `${req.body.city}, ${req.body.state}`,
+    profilePicture: req.body.profilePicture,
     UserId: req.user.id
   })
-    .then(function (dbCandle) {
-      res.json(dbCandle);
-    })
-    .catch(function (err) {
-      res.status(500).json(err);
-    });
+  .then(function () {
+    res.redirect(307, "/home");
+  })
+  .catch(function (err) {
+    res.status(401).json(err);
+  });
 });
+
+// route for creating a member - used during member
+router.post("/api/CREATEMEMBER||CREATE")
+
+
+// router.get("/api/candles", isAuthenticatedData, function (req, res) {
+//   db.Candle.findAll({
+//     where: {
+//       UserId: req.user.id
+//     }
+//   })
+//     .then(function (dbCandles) {
+//       res.json(dbCandles);
+//     })
+//     .catch(function (err) {
+//       res.status(500).json(err);
+//     });
+// });
+// router.post("/api/candles", isAuthenticatedData, function (req, res) {
+//   db.Candle.create({
+//     name: req.body.name,
+//     scent: req.body.scent,
+//     height: req.body.height,
+//     UserId: req.user.id
+//   })
+//     .then(function (dbCandle) {
+//       res.json(dbCandle);
+//     })
+//     .catch(function (err) {
+//       res.status(500).json(err);
+//     });
+// });
 
 module.exports = router;

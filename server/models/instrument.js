@@ -23,8 +23,10 @@ module.exports = function(sequelize, DataTypes) {
     Instrument.associate = function (models) {
       Instrument.hasMany(models.lfg);
       Instrument.hasMany(models.lfm);
-      Instrument.hasMany(models.GroupMember)
-
+      Instrument.hasMany(models.GroupMember);
+      Instrument.belongsToMany(models.Member, {
+        through: models.MemberInstrument
+      });
     }
   
     return Instrument;
