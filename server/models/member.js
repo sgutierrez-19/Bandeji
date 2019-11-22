@@ -31,7 +31,7 @@ module.exports = function (sequelize, DataTypes) {
 
   Member.associate = function (models) {
     Member.belongsToMany(models.Band, {
-      through: models.GroupMember
+      through: models.BandMember
     });
     Member.hasMany(models.lfg);
     Member.belongsTo(models.User);

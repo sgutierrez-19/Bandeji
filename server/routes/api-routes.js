@@ -80,7 +80,7 @@ router.post("/api/createmember", function (req, res) {
 
 // route for creating a member - used during member
 router.post("/api/CREATEMEMBER||CREATE")
-
+  
 
 // router.get("/api/candles", isAuthenticatedData, function (req, res) {
 //   db.Candle.findAll({

@@ -21,7 +21,7 @@ VALUES ("https://www.youtube.com/watch?v=2RtI5UEZlzU", "Anaheim", "Hi, we're the
 INSERT INTO lfg (youtubeLink, location, distance, ad, InstrumentId, MemberId)
 VALUES ("https://www.youtube.com/watch?v=2RtI5UEZlzU", "Anaheim", 25, "Hi, I'm Cher and I'm looking to join a band", 6, 1);
 
-INSERT INTO groupmember (BandId, MemberId, InstrumentId)
+INSERT INTO BandMember (BandId, MemberId, InstrumentId)
 VALUES (1, 3, 1), (1, 4, 4), (1, 5, 2);
 
 INSERT INTO memberinstrument (MemberId, InstrumentId)
