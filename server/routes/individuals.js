@@ -2,7 +2,7 @@
 var db = require('../models');
 var passport = require('../config/passport');
 
-module.exports = function(app) {
+module.exports = app => {
     // @desc -  individual signup
     // @route - api/individual/signup
     // @access - public

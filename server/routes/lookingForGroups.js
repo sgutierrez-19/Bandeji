@@ -2,7 +2,7 @@
 var db = require('../models');
 var passport = require('../config/passport');
 
-module.exports = function(app) {
+module.exports = app => {
     // Individual - create listing
     // @desc -   Create LFG listing
     // @route - api/lfg/create
