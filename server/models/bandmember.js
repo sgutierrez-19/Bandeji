@@ -1,5 +1,9 @@
 module.exports = function (sequelize, DataTypes) {
   var BandMember = sequelize.define("BandMember", {
+    instrument: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     createdAt: {
       allowNull: true,
       type: DataTypes.DATE
@@ -12,11 +16,11 @@ module.exports = function (sequelize, DataTypes) {
     freezeTableName: true
   });
 
-  BandMember.associate = function (models) {
-    BandMember.belongsTo(models.Instrument);
-  }
-
-
+  // code present before deletion of instrument table in DB
+  // BandMember.associate = function (models) {
+  //   BandMember.belongsTo(models.Instrument);
+  // }
+  
   return BandMember;
 };
 

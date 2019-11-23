@@ -35,14 +35,14 @@ module.exports = function (sequelize, DataTypes) {
     });
     Member.hasMany(models.lfg);
     Member.belongsTo(models.User);
-    Member.belongsToMany(models.Instrument, {
-      through: models.MemberInstrument
-    });
+    // code present before deletion of instrument table in DB
+    // Member.belongsToMany(models.Instrument, {
+    //   through: models.MemberInstrument
+    // });
+
+    // code added after delection of instrument table in DB
+    Member.hasMany(models.MemberInstrument);
   };
 
   return Member;
 };
-
-    // Candle.associate = function (models) {
-    //   Candle.belongsTo(models.User);
-    // }

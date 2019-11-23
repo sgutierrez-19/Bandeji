@@ -17,6 +17,10 @@ module.exports = function(sequelize, DataTypes) {
           type: DataTypes.STRING(2000),
           allowNull: false
       },
+      instrument: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
       createdAt: {
         allowNull: true,
         type: DataTypes.DATE
@@ -30,7 +34,8 @@ module.exports = function(sequelize, DataTypes) {
       });
 
       lfg.associate = function (models) {
-        lfg.belongsTo(models.Instrument);
+        // code present before deletion of instrument table in DB
+        // lfg.belongsTo(models.Instrument);
         lfg.belongsTo(models.Member)
       }
   
