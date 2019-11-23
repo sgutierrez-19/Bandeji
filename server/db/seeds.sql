@@ -12,17 +12,14 @@ VALUES ("Cher", "Orange", "https://cnet4.cbsistatic.com/img/F15ILAKB6Fex-98zkD1S
 INSERT INTO Pick_Up_Group_DB.member (memberName, location)
 VALUES ("Mick Jagger", "Fullerton"), ("Ian Stewart", "Brea"), ("Dick Taylor", "Irvine");
 
-INSERT INTO instrument (instrumentName)
-VALUES ("Guitar"), ("Bass Guitar"), ("Keyboard"), ("Piano"), ("Drums"), ("Voice-Any"), ("Voice-Soprano"), ("Voice-Alto"), ("Voice-Tenor"), ("Voice-Bass");
+INSERT INTO lfm (youtubeLink, location, ad, BandId, instrument)
+VALUES ("https://www.youtube.com/watch?v=2RtI5UEZlzU", "Anaheim", "Hi, we're the Rolling Stones and are looking for a lead singer", 1, "Voice-Any");
 
-INSERT INTO lfm (youtubeLink, location, ad, BandId, InstrumentId)
-VALUES ("https://www.youtube.com/watch?v=2RtI5UEZlzU", "Anaheim", "Hi, we're the Rolling Stones and are looking for a lead singer", 1, 6);
+INSERT INTO lfg (youtubeLink, location, distance, ad, instrument, MemberId)
+VALUES ("https://www.youtube.com/watch?v=2RtI5UEZlzU", "Anaheim", 25, "Hi, I'm Cher and I'm looking to join a band", "Voice-Soprano", 1);
 
-INSERT INTO lfg (youtubeLink, location, distance, ad, InstrumentId, MemberId)
-VALUES ("https://www.youtube.com/watch?v=2RtI5UEZlzU", "Anaheim", 25, "Hi, I'm Cher and I'm looking to join a band", 6, 1);
+INSERT INTO BandMember (BandId, MemberId, instrument)
+VALUES (1, 3, "Guitar"), (1, 4, "Piano"), (1, 5, "Guitar-Bass");
 
-INSERT INTO BandMember (BandId, MemberId, InstrumentId)
-VALUES (1, 3, 1), (1, 4, 4), (1, 5, 2);
-
-INSERT INTO memberinstrument (MemberId, InstrumentId)
-VALUES (1, 7), (2, 9), (3,1), (4,4), (5,2);
+INSERT INTO memberinstrument (MemberId, instrument)
+VALUES (1, "Voice-Soprano"), (1, "Accordion"), (2, "Voice-Tenor"), (3, "Guitar"), (4, "Piano"), (5, "Guitar-Bass");

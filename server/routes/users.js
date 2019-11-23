@@ -64,22 +64,40 @@ router.get('/api/user_data', (req, res) => {
 // route for creating a member - used after signup & user is created
 // CREATE MULTIPLE
 router.post('/api/createmember', (req, res) => {
-    db.Member.create({
-        memberName: req.body.memberName,
-        location: `${req.body.city}, ${req.body.state}`,
-        profilePicture: req.body.profilePicture,
-        UserId: req.user.id
+  db.Member.create({
+    memberName: req.body.memberName,
+    location: `${req.body.city}, ${req.body.state}`,
+    profilePicture: req.body.profilePicture,
+    UserId: req.user.id
+  })
+    .then(function () {
+      res.redirect(307, "/home");
     })
-        .then(() => {
-            res.redirect(307, '/home');
-        })
-        .catch(err => {
-            res.status(401).json(err);
-        });
+    .catch(function (err) {
+      res.status(401).json(err);
+    });
 });
 
 // route for creating a member - used during member
-router.post('/api/CREATEMEMBER||CREATE');
+router.get('/api/example/:id', async (req, res) => {
+  try {
+    const lfm = await db.lfm.findOne({
+      where: {
+        id: req.params.id
+      }
+    });
+    const join = await db.Band.findAll({
+      where: {
+        id: lfm.BandId
+      },
+      include: [db.Member]
+    })
+    res.json({lfm, join})
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send('Sever Error');
+  }
+});
 
 // router.get("/api/candles", isAuthenticatedData, function (req, res) {
 //   db.Candle.findAll({
