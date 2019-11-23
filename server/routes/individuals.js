@@ -3,6 +3,8 @@ var db = require('../models');
 var passport = require('../config/passport');
 const router = require('express').Router();
 
+var isAuthenticatedData = require('../config/middleware/isAuthenticatedData');
+
 // @desc -  individual signup
 // @route - api/individual/signup
 // @access - public

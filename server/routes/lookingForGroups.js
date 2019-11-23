@@ -3,6 +3,8 @@ var db = require('../models');
 var passport = require('../config/passport');
 const router = require('express').Router();
 
+var isAuthenticatedData = require('../config/middleware/isAuthenticatedData');
+
 // Individual - create listing
 // @desc -   Create LFG listing
 // @route - api/lfg/create
