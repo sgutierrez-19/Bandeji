@@ -22,7 +22,7 @@ router.post("/api/login", passport.authenticate("local"), function (req, res) {
 router.post("/api/signup", function (req, res) {
   db.User.create({
     email: req.body.email,
-    password: req.body.password,      
+    password: req.body.password,
     userName: req.user.userName
   })
     .then(function () {
@@ -70,17 +70,34 @@ router.post("/api/createmember", function (req, res) {
     profilePicture: req.body.profilePicture,
     UserId: req.user.id
   })
-  .then(function () {
-    res.redirect(307, "/home");
-  })
-  .catch(function (err) {
-    res.status(401).json(err);
-  });
+    .then(function () {
+      res.redirect(307, "/home");
+    })
+    .catch(function (err) {
+      res.status(401).json(err);
+    });
 });
 
 // route for creating a member - used during member
-router.post("/api/CREATEMEMBER||CREATE")
-  
+router.get("/api/example/:id", async function (req, res) {
+  try {
+    const lfm = await db.lfm.findOne({
+      where: {
+        id: req.params.id
+      }
+    });
+    const join = await db.Band.findAll({
+      where: {
+        id: lfm.BandId
+      },
+      include: [db.Member]
+    })
+    res.json({lfm, join})
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send('Sever Error');
+  }
+});
 
 // router.get("/api/candles", isAuthenticatedData, function (req, res) {
 //   db.Candle.findAll({
