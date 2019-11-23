@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 // We need to use sessions to keep track of our user's login status
 app.use(
-    session({ secret: 'keyboard cat', resave: true, saveUninitialized: true })
+  session({ secret: 'keyboard cat', resave: true, saveUninitialized: true })
 );
 app.use(passport.initialize());
 app.use(passport.session());
@@ -32,7 +32,7 @@ const individuals = require('./routes/individuals.js');
 app.use(individuals);
 const band = require('./routes/band.js');
 app.use(band);
-const lookingForGroup = require('./routes/lookingForGroup.js');
+const lookingForGroup = require('./routes/lookingForGroups.js');
 app.use(lookingForGroup);
 const lookingForMore = require('./routes/lookingForMore.js');
 app.use(lookingForMore);
@@ -54,11 +54,11 @@ app.use(htmlRoutes);
 
 // Syncing our database and logging a message to the user upon success
 db.sequelize.sync({ force: true }).then(function() {
-    app.listen(PORT, function() {
-        console.log(
-            '==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.',
-            PORT,
-            PORT
-        );
-    });
+  app.listen(PORT, function() {
+    console.log(
+      '==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.',
+      PORT,
+      PORT
+    );
+  });
 });
