@@ -24,6 +24,7 @@ app.use(passport.session());
 //                              Routes                               //
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 
+
 const users = require('./routes/users.js');
 app.use(users);
 const members = require('./routes/members.js');
@@ -32,7 +33,7 @@ const individuals = require('./routes/individuals.js');
 app.use(individuals);
 const band = require('./routes/band.js');
 app.use(band);
-const lookingForGroup = require('./routes/lookingForGroup.js');
+const lookingForGroup = require('./routes/lookingForGroups.js');
 app.use(lookingForGroup);
 const lookingForMore = require('./routes/lookingForMore.js');
 app.use(lookingForMore);
@@ -53,8 +54,8 @@ app.use(htmlRoutes);
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 
 // Syncing our database and logging a message to the user upon success
-db.sequelize.sync({ force: true }).then(function() {
-    app.listen(PORT, function() {
+db.sequelize.sync({ force: true }).then(function () {
+    app.listen(PORT, function () {
         console.log(
             '==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.',
             PORT,

@@ -16,7 +16,7 @@ INSERT INTO lfm (youtubeLink, location, ad, BandId, instrument)
 VALUES ("https://www.youtube.com/watch?v=2RtI5UEZlzU", "Anaheim", "Hi, we're the Rolling Stones and are looking for a lead singer", 1, "Voice-Any");
 
 INSERT INTO lfg (youtubeLink, location, distance, ad, instrument, MemberId)
-VALUES ("https://www.youtube.com/watch?v=2RtI5UEZlzU", "Anaheim", 25, "Hi, I'm Cher and I'm looking to join a band", "Voice-Soprano", 1);
+VALUES ("https://www.youtube.com/watch?v=2RtI5UEZlzU", "Anaheim", 25, "Hi, I'm Cher and I'm looking to join a band", "Voice-Soprano", 1), ("https://www.youtube.com/watch?v=2RtI5UEZlzU", "Brea", 5, "Hey all, Sonny here.  Trying to find a band to sing with at the local bars", "Voice-Tenor", 2), ("https://www.youtube.com/watch?v=2RtI5UEZlzU", "Brea", 5, "Making another ad because I'd also like to may just do a vocal duo with a Soprano or Alto.", "Voice-Tenor", 2);
 
 INSERT INTO BandMember (BandId, MemberId, instrument)
 VALUES (1, 3, "Guitar"), (1, 4, "Piano"), (1, 5, "Guitar-Bass");
