@@ -26,14 +26,14 @@ router.post("/api/individual/signup", async (req, res) => {
         } else if (!req.body.city) {
             throw new Error("The city field cannot be blank");
         } else if (!req.body.state) {
-            throw new Error("The state field(s) cannot be blank");
+            throw new Error("The state field cannot be blank");
         } else if (!req.body.instrument) {
-            throw new Error("The state field(s) cannot be blank");
+            throw new Error("The instrument field cannot be blank");
         }
         res.json({ member, memberInstrument });
     } catch (error) {
         console.log(error.message);
-        res.status(500).send('Sever Error');
+        res.status(500).send('Server Error');
     }
 })
 
@@ -60,7 +60,7 @@ router.get('/api/individual/profile/:id', async (req, res) => {
         res.json({ userListings })
     } catch (error) {
         console.log(error.message);
-        res.status(500).send('Sever Error');
+        res.status(500).send('Server Error');
     }
 })
 
@@ -86,12 +86,12 @@ router.put('/api/individual/updatemember', async (req, res) => {
         } else if (!req.body.city) {
             throw new Error("The city field cannot be blank");
         } else if (!req.body.state) {
-            throw new Error("The state field(s) cannot be blank");
+            throw new Error("The state field cannot be blank");
         }
         res.json(member)
     } catch (error) {
         console.log(error.message);
-        res.status(500).send('Sever Error');
+        res.status(500).send('Server Error');
     }
 });
 
@@ -115,7 +115,7 @@ router.put('/api/individual/updateinstrument/:id', async (req, res) => {
         res.json({ instrument })
     } catch (error) {
         console.log(error.message);
-        res.status(500).send('Sever Error');
+        res.status(500).send('Server Error');
     }
 })
 
