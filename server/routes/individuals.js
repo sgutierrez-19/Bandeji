@@ -11,16 +11,6 @@ var isAuthenticatedData = require('../config/middleware/isAuthenticatedData');
 
 router.post("/api/individual/signup", async (req, res) => {
     try {
-        const member = await db.Member.create({
-            memberName: req.body.memberName,
-            location: `${req.body.city}, ${req.body.state}`,
-            profilePicture: req.body.profilePicture,
-            // UserId: req.user.id
-        })
-        const memberInstrument = await db.MemberInstrument.create({
-            instrument: req.body.instrument,
-            // MemberId: this.member.id
-        });
         if (!req.body.memberName) {
             throw new Error("The name field cannot be blank");
         } else if (!req.body.city) {
@@ -30,6 +20,17 @@ router.post("/api/individual/signup", async (req, res) => {
         } else if (!req.body.instrument) {
             throw new Error("The instrument field cannot be blank");
         }
+        const member = await db.Member.create({
+            memberName: req.body.memberName,
+            location: `${req.body.city}, ${req.body.state}`,
+            profilePicture: req.body.profilePicture,
+            // req.body.UserId comes from state
+            UserId: req.body.UserId
+        })
+        const memberInstrument = await db.MemberInstrument.create({
+            instrument: req.body.instrument,
+            MemberId: member.id
+        });
         res.json({ member, memberInstrument });
     } catch (error) {
         console.log(error.message);
@@ -71,6 +72,13 @@ router.get('/api/individual/profile/:id', async (req, res) => {
 // @access - private
 router.put('/api/individual/updatemember', async (req, res) => {
     try {
+        if (!req.body.memberName) {
+            throw new Error("The name field cannot be blank");
+        } else if (!req.body.city) {
+            throw new Error("The city field cannot be blank");
+        } else if (!req.body.state) {
+            throw new Error("The state field cannot be blank");
+        }
         const member = await db.Member.update({
             memberName: req.body.memberName,
             location: `${req.body.city}, ${req.body.state}`,
@@ -81,13 +89,6 @@ router.put('/api/individual/updatemember', async (req, res) => {
                     id: 1
                 }
             })
-        if (!req.body.memberName) {
-            throw new Error("The name field cannot be blank");
-        } else if (!req.body.city) {
-            throw new Error("The city field cannot be blank");
-        } else if (!req.body.state) {
-            throw new Error("The state field cannot be blank");
-        }
         res.json(member)
     } catch (error) {
         console.log(error.message);
