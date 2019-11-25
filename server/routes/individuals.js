@@ -30,6 +30,7 @@ router.post("/api/individual/signup", async (req, res) => {
             latitude: req.body.latitude,
             longitude: req.body.longitude,
             profilePicture: req.body.profilePicture,
+            createdByUserId: req.user.id,
             // req.body.UserId comes from state
             UserId: req.user.id
         })
@@ -59,13 +60,13 @@ router.post("/api/individual/signup", async (req, res) => {
 // @access - private
 router.get('/api/individual/profile', async (req, res) => {
     try {
-        const userListings = await db.lfg.findAll({
-            include: [db.Member],
+        const member = await db.Member.findOne({
+            include: [db.lfg],
             where: {
-                '$member.UserId$': req.user.id,
+                UserId: req.user.id,
             }
         })
-        res.json({ userListings })
+        res.json({ lfgs: member.lfgs })
     } catch (error) {
         console.log(error.message);
         res.status(500).send('Server Error');
@@ -116,16 +117,22 @@ router.put('/api/individual/updatemember', async (req, res) => {
 // @access - private
 router.put('/api/individual/updateinstrument/:id', async (req, res) => {
     try {
+        if (!req.body.instrument) {
+            throw new Error("The instrument field cannot be blank");
+        }
+        const member = await db.Member.findOne({
+            where: {
+                UserId: req.user.id
+            }
+        })
         const instrument = await db.MemberInstrument.update({
             instrument: req.body.instrument
         }, {
             where: {
+                MemberId: member.id,
                 id: req.params.id
             }
         })
-        if (!req.body.instrument) {
-            throw new Error("The instrument field cannot be blank");
-        }
         res.json({ instrument })
     } catch (error) {
         console.log(error.message);

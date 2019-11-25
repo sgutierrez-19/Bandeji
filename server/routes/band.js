@@ -27,7 +27,8 @@ router.post('/api/band/signup', async (req, res) => {
             state: req.body.state,
             zipcode: req.body.zipcode,
             latitude: req.body.latitude,
-            longitude: req.body.longitude
+            longitude: req.body.longitude,
+            UserId: req.user.id
         })
 
         res.json({ band });
@@ -45,7 +46,7 @@ router.post('/api/band/signup', async (req, res) => {
 // Db.memberinstrument.create
 // db.bandmember.create
 //
-router.post('/api/band/usermember', async (req, res) => {
+router.post('/api/band/usermember/', async (req, res) => {
     try {
         if (!req.body.memberName) {
             throw new Error("The name field cannot be blank");
@@ -66,23 +67,18 @@ router.post('/api/band/usermember', async (req, res) => {
             latitude: req.body.latitude,
             longitude: req.body.longitude,
             profilePicture: req.body.profilePicture,
+            createdByUserId: req.user.id,
             // req.body.UserId comes from state
-            UserId: req.body.UserId
-        })
+            UserId: req.user.id
+        });
         const memberInstrument = await db.MemberInstrument.create({
             instrument: req.body.instrument,
             MemberId: member.id
         });
-        // req.body.bandId comes from state
-        const band = await db.Band.findOne({
-            where: {
-                id: req.body.bandId
-            }
-        })
         const bandMember = await db.BandMember.create({
             instrument: req.body.instrument,
             MemberId: member.id,
-            BandId: band.id
+            BandId: req.body.bandId
         });
         res.json({ member, memberInstrument, bandMember });
     } catch (error) {
@@ -119,21 +115,16 @@ router.post('/api/band/bandmember', async (req, res) => {
             latitude: req.body.latitude,
             longitude: req.body.longitude,
             profilePicture: req.body.profilePicture,
-        })
+            createdByUserId: req.user.id,
+        });
         const memberInstrument = await db.MemberInstrument.create({
             instrument: req.body.instrument,
             MemberId: member.id
         });
-        // req.body.bandId comes from state
-        const band = await db.Band.findOne({
-            where: {
-                id: req.body.bandId
-            }
-        })
         const bandMember = await db.BandMember.create({
             instrument: req.body.instrument,
             MemberId: member.id,
-            BandId: band.id
+            BandId: req.body.bandId
         });
         res.json({ member, memberInstrument, bandMember });
     } catch (error) {
