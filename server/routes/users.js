@@ -10,55 +10,55 @@ var isAuthenticatedData = require('../config/middleware/isAuthenticatedData');
 // If the user has valid login credentials, send them to the members page.
 // Otherwise the user will be sent an error
 router.post('/api/login', passport.authenticate('local'), (req, res) => {
-    res.json({
-        email: req.user.email,
-        id: req.user.id
-    });
+  res.json({
+    email: req.user.email,
+    id: req.user.id
+  });
 });
 
 // Route for signing up a user. The user's password is automatically hashed and stored securely thanks to
 // how we configured our Sequelize User Model. If the user is created successfully, proceed to log the user in,
 // otherwise send back an error
 router.post('/api/signup', (req, res) => {
-    db.User.create({
-        email: req.body.email,
-        password: req.body.password,
-        userName: req.user.userName
+  db.User.create({
+    email: req.body.email,
+    password: req.body.password,
+    userName: req.body.userName
+  })
+    .then(() => {
+      res.redirect(307, '/api/login');
     })
-        .then(() => {
-            res.redirect(307, '/api/login');
-        })
-        .catch(err => {
-            res.status(401).json(err);
-        });
+    .catch(err => {
+      res.status(401).json(err);
+    });
 });
 
 // Route for logging user out
 router.get('/logout', (req, res) => {
-    req.logout();
-    res.redirect('/');
+  req.logout();
+  res.redirect('/');
 });
 
 // Route for logging user out
 router.post('/api/logout', (req, res) => {
-    req.logout();
-    res.json({});
+  req.logout();
+  res.json({});
 });
 
 // Route for getting some data about our user to be used client side
 router.get('/api/user_data', (req, res) => {
-    if (!req.user) {
-        // The user is not logged in, send back an empty object
-        res.json({});
-    } else {
-        // Otherwise send back the user's email and id
-        // Sending back a password, even a hashed password, isn't a good idea
-        res.json({
-            email: req.user.email,
-            userName: req.user.userName,
-            id: req.user.id
-        });
-    }
+  if (!req.user) {
+    // The user is not logged in, send back an empty object
+    res.json({});
+  } else {
+    // Otherwise send back the user's email and id
+    // Sending back a password, even a hashed password, isn't a good idea
+    res.json({
+      email: req.user.email,
+      userName: req.user.userName,
+      id: req.user.id
+    });
+  }
 });
 
 // route for creating a member - used after signup & user is created
@@ -70,10 +70,10 @@ router.post('/api/createmember', (req, res) => {
     profilePicture: req.body.profilePicture,
     UserId: req.user.id
   })
-    .then(function () {
-      res.redirect(307, "/home");
+    .then(function() {
+      res.redirect(307, '/home');
     })
-    .catch(function (err) {
+    .catch(function(err) {
       res.status(401).json(err);
     });
 });
@@ -91,8 +91,8 @@ router.get('/api/example/:id', async (req, res) => {
         id: lfm.BandId
       },
       include: [db.Member]
-    })
-    res.json({lfm, join})
+    });
+    res.json({ lfm, join });
   } catch (error) {
     console.log(error.message);
     res.status(500).send('Sever Error');

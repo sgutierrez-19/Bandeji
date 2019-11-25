@@ -3,7 +3,7 @@ var db = require('../models');
 // var passport = require('../config/passport');
 const router = require('express').Router();
 
-// var isAuthenticatedData = require('../config/middleware/isAuthenticatedData');
+// var isAuthenticatesdData = require('../config/middleware/isAuthenticatedData');
 
 // Individual - create listing
 // @desc -   Create LFG listing
