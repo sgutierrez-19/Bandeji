@@ -18,7 +18,7 @@ function PasswordMessage() {
     return (
         <Fragment>
             You must provide a valid password.
-                            <ul>
+            <ul>
                 <li>At least 8 characters long</li>
                 <li>Including at least 1 uppercase letter</li>
                 <li>Including at least 1 lowercase letter</li>
