@@ -12,8 +12,8 @@ VALUES ("Cher", "Orange", "California", 12345 ,"https://cnet4.cbsistatic.com/img
 INSERT INTO Pick_Up_Group_DB.member (memberName, city, state, zipcode)
 VALUES ("Mick Jagger", "Fullerton", "California", 12345), ("Ian Stewart", "Brea", "California", 54321), ("Dick Taylor", "Irvine", "California", 12345);
 
-INSERT INTO lfm (youtubeLink, city, state, zipcode, ad, BandId, instrument)
-VALUES ("https://www.youtube.com/watch?v=2RtI5UEZlzU", "Anaheim", "California", 54321, "Hi, we're the Rolling Stones and are looking for a lead singer", 1, "Voice-Any");
+INSERT INTO lfm (youtubeLink, city, state, zipcode, ad, BandId, instrument, MemberId)
+VALUES ("https://www.youtube.com/watch?v=2RtI5UEZlzU", "Anaheim", "California", 54321, "Hi, we're the Rolling Stones and are looking for a lead singer", 1, "Voice-Any", 1);
 
 INSERT INTO lfg (youtubeLink, city, state, zipcode, distance, ad, instrument, MemberId)
 VALUES ("https://www.youtube.com/watch?v=2RtI5UEZlzU", "Anaheim", "California", 54321, 25, "Hi, I'm Cher and I'm looking to join a band", "Voice-Soprano", 1), ("https://www.youtube.com/watch?v=2RtI5UEZlzU", "Brea", "California", 54321, 5, "Hey all, Sonny here.  Trying to find a band to sing with at the local bars", "Voice-Tenor", 2), ("https://www.youtube.com/watch?v=2RtI5UEZlzU", "Brea", "California", 54321, 5, "Making another ad because I'd also like to may just do a vocal duo with a Soprano or Alto.", "Voice-Tenor", 2);

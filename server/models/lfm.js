@@ -49,6 +49,7 @@ module.exports = function (sequelize, DataTypes) {
     // code present before deletion of instrument table in DB
     // lfm.belongsTo(models.Instrument);
     lfm.belongsTo(models.Band)
+    lfm.belongsTo(models.Member);
   }
 
   return lfm;

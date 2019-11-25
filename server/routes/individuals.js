@@ -31,7 +31,7 @@ router.post("/api/individual/signup", async (req, res) => {
             longitude: req.body.longitude,
             profilePicture: req.body.profilePicture,
             // req.body.UserId comes from state
-            UserId: req.body.UserId
+            UserId: req.user.id
         })
         const memberInstrument = await db.MemberInstrument.create({
             instrument: req.body.instrument,
@@ -57,11 +57,12 @@ router.post("/api/individual/signup", async (req, res) => {
 // @desc -  As individual, upon going to 'edit profile' page, query lfg to pull //          all lfg listings by user via member id stored in state
 // @route - api/individual/profile
 // @access - private
-router.get('/api/individual/profile/:id', async (req, res) => {
+router.get('/api/individual/profile', async (req, res) => {
     try {
         const userListings = await db.lfg.findAll({
+            include: [db.Member],
             where: {
-                MemberId: req.params.id
+                '$member.UserId$': req.user.id,
             }
         })
         res.json({ userListings })
@@ -98,7 +99,7 @@ router.put('/api/individual/updatemember', async (req, res) => {
         },
             {
                 where: {
-                    id: 1
+                    UserId: req.user.id
                 }
             })
         res.json(member)

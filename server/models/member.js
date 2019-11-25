@@ -58,6 +58,7 @@ module.exports = function (sequelize, DataTypes) {
 
     // code added after delection of instrument table in DB
     Member.hasMany(models.MemberInstrument);
+    Member.hasMany(models.lfm)
   };
 
   return Member;
