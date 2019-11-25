@@ -8,9 +8,25 @@ module.exports = function (sequelize, DataTypes) {
         len: [1]
       }
     },
-    location: {
+    city: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    state: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    zipcode: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    latitude: {
+      type: DataTypes.DECIMAL(10, 8),
+      allowNull: true
+    },
+    longitude: {
+      type: DataTypes.DECIMAL(11, 8),
+      allowNull: true
     },
     profilePicture: {
       type: DataTypes.STRING,

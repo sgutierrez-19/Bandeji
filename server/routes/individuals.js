@@ -17,12 +17,18 @@ router.post("/api/individual/signup", async (req, res) => {
             throw new Error("The city field cannot be blank");
         } else if (!req.body.state) {
             throw new Error("The state field cannot be blank");
+        } else if (!req.body.zipcode) {
+            throw new Error("The zip code field cannot be blank");
         } else if (!req.body.instrument) {
             throw new Error("The instrument field cannot be blank");
         }
         const member = await db.Member.create({
             memberName: req.body.memberName,
-            location: `${req.body.city}, ${req.body.state}`,
+            city: req.body.city,
+            state: req.body.state,
+            zipcode: req.body.zipcode,
+            latitude: req.body.latitude,
+            longitude: req.body.longitude,
             profilePicture: req.body.profilePicture,
             // req.body.UserId comes from state
             UserId: req.body.UserId
@@ -78,10 +84,16 @@ router.put('/api/individual/updatemember', async (req, res) => {
             throw new Error("The city field cannot be blank");
         } else if (!req.body.state) {
             throw new Error("The state field cannot be blank");
+        } else if (!req.body.zipcode) {
+            throw new Error("The zip code field cannot be blank");
         }
         const member = await db.Member.update({
             memberName: req.body.memberName,
-            location: `${req.body.city}, ${req.body.state}`,
+            city: req.body.city,
+            state: req.body.state,
+            zipcode: req.body.zipcode,
+            latitude: req.body.latitude,
+            longitude: req.body.longitude,
             profilePicture: req.body.profilePicture,
         },
             {
