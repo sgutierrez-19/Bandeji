@@ -42,6 +42,7 @@ module.exports = function (sequelize, DataTypes) {
       through: models.BandMember
     });
     Band.hasMany(models.lfm);
+    Band.belongsTo(models.User)
   };
 
   return Band;
