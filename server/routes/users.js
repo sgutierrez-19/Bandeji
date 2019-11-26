@@ -70,10 +70,10 @@ router.post('/api/createmember', (req, res) => {
     profilePicture: req.body.profilePicture,
     UserId: req.user.id
   })
-    .then(function () {
-      res.redirect(307, "/home");
+    .then(function() {
+      res.redirect(307, '/home');
     })
-    .catch(function (err) {
+    .catch(function(err) {
       res.status(401).json(err);
     });
 });
@@ -91,8 +91,8 @@ router.get('/api/example/:id', async (req, res) => {
         id: lfm.BandId
       },
       include: [db.Member]
-    })
-    res.json({ lfm, join })
+    });
+    res.json({ lfm, join });
   } catch (error) {
     console.log(error.message);
     res.status(500).send('Sever Error');

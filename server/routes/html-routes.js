@@ -30,18 +30,18 @@ router.route(['/', '/candle', '/candle/create']).get(isAuthenticated);
 // Send every request to the React app and let frontend routing handle pages
 // Define any API routes before this runs
 router
-    .route(['/', '/signup', '/login', '/candle', '/candle/create'])
-    .get((req, res) => {
-        res.sendFile(path.join(__dirname, '../../client/build/index.html'));
-    });
+  .route(['/', '/signup', '/login', '/candle', '/candle/create'])
+  .get((req, res) => {
+    res.sendFile(path.join(__dirname, '../../client/build/index.html'));
+  });
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 //                     END HTML Routes section                             //
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 // add a status of 404 to any page request that isn't listed above
 router.get('*', (req, res) => {
-    res.status(404).sendFile(
-        path.join(__dirname, '../../client/build/index.html')
-    );
+  res
+    .status(404)
+    .sendFile(path.join(__dirname, '../../client/build/index.html'));
 });
 
 module.exports = router;

@@ -15,26 +15,26 @@ router.post('/api/lfm/create', async (req, res) => {
 
   try {
     if (!req.body.city) {
-      throw new Error("The city field cannot be blank");
+      throw new Error('The city field cannot be blank');
     } else if (!req.body.state) {
-      throw new Error("The state field cannot be blank");
+      throw new Error('The state field cannot be blank');
     } else if (!req.body.zipcode) {
-      throw new Error("The zip code field cannot be blank");
+      throw new Error('The zip code field cannot be blank');
     } else if (!req.body.ad) {
-      throw new Error("The ad text cannot be left blank");
+      throw new Error('The ad text cannot be left blank');
     } else if (!req.body.instrument) {
-      throw new Error("You must select your instrument");
+      throw new Error('You must select your instrument');
     }
     const member = await db.Member.findOne({
       where: {
         UserId: req.user.id
       }
-    })
+    });
     const band = await db.Band.findOne({
       where: {
         UserId: req.user.id
       }
-    })
+    });
     const newListing = {
       youtubeLink,
       city,
@@ -55,8 +55,6 @@ router.post('/api/lfm/create', async (req, res) => {
   }
 });
 //
-
-
 
 /////////////// BEGIN STILL WORKING AREA //////////////
 
@@ -83,21 +81,25 @@ router.get('/api/lfm/view', async (req, res) => {
   }
 });
 
-
 // NEEDS TO BE CHANGED FROM LFG PARAMS TO LFM PARAMS
 // @desc -  Search lfms
 // @route - api/lfm/searchlfm
 // @access - private
 router.get('/api/lfm/searchlfm', async (req, res) => {
   try {
-    if (!req.body.instrument && !req.body.city && !req.body.state && !req.body.zipcode) {
-      throw new Error("Your search parameters may not be blank")
+    if (
+      !req.body.instrument &&
+      !req.body.city &&
+      !req.body.state &&
+      !req.body.zipcode
+    ) {
+      throw new Error('Your search parameters may not be blank');
     } else if (!req.body.instrument) {
-      throw new Error("The instrument field may not be blank")
+      throw new Error('The instrument field may not be blank');
     } else if (!req.body.city && !req.body.zipcode) {
-      throw new Error("Please enter city/state or zip code")
+      throw new Error('Please enter city/state or zip code');
     } else if (!req.body.state && !req.body.zipcode) {
-      throw new Error("Please enter city/state or zip code")
+      throw new Error('Please enter city/state or zip code');
     } else if (req.body.zipcode) {
       const loadlfgDiscovery = await db.lfg.findAll({
         where: {
