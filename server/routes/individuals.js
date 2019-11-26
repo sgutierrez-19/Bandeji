@@ -1,9 +1,9 @@
 // Requiring our models and passport as we've configured it
 var db = require('../models');
-var passport = require('../config/passport');
+
 const router = require('express').Router();
 
-var isAuthenticatedData = require('../config/middleware/isAuthenticatedData');
+var isAuthenticated = require('../config/middleware/isAuthenticated');
 
 // @desc -  individual signup
 // @route - api/individual/signup
