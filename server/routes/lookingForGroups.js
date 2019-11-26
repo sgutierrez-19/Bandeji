@@ -12,7 +12,7 @@ const router = require('express').Router();
 // Db.lfg.create
 //isAuthenticatedData, ... to be added after testing
 router.post('/api/lfg/create', async (req, res) => {
-  const { youtubeLink, city, state, zipcode, distance, ad, instrument, MemberId } = req.body;
+  const { youtubeLink, city, state, zipcode, distance, ad, instrument } = req.body;
   try {
     if (!req.body.city) {
       throw new Error("The city field cannot be blank");
@@ -27,6 +27,11 @@ router.post('/api/lfg/create', async (req, res) => {
     } else if (!req.body.instrument) {
       throw new Error("You must select your instrument");
     }
+    const member = await db.Member.findOne({
+      where: {
+        UserId: req.user.id
+      }
+    });
     const newListing = {
       youtubeLink,
       city,
@@ -35,7 +40,7 @@ router.post('/api/lfg/create', async (req, res) => {
       distance,
       ad,
       instrument,
-      MemberId
+      MemberId: member.id
     };
     const listing = await db.lfg.create(newListing);
     res.json(listing);
@@ -92,46 +97,32 @@ router.get('/api/lfg/view', async (req, res) => {
 
 //
 //
-// @desc -  View LFG
-// @route - api/lfg/view
+// @desc -  search LFG
+// @route - api/lfg/searchlfg
 // @access - private
 router.get('/api/lfg/searchlfg', async (req, res) => {
   try {
-
-    if (!req.body.instrument && !req.body.city && !req.body.state) {
-      throw new Error("Your search parameters cannot be blank")
-    } else if (req.body.instrument && req.body.city && req.body.state) {
-      const loadlfgDiscovery = await db.lfg.findAll({
-        where: {
-          city: req.body.city,
-          state: req.body.state,
-          zipcode: req.body.zipcode,
-          instrument: req.body.instrument
-        }
-      });
-      res.json({ loadlfgDiscovery });
-    } else if (req.body.instrument && req.body.city && req.body.state) {
-      const loadlfgDiscovery = await db.lfg.findAll({
-        where: {
-          city: req.body.city,
-          state: req.body.state,
-          zipcode: req.body.zipcode,
-          instrument: req.body.instrument
-        }
-      });
-      res.json({ loadlfgDiscovery });
+    if (!req.body.instrument && !req.body.city && !req.body.state && !req.body.zipcode) {
+      throw new Error("Your search parameters may not be blank")
     } else if (!req.body.instrument) {
+      throw new Error("The instrument field may not be blank")
+    } else if (!req.body.city && !req.body.zipcode) {
+      throw new Error("Please enter city/state or zip code")
+    } else if (!req.body.state && !req.body.zipcode) {
+      throw new Error("Please enter city/state or zip code")
+    } else if (req.body.zipcode) {
+      const loadlfgDiscovery = await db.lfg.findAll({
+        where: {
+          zipcode: req.body.zipcode,
+          instrument: req.body.instrument
+        }
+      });
+      res.json({ loadlfgDiscovery });
+    } else if (req.body.city && req.body.state && !req.body.zipcode) {
       const loadlfgDiscovery = await db.lfg.findAll({
         where: {
           city: req.body.city,
           state: req.body.state,
-          zipcode: req.body.zipcode,
-        }
-      });
-      res.json({ loadlfgDiscovery });
-    } else if (!req.body.city || !req.body.state) {
-      const loadlfgDiscovery = await db.lfg.findAll({
-        where: {
           instrument: req.body.instrument
         }
       });
@@ -142,10 +133,5 @@ router.get('/api/lfg/searchlfg', async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
-
-
-// Db.lfg.findOne where id  = req.body.id (left join member  - keys: lfg.MemberId = member.id
-// profile pic, member name, (from join)
-// instrument, location, distance, ad, youtubeLink, (from lfg)
 
 module.exports = router;

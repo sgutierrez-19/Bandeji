@@ -5,6 +5,10 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    bandPicture: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
     city: {
       type: DataTypes.STRING,
       allowNull: false

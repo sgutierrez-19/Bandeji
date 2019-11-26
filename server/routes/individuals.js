@@ -75,10 +75,10 @@ router.get('/api/individual/profile', async (req, res) => {
 
 
 
-// @desc -  individual update( where->MemberId:1 is hard coded atm.  Will need              to change later (ONCE a validation/ is added) to pull id from the               profile state...is this passed              to url so maybe route               will be /api/individual/update/:id?)
-// @route - api/individual/update
+// @desc -  route for usermember to update their own member table (edit profile)
+// @route - api/member/update
 // @access - private
-router.put('/api/individual/updatemember', async (req, res) => {
+router.put('/api/member/updatemember', async (req, res) => {
     try {
         if (!req.body.memberName) {
             throw new Error("The name field cannot be blank");
@@ -112,10 +112,10 @@ router.put('/api/individual/updatemember', async (req, res) => {
 
 
 
-// @desc -  updates instrument string (from state)
-// @route - api/individual/update
+// @desc -  route for usermember to update their own memberinstrument entries
+// @route - api/member/update
 // @access - private
-router.put('/api/individual/updateinstrument/:id', async (req, res) => {
+router.put('/api/member/updateinstrument/:id', async (req, res) => {
     try {
         if (!req.body.instrument) {
             throw new Error("The instrument field cannot be blank");
