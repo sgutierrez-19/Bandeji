@@ -26,8 +26,6 @@ app.use(passport.session());
 
 const users = require('./routes/users.js');
 app.use(users);
-const members = require('./routes/members.js');
-app.use(members);
 const individuals = require('./routes/individuals.js');
 app.use(individuals);
 const band = require('./routes/band.js');
