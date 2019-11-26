@@ -12,15 +12,15 @@ var isAuthenticated = require('../config/middleware/isAuthenticated');
 router.post('/api/member/individual/signup', async (req, res) => {
   try {
     if (!req.body.memberName) {
-      throw new Error('The name field cannot be blank');
+      return res.status(500).send('The name field cannot be blank');
     } else if (!req.body.city) {
-      throw new Error('The city field cannot be blank');
+      return res.status(500).send('The city field cannot be blank');
     } else if (!req.body.state) {
-      throw new Error('The state field cannot be blank');
+      return res.status(500).send('The state field cannot be blank');
     } else if (!req.body.zipcode) {
-      throw new Error('The zip code field cannot be blank');
+      return res.status(500).send('The zip code field cannot be blank');
     } else if (!req.body.instrument) {
-      throw new Error('The instrument field cannot be blank');
+      return res.status(500).send('The instrument field cannot be blank');
     }
     const member = await db.Member.create({
       memberName: req.body.memberName,
@@ -56,7 +56,7 @@ router.post('/api/member/individual/signup', async (req, res) => {
 // @desc -  As individual, upon going to 'edit profile' page, query lfg to pull //          all lfg listings by user via member id stored in state
 // @route - api/individual/profile
 // @access - private
-router.get('/api/individual/profile', async (req, res) => {
+router.get('/api/individual/listings', async (req, res) => {
   try {
     const member = await db.Member.findOne({
       include: [db.lfg],
@@ -77,13 +77,13 @@ router.get('/api/individual/profile', async (req, res) => {
 router.put('/api/member/updateusermember', async (req, res) => {
   try {
     if (!req.body.memberName) {
-      throw new Error('The name field cannot be blank');
+      return res.status(500).send('The name field cannot be blank');
     } else if (!req.body.city) {
-      throw new Error('The city field cannot be blank');
+      return res.status(500).send('The city field cannot be blank');
     } else if (!req.body.state) {
-      throw new Error('The state field cannot be blank');
+      return res.status(500).send('The state field cannot be blank');
     } else if (!req.body.zipcode) {
-      throw new Error('The zip code field cannot be blank');
+      return res.status(500).send('The zip code field cannot be blank');
     }
     const member = await db.Member.update(
       {
@@ -114,7 +114,7 @@ router.put('/api/member/updateusermember', async (req, res) => {
 router.put('/api/member/updateusermemberinstrument/:id', async (req, res) => {
   try {
     if (!req.body.instrument) {
-      throw new Error('The instrument field cannot be blank');
+      return res.status(500).send('The instrument field cannot be blank');
     }
     const member = await db.Member.findOne({
       where: {

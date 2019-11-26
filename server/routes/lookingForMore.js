@@ -15,15 +15,15 @@ router.post('/api/lfm/create', async (req, res) => {
 
   try {
     if (!req.body.city) {
-      throw new Error('The city field cannot be blank');
+      return res.status(500).send('The city field cannot be blank');
     } else if (!req.body.state) {
-      throw new Error('The state field cannot be blank');
+      return res.status(500).send('The state field cannot be blank');
     } else if (!req.body.zipcode) {
-      throw new Error('The zip code field cannot be blank');
+      return res.status(500).send('The zip code field cannot be blank');
     } else if (!req.body.ad) {
-      throw new Error('The ad text cannot be left blank');
+      return res.status(500).send('The ad text cannot be left blank');
     } else if (!req.body.instrument) {
-      throw new Error('You must select your instrument');
+      return res.status(500).send('You must select your instrument');
     }
     const member = await db.Member.findOne({
       where: {
@@ -54,27 +54,20 @@ router.post('/api/lfm/create', async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
-//
 
-/////////////// BEGIN STILL WORKING AREA //////////////
-
-//////////////////IS THIS SUPPOSED TO SHOW ALL LFMS TO A USERMEMBER THAT THEY HAVE CREATED?  iF SO - SWITCH LFM AND MEMBER BELOW && CHANGE ID -> USERID
 // @desc -  View LFM
 // @route - api/lfm/view
 // @access - private
-// Db.lfm.findOne where id  = req.body.id (left join member  - keys: lfm.BandId = band.id
-// band pic, band name, (from join)
-// instrument, location, distance, ad, youtubeLink, (from lfg)
-router.get('/api/lfm/view', async (req, res) => {
+router.get('/api/groupusermember/listings', async (req, res) => {
   try {
-    const listing = await db.lfm.findOne({
+    const member = await db.Member.findOne({
+      include: [db.lfm],
       where: {
-        id: req.user.id
-      },
-      include: [db.Member]
+        UserId: req.user.id
+      }
     });
 
-    res.json(listing);
+    res.json({ lfms: member.lfms });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
@@ -85,7 +78,7 @@ router.get('/api/lfm/view', async (req, res) => {
 // @desc -  Search lfms
 // @route - api/lfm/searchlfm
 // @access - private
-router.get('/api/lfm/searchlfm', async (req, res) => {
+router.get('/api/search/lfm', async (req, res) => {
   try {
     if (
       !req.body.instrument &&
@@ -93,37 +86,35 @@ router.get('/api/lfm/searchlfm', async (req, res) => {
       !req.body.state &&
       !req.body.zipcode
     ) {
-      throw new Error('Your search parameters may not be blank');
+      return res.status(500).send('Your search parameters may not be blank');
     } else if (!req.body.instrument) {
-      throw new Error('The instrument field may not be blank');
+      return res.status(500).send('The instrument field may not be blank');
     } else if (!req.body.city && !req.body.zipcode) {
-      throw new Error('Please enter city/state or zip code');
+      return res.status(500).send('Please enter city/state or zip code');
     } else if (!req.body.state && !req.body.zipcode) {
-      throw new Error('Please enter city/state or zip code');
+      return res.status(500).send('Please enter city/state or zip code');
     } else if (req.body.zipcode) {
-      const loadlfgDiscovery = await db.lfg.findAll({
+      const loadlfmDiscovery = await db.lfm.findAll({
         where: {
           zipcode: req.body.zipcode,
           instrument: req.body.instrument
         }
       });
-      res.json({ loadlfgDiscovery });
+      res.json({ loadlfmDiscovery });
     } else if (req.body.city && req.body.state && !req.body.zipcode) {
-      const loadlfgDiscovery = await db.lfg.findAll({
+      const loadlfmDiscovery = await db.lfm.findAll({
         where: {
           city: req.body.city,
           state: req.body.state,
           instrument: req.body.instrument
         }
       });
-      res.json({ loadlfgDiscovery });
+      res.json({ loadlfmDiscovery });
     }
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
   }
 });
-
-/////////////// END STILL WORKING AREA //////////////
 
 module.exports = router;

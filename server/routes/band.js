@@ -13,13 +13,13 @@ var isAuthenticatedData = require('../config/middleware/isAuthenticatedData');
 router.post('/api/band/signup', async (req, res) => {
   try {
     if (!req.body.bandName) {
-      throw new Error('You must enter a band name.');
+      return res.status(500).send('You must enter a band name.');
     } else if (!req.body.city) {
-      throw new Error('The city field cannot be blank');
+      return res.status(500).send('The city field cannot be blank');
     } else if (!req.body.state) {
-      throw new Error('The state field cannot be blank');
+      return res.status(500).send('The state field cannot be blank');
     } else if (!req.body.zipcode) {
-      throw new Error('The zip code field cannot be blank');
+      return res.status(500).send('The zip code field cannot be blank');
     }
     const band = await db.Band.create({
       bandName: req.body.bandName,
@@ -35,7 +35,7 @@ router.post('/api/band/signup', async (req, res) => {
     res.json({ band });
   } catch (error) {
     console.log(error.message);
-    res.status(500).send('Server Error');
+    return res.status(500).send('Server Error');
   }
 });
 //
@@ -50,15 +50,15 @@ router.post('/api/band/signup', async (req, res) => {
 router.post('/api/member/bandusermember/signup', async (req, res) => {
   try {
     if (!req.body.memberName) {
-      throw new Error('The name field cannot be blank');
+      return res.status(500).send('The name field cannot be blank');
     } else if (!req.body.city) {
-      throw new Error('The city field cannot be blank');
+      return res.status(500).send('The city field cannot be blank');
     } else if (!req.body.state) {
-      throw new Error('The state field cannot be blank');
+      return res.status(500).send('The state field cannot be blank');
     } else if (!req.body.zipcode) {
-      throw new Error('The zip code field cannot be blank');
+      return res.status(500).send('The zip code field cannot be blank');
     } else if (!req.body.instrument) {
-      throw new Error('The instrument field cannot be blank');
+      return res.status(500).send('The instrument field cannot be blank');
     }
     const band = await db.Band.findOne({
       where: {
@@ -89,7 +89,7 @@ router.post('/api/member/bandusermember/signup', async (req, res) => {
     res.json({ member, memberInstrument, bandMember });
   } catch (error) {
     console.log(error.message);
-    res.status(500).send('Server Error');
+    return res.status(500).send('Server Error');
   }
 });
 //
@@ -103,15 +103,15 @@ router.post('/api/member/bandusermember/signup', async (req, res) => {
 router.post('/api/member/bandmember/signup', async (req, res) => {
   try {
     if (!req.body.memberName) {
-      throw new Error('The name field cannot be blank');
+      return res.status(500).send('The name field cannot be blank');
     } else if (!req.body.city) {
-      throw new Error('The city field cannot be blank');
+      return res.status(500).send('The city field cannot be blank');
     } else if (!req.body.state) {
-      throw new Error('The state field cannot be blank');
+      return res.status(500).send('The state field cannot be blank');
     } else if (!req.body.zipcode) {
-      throw new Error('The zip code field cannot be blank');
+      return res.status(500).send('The zip code field cannot be blank');
     } else if (!req.body.instrument) {
-      throw new Error('The instrument field cannot be blank');
+      return res.status(500).send('The instrument field cannot be blank');
     }
     const band = await db.Band.findOne({
       where: {
@@ -140,7 +140,7 @@ router.post('/api/member/bandmember/signup', async (req, res) => {
     res.json({ member, memberInstrument, bandMember });
   } catch (error) {
     console.log(error.message);
-    res.status(500).send('Server Error');
+    return res.status(500).send('Server Error');
   }
 });
 
@@ -152,16 +152,30 @@ router.post('/api/member/bandmember/signup', async (req, res) => {
 router.put('/api/member/updatebandmember/:id', async (req, res) => {
   try {
     if (!req.body.memberName) {
-      throw new Error('The name field cannot be blank');
+      return res.status(500).send('The name field cannot be blank');
     } else if (!req.body.city) {
-      throw new Error('The city field cannot be blank');
+      return res.status(500).send('The city field cannot be blank');
     } else if (!req.body.state) {
-      throw new Error('The state field cannot be blank');
+      return res.status(500).send('The state field cannot be blank');
     } else if (!req.body.zipcode) {
-      throw new Error('The zip code field cannot be blank');
+      return res.status(500).send('The zip code field cannot be blank');
     }
-    // NEED TO ADD A THROW NEW ERROR FOR IF THE MEMBER WHO'S
-    // BEING UPDATED HAS A USERID ASSOCIATED WITH IT
+    const memberToUpdate = await db.Member.findOne({
+      where: {
+        id: req.params.id,
+        createdByUserId: req.user.id
+      }
+    });
+    if (
+      memberToUpdate.UserId !== null &&
+      memberToUpdate.createdByUserId !== req.user.id
+    ) {
+      return res
+        .status(500)
+        .send(
+          'You may no longer edit this member as there is now an account associated with it'
+        );
+    }
     const member = await db.Member.update(
       {
         memberName: req.body.memberName,
@@ -182,7 +196,7 @@ router.put('/api/member/updatebandmember/:id', async (req, res) => {
     res.json(member);
   } catch (error) {
     console.log(error.message);
-    res.status(500).send('Server Error');
+    return res.status(500).send('Server Error');
   }
 });
 
@@ -192,7 +206,7 @@ router.put('/api/member/updatebandmember/:id', async (req, res) => {
 router.put('/api/member/updatebandmemberinstrument/:id', async (req, res) => {
   try {
     if (!req.body.instrument) {
-      throw new Error('The instrument field cannot be blank');
+      return res.status(500).send('The instrument field cannot be blank');
     }
     // NEEDS TO CHECK MEMBER TO MAKE SURE THAT CREATEDBYUSERID =
     // REQ.USER.ID && THAT USERID IS EMPTY && THROW ERROR IF NOT
@@ -215,7 +229,7 @@ router.put('/api/member/updatebandmemberinstrument/:id', async (req, res) => {
     res.json({ instrument });
   } catch (error) {
     console.log(error.message);
-    res.status(500).send('Server Error');
+    return res.status(500).send('Server Error');
   }
 });
 
