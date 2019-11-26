@@ -1,15 +1,15 @@
 // Requiring our models and passport as we've configured it
 var db = require('../models');
-var passport = require('../config/passport');
+
 const router = require('express').Router();
 
-var isAuthenticatedData = require('../config/middleware/isAuthenticatedData');
+var isAuthenticated = require('../config/middleware/isAuthenticated');
 
 // @desc -  individual signup
 // @route - api/individual/signup
 // @access - public
 
-router.post('/api/individual/signup', async (req, res) => {
+router.post('/api/member/individual/signup', async (req, res) => {
   try {
     if (!req.body.memberName) {
       throw new Error('The name field cannot be blank');
@@ -74,7 +74,7 @@ router.get('/api/individual/profile', async (req, res) => {
 // @desc -  route for usermember to update their own member table (edit profile)
 // @route - api/member/update
 // @access - private
-router.put('/api/member/updatemember', async (req, res) => {
+router.put('/api/member/updateusermember', async (req, res) => {
   try {
     if (!req.body.memberName) {
       throw new Error('The name field cannot be blank');
@@ -111,7 +111,7 @@ router.put('/api/member/updatemember', async (req, res) => {
 // @desc -  route for usermember to update their own memberinstrument entries
 // @route - api/member/update
 // @access - private
-router.put('/api/member/updateinstrument/:id', async (req, res) => {
+router.put('/api/member/updateusermemberinstrument/:id', async (req, res) => {
   try {
     if (!req.body.instrument) {
       throw new Error('The instrument field cannot be blank');

@@ -30,7 +30,7 @@ router.route(['/', '/candle', '/candle/create']).get(isAuthenticated);
 // Send every request to the React app and let frontend routing handle pages
 // Define any API routes before this runs
 router
-  .route(['/', '/signup', '/login', '/candle', '/candle/create'])
+  .route(['/', '/signup', '/login', '/listings', '/listings/add', '/profile'])
   .get((req, res) => {
     res.sendFile(path.join(__dirname, '../../client/build/index.html'));
   });

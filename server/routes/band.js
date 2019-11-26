@@ -47,7 +47,7 @@ router.post('/api/band/signup', async (req, res) => {
 // Db.memberinstrument.create
 // db.bandmember.create
 //
-router.post('/api/band/usermember/', async (req, res) => {
+router.post('/api/member/bandusermember/signup', async (req, res) => {
   try {
     if (!req.body.memberName) {
       throw new Error('The name field cannot be blank');
@@ -100,7 +100,7 @@ router.post('/api/band/usermember/', async (req, res) => {
 // Db.memberinstrument.create;
 // db.bandmember.create;
 //
-router.post('/api/band/bandmember', async (req, res) => {
+router.post('/api/member/bandmember/signup', async (req, res) => {
   try {
     if (!req.body.memberName) {
       throw new Error('The name field cannot be blank');
@@ -189,38 +189,35 @@ router.put('/api/member/updatebandmember/:id', async (req, res) => {
 // @desc -  updates instrument string (from state)
 // @route - api/individual/update
 // @access - private
-router.put(
-  '/api/individual/updatebandmemberinstrument/:id',
-  async (req, res) => {
-    try {
-      if (!req.body.instrument) {
-        throw new Error('The instrument field cannot be blank');
-      }
-      // NEEDS TO CHECK MEMBER TO MAKE SURE THAT CREATEDBYUSERID =
-      // REQ.USER.ID && THAT USERID IS EMPTY && THROW ERROR IF NOT
-      const member = await db.Member.findOne({
-        where: {
-          UserId: req.user.id
-        }
-      });
-      const instrument = await db.MemberInstrument.update(
-        {
-          instrument: req.body.instrument
-        },
-        {
-          where: {
-            MemberId: member.id,
-            id: req.params.id
-          }
-        }
-      );
-      res.json({ instrument });
-    } catch (error) {
-      console.log(error.message);
-      res.status(500).send('Server Error');
+router.put('/api/member/updatebandmemberinstrument/:id', async (req, res) => {
+  try {
+    if (!req.body.instrument) {
+      throw new Error('The instrument field cannot be blank');
     }
+    // NEEDS TO CHECK MEMBER TO MAKE SURE THAT CREATEDBYUSERID =
+    // REQ.USER.ID && THAT USERID IS EMPTY && THROW ERROR IF NOT
+    const member = await db.Member.findOne({
+      where: {
+        UserId: req.user.id
+      }
+    });
+    const instrument = await db.MemberInstrument.update(
+      {
+        instrument: req.body.instrument
+      },
+      {
+        where: {
+          MemberId: member.id,
+          id: req.params.id
+        }
+      }
+    );
+    res.json({ instrument });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send('Server Error');
   }
-);
+});
 
 // ADD 1 ROUTE TO UPDATE 'BAND' NAME, LOCATION, & PROFILE PIC
 
