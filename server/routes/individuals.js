@@ -96,7 +96,7 @@ router.put('/api/member/updatemember', async (req, res) => {
             zipcode: req.body.zipcode,
             latitude: req.body.latitude,
             longitude: req.body.longitude,
-            profilePicture: req.body.profilePicture,
+            profilePicture: req.body.profilePicture
         },
             {
                 where: {
