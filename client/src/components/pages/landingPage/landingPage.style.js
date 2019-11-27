@@ -41,7 +41,8 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(1)
   },
   submit: {
-    margin: theme.spacing(3, 0, 2)
+    margin: theme.spacing(3, 0, 2),
+    borderRadius: '2rem'
   },
   button: {
     margin: '3rem auto',
