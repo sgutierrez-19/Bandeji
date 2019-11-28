@@ -9,7 +9,18 @@ var isAuthenticatedData = require('../config/middleware/isAuthenticatedData');
 // Using the passport.authenticate middleware with our local strategy.
 // If the user has valid login credentials, send them to the members page.
 // Otherwise the user will be sent an error
-router.post('/api/login', passport.authenticate('local'), (req, res) => {
+router.post('/api/login', passport.authenticate('local'), async (req, res) => {
+  const member = await db.Member.findAll({ where: { UserId: req.user.id } });
+  const isInBand = await db.BandMember.findAll({
+    where: { MemberId: member.id }
+  });
+
+  if (isInBand) {
+    const band = await db.Band.findOne({ where: { UserId: req.user.id } });
+    const bandMembers = await db.BandMember;
+  } else {
+    setIsInBand(false);
+  }
   res.json({
     email: req.user.email,
     id: req.user.id

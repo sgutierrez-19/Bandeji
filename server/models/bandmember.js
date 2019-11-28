@@ -2,6 +2,11 @@ module.exports = function(sequelize, DataTypes) {
   var BandMember = sequelize.define(
     'BandMember',
     {
+      id: {
+        type: DataTypes.INTEGER(11),
+        autoIncrement: true,
+        primaryKey: true
+      },
       instrument: {
         type: DataTypes.STRING,
         allowNull: false
