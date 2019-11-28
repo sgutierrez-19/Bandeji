@@ -10,21 +10,66 @@ var isAuthenticatedData = require('../config/middleware/isAuthenticatedData');
 // If the user has valid login credentials, send them to the members page.
 // Otherwise the user will be sent an error
 router.post('/api/login', passport.authenticate('local'), async (req, res) => {
-  const member = await db.Member.findAll({ where: { UserId: req.user.id } });
-  const isInBand = await db.BandMember.findAll({
-    where: { MemberId: member.id }
-  });
+  try {
+    const member = await db.Member.findOne({ where: { UserId: req.user.id } });
+    const memberInstrument = await db.MemberInstrument.findAll({
+      where: {
+        MemberId: member.id
+      }
+    });
+    const isInBand = await db.BandMember.findOne({
+      where: { MemberId: member.id }
+    });
 
-  if (isInBand) {
-    const band = await db.Band.findOne({ where: { UserId: req.user.id } });
-    const bandMembers = await db.BandMember;
-  } else {
-    setIsInBand(false);
+    if (isInBand) {
+      const band = await db.Band.findOne({
+        where: {
+          UserId: req.user.id
+        }
+      });
+
+      const bandMembers = await db.BandMember.findAll({
+        where: { BandId: band.id }
+      });
+
+      const bandMembersInfo = [];
+      for (let i = 0; i < bandMembers.length; i++) {
+        const bandMembersInfoProcess = await db.Member.findOne({
+          where: {
+            id: bandMembers[i].MemberId
+          }
+        });
+        const memberInstrumentsProcess = await db.MemberInstrument.findAll({
+          where: {
+            MemberId: bandMembers[i].MemberId
+          }
+        });
+        bandMembersInfo.push({
+          member: bandMembersInfoProcess,
+          memberinstrument: memberInstrumentsProcess
+        });
+      }
+      res.json({
+        email: req.user.email,
+        id: req.user.id,
+        userMember: member,
+        userMemberInstrument: memberInstrument,
+        band,
+        bandMembers,
+        bandMembersInfo
+      });
+    } else if (!isInBand) {
+      res.json({
+        email: req.user.email,
+        id: req.user.id,
+        member,
+        memberInstrument
+      });
+    }
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send('Sever Error');
   }
-  res.json({
-    email: req.user.email,
-    id: req.user.id
-  });
 });
 
 // Route for signing up a user. The user's password is automatically hashed and stored securely thanks to
