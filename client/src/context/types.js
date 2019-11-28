@@ -14,3 +14,6 @@ export const LFG_ERROR = 'LFG_ERROR';
 export const LFM_ERROR = 'LFM_ERROR';
 export const SEARCH_ERROR = 'SEARCH_ERROR';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
+
+// TO BE REMOVED
+export const TYPE = 'TYPE';
