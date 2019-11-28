@@ -1,18 +1,18 @@
 import React, { useReducer } from 'react';
 import axios from 'axios';
-import LfgContext from './lfgContext';
-import lfgReducer from './lfgReducer';
-import { TYPE, LFG_ERROR } from '../types';
+import BandMemberContext from './bandMemberContext';
+import bandMemberReducer from './bandMemberReducer';
+import { TYPE, BAND_ERROR } from '../types';
 
-const LfgState = props => {
+const BandMemberState = props => {
   const initialState = {
-    key: value // add necessary state
+    key: 'value' // add necessary state
   };
 
-  const [state, dispatch] = useReducer(lfgReducer, initialState);
+  const [state, dispatch] = useReducer(bandMemberReducer, initialState);
 
-  // Get LFG
-  const getLFG = async () => {
+  // Get Band
+  const getBand = async () => {
     try {
       const res = await axios.get('...route');
 
@@ -22,14 +22,14 @@ const LfgState = props => {
       });
     } catch (err) {
       dispatch({
-        type: LFG_ERROR,
+        type: BAND_ERROR,
         payload: err.response.msg
       });
     }
   };
 
-  // Add LFG
-  const addLFG = async lfg => {
+  // Add Band
+  const addBand = async band => {
     try {
       const res = await axios.post('route');
 
@@ -39,14 +39,14 @@ const LfgState = props => {
       });
     } catch (err) {
       dispatch({
-        type: LFG_ERROR,
+        type: BAND_ERROR,
         payload: err.response.msg
       });
     }
   };
 
-  // Delete LFG
-  const deleteLFG = async id => {
+  // Delete Band
+  const deleteBand = async id => {
     try {
       await axios.delete(`route.../${id}`);
 
@@ -56,19 +56,19 @@ const LfgState = props => {
       });
     } catch (err) {
       dispatch({
-        type: LFG_ERROR,
+        type: BAND_ERROR,
         payload: err.response.msg
       });
     }
   };
 
-  // Update LFG
-  const updateLFG = async lfg => {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    };
+  // Update Band
+  const updateBand = async band => {
+    // const config = {
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   }
+    // };
 
     try {
       const res = await axios.put(`route.../${band.id}`);
@@ -80,25 +80,25 @@ const LfgState = props => {
     } catch (err) {
       console.log(err); // find out what error message comes from err
       dispatch({
-        type: LFG_ERROR,
+        type: BAND_ERROR,
         payload: err.response.msg
       });
     }
   };
 
   return (
-    <LfgContext.Provider
+    <BandMemberContext.Provider
       value={{
-        key: state.key.value, // add all state values
-        addLFG,
-        deleteLFG,
-        updateLFG,
-        getLFG //, add additional methods created here
+        key: state.key, // add all state values
+        addBand,
+        deleteBand,
+        updateBand,
+        getBand
       }}
     >
       {props.children}
-    </LfgContext.Provider>
+    </BandMemberContext.Provider>
   );
 };
 
-export default LfgState;
+export default BandMemberState;
