@@ -5,67 +5,6 @@ const router = require('express').Router();
 
 var isAuthenticatedData = require('../config/middleware/isAuthenticatedData');
 
-// ++++++===THIS ROUTE WAS PUT INSIDE SIGNUP ROUTE IN USER.JS====+++++++
-// @desc -  user member creation
-// @route - api/band/usermember
-// @access - private
-// Db.member.create
-// Db.memberinstrument.create
-// db.bandmember.create
-//
-// router.post('/api/member/bandusermember/signup', async (req, res) => {
-//   try {
-//     if (!req.body.memberName) {
-//       return res.status(500).send('The name field cannot be blank');
-//     } else if (!req.body.bandCity || !req.body.memberCity) {
-//       return res.status(500).send('The city field cannot be blank');
-//     } else if (!req.body.bandState || !req.body.memberState) {
-//       return res.status(500).send('The state field cannot be blank');
-//     } else if (!req.body.bandZipcode || !req.body.memberZipcode) {
-//       return res.status(500).send('The zip code field cannot be blank');
-//     } else if (!req.body.instrument) {
-//       return res.status(500).send('The instrument field cannot be blank');
-//     } else if (!req.body.bandName) {
-//       return res.status(500).send('You must enter a band name');
-//     }
-//     const band = await db.Band.create({
-//       bandName: req.body.bandName,
-//       bandPicture: req.body.bandPicture,
-//       city: req.body.bandCity,
-//       state: req.body.bandState,
-//       zipcode: req.body.bandZipcode,
-//       latitude: req.body.bandLatitude,
-//       longitude: req.body.bandLongitude,
-//       UserId: req.user.id
-//     });
-//     const member = await db.Member.create({
-//       memberName: req.body.memberName,
-//       city: req.body.memberCity,
-//       state: req.body.memberState,
-//       zipcode: req.body.memberZipcode,
-//       latitude: req.body.memberLatitude,
-//       longitude: req.body.memberLongitude,
-//       profilePicture: req.body.memberProfilePicture,
-//       createdByUserId: req.user.id,
-//       // req.body.UserId comes from state
-//       UserId: req.user.id
-//     });
-//     const memberInstrument = await db.MemberInstrument.create({
-//       instrument: req.body.instrument,
-//       MemberId: member.id
-//     });
-//     const bandMember = await db.BandMember.create({
-//       instrument: req.body.instrument,
-//       MemberId: member.id,
-//       BandId: band.id
-//     });
-//     res.json({ member, band, memberInstrument, bandMember });
-//   } catch (error) {
-//     console.log(error.message);
-//     return res.status(500).send('Server Error');
-//   }
-// });
-
 // @desc -  additional band member creation - does not have userID
 // @route - api/band/bandmember
 // @access - private
