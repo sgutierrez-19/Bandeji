@@ -5,45 +5,45 @@ const router = require('express').Router();
 
 var isAuthenticated = require('../config/middleware/isAuthenticated');
 
+// ++++++===THIS ROUTE WAS PUT INSIDE SIGNUP ROUTE IN USER.JS====+++++++
 // @desc -  individual signup
 // @route - api/individual/signup
 // @access - public
-
-router.post('/api/member/individual/signup', async (req, res) => {
-  try {
-    if (!req.body.memberName) {
-      return res.status(500).send('The name field cannot be blank');
-    } else if (!req.body.city) {
-      return res.status(500).send('The city field cannot be blank');
-    } else if (!req.body.state) {
-      return res.status(500).send('The state field cannot be blank');
-    } else if (!req.body.zipcode) {
-      return res.status(500).send('The zip code field cannot be blank');
-    } else if (!req.body.instrument) {
-      return res.status(500).send('The instrument field cannot be blank');
-    }
-    const member = await db.Member.create({
-      memberName: req.body.memberName,
-      city: req.body.city,
-      state: req.body.state,
-      zipcode: req.body.zipcode,
-      latitude: req.body.latitude,
-      longitude: req.body.longitude,
-      profilePicture: req.body.profilePicture,
-      createdByUserId: req.user.id,
-      // req.body.UserId comes from state
-      UserId: req.user.id
-    });
-    const memberInstrument = await db.MemberInstrument.create({
-      instrument: req.body.instrument,
-      MemberId: member.id
-    });
-    res.json({ member, memberInstrument });
-  } catch (error) {
-    console.log(error.message);
-    res.status(500).send('Server Error');
-  }
-});
+// router.post('/api/member/individual/signup', async (req, res) => {
+//   try {
+//     if (!req.body.memberName) {
+//       return res.status(500).send('The name field cannot be blank');
+//     } else if (!req.body.city) {
+//       return res.status(500).send('The city field cannot be blank');
+//     } else if (!req.body.state) {
+//       return res.status(500).send('The state field cannot be blank');
+//     } else if (!req.body.zipcode) {
+//       return res.status(500).send('The zip code field cannot be blank');
+//     } else if (!req.body.instrument) {
+//       return res.status(500).send('The instrument field cannot be blank');
+//     }
+//     const member = await db.Member.create({
+//       memberName: req.body.memberName,
+//       city: req.body.city,
+//       state: req.body.state,
+//       zipcode: req.body.zipcode,
+//       latitude: req.body.latitude,
+//       longitude: req.body.longitude,
+//       profilePicture: req.body.profilePicture,
+//       createdByUserId: req.user.id,
+//       // req.body.UserId comes from state
+//       UserId: req.user.id
+//     });
+//     const memberInstrument = await db.MemberInstrument.create({
+//       instrument: req.body.instrument,
+//       MemberId: member.id
+//     });
+//     res.json({ member, memberInstrument });
+//   } catch (error) {
+//     console.log(error.message);
+//     res.status(500).send('Server Error');
+//   }
+// });
 
 // // @desc -  individual login
 // // @route - api/individual/login
@@ -133,6 +133,63 @@ router.put('/api/member/updateusermemberinstrument/:id', async (req, res) => {
       }
     );
     res.json({ instrument });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+// @desc -  route to get all information about a usermember (pulls more if is               in band).  USED AFTER ANY UPDATE
+// @route - api/member/usermember
+// @access - private
+router.get('/api/member/usermember', async (req, res) => {
+  try {
+    const member = await db.Member.findOne({
+      where: {
+        UserId: req.user.id
+      },
+      include: [db.MemberInstrument]
+    });
+    const isInBand = await db.BandMember.findOne({
+      where: { MemberId: member.id }
+    });
+
+    if (isInBand) {
+      const band = await db.Band.findOne({
+        where: {
+          UserId: req.user.id
+        }
+      });
+      const bandMembers = await db.BandMember.findAll({
+        where: { BandId: band.id }
+      });
+
+      const bandMembersInfo = [];
+      for (let i = 0; i < bandMembers.length; i++) {
+        const bandMembersInfoProcess = await db.Member.findOne({
+          where: {
+            id: bandMembers[i].MemberId
+          }
+        });
+        const memberInstrumentsProcess = await db.MemberInstrument.findAll({
+          where: {
+            MemberId: bandMembers[i].MemberId
+          }
+        });
+        bandMembersInfo.push({
+          bandmember: bandMembers[i],
+          member: bandMembersInfoProcess,
+          memberinstrument: memberInstrumentsProcess
+        });
+      }
+      res.json({
+        userMember: member,
+        band,
+        bandMembersInfo
+      });
+    } else if (!isInBand) {
+      res.json(member);
+    }
   } catch (error) {
     console.log(error.message);
     res.status(500).send('Server Error');

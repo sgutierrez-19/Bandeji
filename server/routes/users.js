@@ -11,11 +11,11 @@ var isAuthenticatedData = require('../config/middleware/isAuthenticatedData');
 // Otherwise the user will be sent an error
 router.post('/api/login', passport.authenticate('local'), async (req, res) => {
   try {
-    const member = await db.Member.findOne({ where: { UserId: req.user.id } });
-    const memberInstrument = await db.MemberInstrument.findAll({
+    const member = await db.Member.findOne({
       where: {
-        MemberId: member.id
-      }
+        UserId: req.user.id
+      },
+      include: [db.MemberInstrument]
     });
     const isInBand = await db.BandMember.findOne({
       where: { MemberId: member.id }
@@ -27,7 +27,6 @@ router.post('/api/login', passport.authenticate('local'), async (req, res) => {
           UserId: req.user.id
         }
       });
-
       const bandMembers = await db.BandMember.findAll({
         where: { BandId: band.id }
       });
@@ -45,6 +44,7 @@ router.post('/api/login', passport.authenticate('local'), async (req, res) => {
           }
         });
         bandMembersInfo.push({
+          bandmember: bandMembers[i],
           member: bandMembersInfoProcess,
           memberinstrument: memberInstrumentsProcess
         });
@@ -53,40 +53,114 @@ router.post('/api/login', passport.authenticate('local'), async (req, res) => {
         email: req.user.email,
         id: req.user.id,
         userMember: member,
-        userMemberInstrument: memberInstrument,
         band,
-        bandMembers,
         bandMembersInfo
       });
     } else if (!isInBand) {
       res.json({
         email: req.user.email,
         id: req.user.id,
-        member,
-        memberInstrument
+        member
       });
     }
   } catch (error) {
     console.log(error.message);
-    res.status(500).send('Sever Error');
+    res.status(500).send('Server Error');
   }
 });
 
 // Route for signing up a user. The user's password is automatically hashed and stored securely thanks to
 // how we configured our Sequelize User Model. If the user is created successfully, proceed to log the user in,
 // otherwise send back an error
-router.post('/api/signup', (req, res) => {
-  db.User.create({
-    email: req.body.email,
-    password: req.body.password,
-    userName: req.body.userName
-  })
-    .then(() => {
+router.post('/api/signup', async (req, res) => {
+  try {
+    if (req.body.type === 'Individual') {
+      const user = await db.User.create({
+        email: req.body.email,
+        password: req.body.password,
+        userName: req.body.userName
+      });
+      if (!req.body.memberName) {
+        return res.status(500).send('The name field cannot be blank');
+      } else if (!req.body.city) {
+        return res.status(500).send('The city field cannot be blank');
+      } else if (!req.body.state) {
+        return res.status(500).send('The state field cannot be blank');
+      } else if (!req.body.zipcode) {
+        return res.status(500).send('The zip code field cannot be blank');
+      } else if (!req.body.instrument) {
+        return res.status(500).send('The instrument field cannot be blank');
+      }
+      const member = await db.Member.create({
+        memberName: req.body.memberName,
+        city: req.body.city,
+        state: req.body.state,
+        zipcode: req.body.zipcode,
+        latitude: req.body.latitude,
+        longitude: req.body.longitude,
+        profilePicture: req.body.profilePicture,
+        createdByUserId: user.id,
+        UserId: user.id
+      });
+      const memberInstrument = await db.MemberInstrument.create({
+        instrument: req.body.instrument,
+        MemberId: member.id
+      });
       res.redirect(307, '/api/login');
-    })
-    .catch(err => {
-      res.status(401).json(err);
-    });
+    } else if (req.body.type === 'Band') {
+      const user = await db.User.create({
+        email: req.body.email,
+        password: req.body.password,
+        userName: req.body.userName
+      });
+      if (!req.body.memberName) {
+        return res.status(500).send('The name field cannot be blank');
+      } else if (!req.body.bandCity || !req.body.memberCity) {
+        return res.status(500).send('The city field cannot be blank');
+      } else if (!req.body.bandState || !req.body.memberState) {
+        return res.status(500).send('The state field cannot be blank');
+      } else if (!req.body.bandZipcode || !req.body.memberZipcode) {
+        return res.status(500).send('The zip code field cannot be blank');
+      } else if (!req.body.instrument) {
+        return res.status(500).send('The instrument field cannot be blank');
+      } else if (!req.body.bandName) {
+        return res.status(500).send('You must enter a band name');
+      }
+      const band = await db.Band.create({
+        bandName: req.body.bandName,
+        bandPicture: req.body.bandPicture,
+        city: req.body.bandCity,
+        state: req.body.bandState,
+        zipcode: req.body.bandZipcode,
+        latitude: req.body.bandLatitude,
+        longitude: req.body.bandLongitude,
+        UserId: user.id
+      });
+      const member = await db.Member.create({
+        memberName: req.body.memberName,
+        city: req.body.memberCity,
+        state: req.body.memberState,
+        zipcode: req.body.memberZipcode,
+        latitude: req.body.memberLatitude,
+        longitude: req.body.memberLongitude,
+        profilePicture: req.body.memberProfilePicture,
+        createdByUserId: user.id,
+        UserId: user.id
+      });
+      const memberInstrument = await db.MemberInstrument.create({
+        instrument: req.body.instrument,
+        MemberId: member.id
+      });
+      const bandMember = await db.BandMember.create({
+        instrument: req.body.instrument,
+        MemberId: member.id,
+        BandId: band.id
+      });
+      res.redirect(307, '/api/login');
+    }
+  } catch (error) {
+    return res.status(401).json(err);
+  }
 });
 
 // Route for logging user out
