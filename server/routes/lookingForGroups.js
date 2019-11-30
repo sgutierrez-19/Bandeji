@@ -11,7 +11,7 @@ const router = require('express').Router();
 // @access - private
 // Db.lfg.create
 //isAuthenticatedData, ... to be added after testing
-router.post('/api/lfg/create', async (req, res) => {
+router.post('/api/listings/lfg/create', async (req, res) => {
   const {
     youtubeLink,
     city,
@@ -63,7 +63,7 @@ router.post('/api/lfg/create', async (req, res) => {
 // @desc -  Upon load of discovery page, load lfg/lfm based off usermember location - hard coded for now....need to figure out geolocation/mysql
 // @route - api/lfg/view(WILL NEED TO BE CHANGED)
 // @access - private
-router.get('/api/lfg/view', async (req, res) => {
+router.get('/api/listings', async (req, res) => {
   try {
     const loadlfgDiscovery = await db.lfg.findAll({
       where: {
@@ -87,7 +87,7 @@ router.get('/api/lfg/view', async (req, res) => {
 // @desc -  search LFG
 // @route - api/lfg/searchlfg
 // @access - private
-router.get('/api/search/lfg', async (req, res) => {
+router.get('/api/listings/lfg/search', async (req, res) => {
   try {
     if (
       !req.body.instrument &&
@@ -120,6 +120,28 @@ router.get('/api/search/lfg', async (req, res) => {
       });
       res.json({ loadlfgDiscovery });
     }
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+// @desc -  delete usermember lfg
+// @route - api/listings/lfg/delete
+// @access - private
+
+router.delete('/api/listings/lfg/delete/:id', async (req, res) => {
+  try {
+    const lfg = await db.lfg.destroy({
+      where: {
+        id: req.params.id,
+        MemberId: req.user.id
+      }
+    });
+    console.log('Deleted');
+    res.json({
+      message: `Your looking-for-group listing was deleted successfully`
+    });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');

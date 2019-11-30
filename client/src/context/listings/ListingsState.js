@@ -12,9 +12,9 @@ const ListingState = props => {
   const [state, dispatch] = useReducer(listingsReducer, initialState);
 
   // 1) Get LFG/LFM on homepage page load
-  const getUserMemberListings = async () => {
+  const getGeneralListings = async () => {
     try {
-      const res = await axios.get('/api/lfg/view');
+      const res = await axios.get('/api/listings');
 
       dispatch({
         type: loadHome,
@@ -31,7 +31,7 @@ const ListingState = props => {
   // 2) search lfgs based on location & instrument
   const getSearchLFG = async () => {
     try {
-      const res = await axios.get('/api/search/lfg');
+      const res = await axios.get('/api/listings/lfg/search');
 
       dispatch({
         type: searchLFG,
@@ -48,7 +48,7 @@ const ListingState = props => {
   // 3) search lfms based on location & instrument
   const getSearchLFM = async () => {
     try {
-      const res = await axios.get('/api/search/lfm');
+      const res = await axios.get('/api/listings/lfm/search');
 
       dispatch({
         type: searchLFM,
@@ -62,13 +62,13 @@ const ListingState = props => {
     }
   };
 
-  // 1) Get LFG/LFM on homepage page load
+  // 4) Get LFG/LFM on homepage page load
   const getUserMemberListings = async () => {
     try {
-      const res = await axios.get('/api/lfg/view');
+      const res = await axios.get('/api/member/listings');
 
       dispatch({
-        type: loadHome,
+        type: profilePage,
         payload: res.data
       });
     } catch (err) {
@@ -79,13 +79,29 @@ const ListingState = props => {
     }
   };
 
-  // 4) Add LFG
+  // 5) Add LFG
   const addLFG = async lfg => {
     try {
-      const res = await axios.post('route');
+      const res = await axios.post('/api/listings/lfg/create');
 
       dispatch({
-        type: TYPE,
+        type: addLFG,
+        payload: res.data
+      });
+    } catch (err) {
+      dispatch({
+        type: LFG_ERROR,
+        payload: err.response.msg
+      });
+    }
+  };
+  // 6) Add LFM
+  const addLFM = async lfm => {
+    try {
+      const res = await axios.post('/api/listings/lfm/create');
+
+      dispatch({
+        type: addLFM,
         payload: res.data
       });
     } catch (err) {
@@ -96,13 +112,13 @@ const ListingState = props => {
     }
   };
 
-  // Delete LFG
+  // 7) Delete LFG
   const deleteLFG = async id => {
     try {
-      await axios.delete(`route.../${id}`);
+      await axios.delete(`/api/listings/lfg/delete/${id}`);
 
       dispatch({
-        type: TYPE,
+        type: deleteLFG,
         payload: id
       });
     } catch (err) {
@@ -113,6 +129,22 @@ const ListingState = props => {
     }
   };
 
+  // 8) Delete LFM
+  const deleteLFM = async id => {
+    try {
+      await axios.delete(`/api/listings/lfm/delete/${id}`);
+
+      dispatch({
+        type: deleteLFM,
+        payload: id
+      });
+    } catch (err) {
+      dispatch({
+        type: LFG_ERROR,
+        payload: err.response.msg
+      });
+    }
+  };
   // Update LFG
   const updateLFG = async lfg => {
     // const config = {

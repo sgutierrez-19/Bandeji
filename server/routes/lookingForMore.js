@@ -10,7 +10,7 @@ const router = require('express').Router();
 // @access - private
 // Db.lfm.create
 //isAuthenticatedData, ... to be added after testing
-router.post('/api/lfm/create', async (req, res) => {
+router.post('/api/listings/lfm/create', async (req, res) => {
   const { youtubeLink, city, state, zipcode, ad, instrument } = req.body;
 
   try {
@@ -55,11 +55,10 @@ router.post('/api/lfm/create', async (req, res) => {
   }
 });
 
-// NEEDS TO BE CHANGED FROM LFG PARAMS TO LFM PARAMS
 // @desc -  Search lfms
 // @route - api/lfm/searchlfm
 // @access - private
-router.get('/api/search/lfm', async (req, res) => {
+router.get('/api/listings/lfm/search', async (req, res) => {
   try {
     if (
       !req.body.instrument &&
@@ -92,6 +91,28 @@ router.get('/api/search/lfm', async (req, res) => {
       });
       res.json({ loadlfmDiscovery });
     }
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+// @desc -  delete usermember lfm
+// @route - api/listings/lfm/delete
+// @access - private
+
+router.delete('/api/listings/lfm/delete/:id', async (req, res) => {
+  try {
+    const lfm = await db.lfm.destroy({
+      where: {
+        id: req.params.id,
+        MemberId: req.user.id
+      }
+    });
+    console.log('IM HERE');
+    res.json({
+      message: `Your looking-for-member listing was deleted successfully`
+    });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');

@@ -8,7 +8,7 @@ var isAuthenticated = require('../config/middleware/isAuthenticated');
 // @desc -  As individual, upon going to 'edit profile' page, query lfg to pull //          all lfg listings by user via member id stored in state
 // @route - api/individual/profile
 // @access - private
-router.get('/api/member/listings/lfg', async (req, res) => {
+router.get('/api/member/listings', async (req, res) => {
   try {
     const member = await db.Member.findOne({
       where: {
