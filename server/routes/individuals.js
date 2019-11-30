@@ -8,15 +8,33 @@ var isAuthenticated = require('../config/middleware/isAuthenticated');
 // @desc -  As individual, upon going to 'edit profile' page, query lfg to pull //          all lfg listings by user via member id stored in state
 // @route - api/individual/profile
 // @access - private
-router.get('/api/individual/listings', async (req, res) => {
+router.get('/api/member/listings/lfg', async (req, res) => {
   try {
     const member = await db.Member.findOne({
-      include: [db.lfg],
       where: {
         UserId: req.user.id
       }
     });
-    res.json({ lfgs: member.lfgs });
+    const isInBand = await db.BandMember.findOne({
+      where: { MemberId: member.id }
+    });
+    if (isInBand) {
+      console.log('Is in band');
+      const lfm = await db.lfm.findAll({
+        where: {
+          MemberId: member.id
+        }
+      });
+      res.json(lfm);
+    } else if (!isInBand) {
+      console.log('Is solo');
+      const lfg = await db.lfg.findAll({
+        where: {
+          MemberId: member.id
+        }
+      });
+      res.json(lfg);
+    }
   } catch (error) {
     console.log(error.message);
     res.status(500).send('Server Error');

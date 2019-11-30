@@ -55,25 +55,6 @@ router.post('/api/lfm/create', async (req, res) => {
   }
 });
 
-// @desc -  View LFM
-// @route - api/lfm/view
-// @access - private
-router.get('/api/groupusermember/listings', async (req, res) => {
-  try {
-    const member = await db.Member.findOne({
-      include: [db.lfm],
-      where: {
-        UserId: req.user.id
-      }
-    });
-
-    res.json({ lfms: member.lfms });
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
-  }
-});
-
 // NEEDS TO BE CHANGED FROM LFG PARAMS TO LFM PARAMS
 // @desc -  Search lfms
 // @route - api/lfm/searchlfm

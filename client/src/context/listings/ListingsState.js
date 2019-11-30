@@ -11,13 +11,13 @@ const ListingState = props => {
 
   const [state, dispatch] = useReducer(listingsReducer, initialState);
 
-  // Get LFG
-  const getLFG = async () => {
+  // 1) Get LFG/LFM on homepage page load
+  const getUserMemberListings = async () => {
     try {
-      const res = await axios.get('...route');
+      const res = await axios.get('/api/lfg/view');
 
       dispatch({
-        type: TYPE,
+        type: loadHome,
         payload: res.data
       });
     } catch (err) {
@@ -28,7 +28,58 @@ const ListingState = props => {
     }
   };
 
-  // Add LFG
+  // 2) search lfgs based on location & instrument
+  const getSearchLFG = async () => {
+    try {
+      const res = await axios.get('/api/search/lfg');
+
+      dispatch({
+        type: searchLFG,
+        payload: res.data
+      });
+    } catch (err) {
+      dispatch({
+        type: LFG_ERROR,
+        payload: err.response.msg
+      });
+    }
+  };
+
+  // 3) search lfms based on location & instrument
+  const getSearchLFM = async () => {
+    try {
+      const res = await axios.get('/api/search/lfm');
+
+      dispatch({
+        type: searchLFM,
+        payload: res.data
+      });
+    } catch (err) {
+      dispatch({
+        type: LFG_ERROR,
+        payload: err.response.msg
+      });
+    }
+  };
+
+  // 1) Get LFG/LFM on homepage page load
+  const getUserMemberListings = async () => {
+    try {
+      const res = await axios.get('/api/lfg/view');
+
+      dispatch({
+        type: loadHome,
+        payload: res.data
+      });
+    } catch (err) {
+      dispatch({
+        type: LFG_ERROR,
+        payload: err.response.msg
+      });
+    }
+  };
+
+  // 4) Add LFG
   const addLFG = async lfg => {
     try {
       const res = await axios.post('route');
