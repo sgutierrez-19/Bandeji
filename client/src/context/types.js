@@ -15,5 +15,15 @@ export const LFM_ERROR = 'LFM_ERROR';
 export const SEARCH_ERROR = 'SEARCH_ERROR';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 
+//listings types
+export const LOAD_GENERAL_LISTINGS = 'LOAD_GENERAL_LISTINGS';
+export const SEARCH_LFG = 'SEARCH_LFG';
+export const SEARCH_LFM = 'SEARCH_LFM';
+export const PROFILE_PAGE = 'PROFILE_PAGE';
+export const ADD_LFG = 'ADD_LFG';
+export const ADD_LFM = 'ADD_LFM';
+export const DELETE_LFG = 'DELETE_LFG';
+export const DELETE_LFM = 'DELETE_LFM';
+
 // TO BE REMOVED
 export const TYPE = 'TYPE';

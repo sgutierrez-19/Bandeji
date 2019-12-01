@@ -2,11 +2,26 @@ import React, { useReducer } from 'react';
 import axios from 'axios';
 import ListingsContext from './listingsContext';
 import listingsReducer from './listingsReducer';
-import { TYPE, LFG_ERROR } from '../types';
+import {
+  LOAD_GENERAL_LISTINGS,
+  SEARCH_LFG,
+  SEARCH_LFM,
+  PROFILE_PAGE,
+  ADD_LFG,
+  ADD_LFM,
+  DELETE_LFG,
+  DELETE_LFM
+} from '../types';
 
 const ListingState = props => {
   const initialState = {
-    key: 'value' // add necessary state
+    // nulled?
+    generalListings: null,
+    searchListings: null,
+    memberListings: null,
+    newListing: null,
+    loading: true,
+    error: null
   };
 
   const [state, dispatch] = useReducer(listingsReducer, initialState);
@@ -17,7 +32,7 @@ const ListingState = props => {
       const res = await axios.get('/api/listings');
 
       dispatch({
-        type: loadHome,
+        type: LOAD_GENERAL_LISTINGS,
         payload: res.data
       });
     } catch (err) {
@@ -34,7 +49,7 @@ const ListingState = props => {
       const res = await axios.get('/api/listings/lfg/search');
 
       dispatch({
-        type: searchLFG,
+        type: SEARCH_LFG,
         payload: res.data
       });
     } catch (err) {
@@ -51,7 +66,7 @@ const ListingState = props => {
       const res = await axios.get('/api/listings/lfm/search');
 
       dispatch({
-        type: searchLFM,
+        type: SEARCH_LFM,
         payload: res.data
       });
     } catch (err) {
@@ -62,13 +77,13 @@ const ListingState = props => {
     }
   };
 
-  // 4) Get LFG/LFM on homepage page load
+  // 4) Get LFG/LFM that user has posted on edit profile page load
   const getUserMemberListings = async () => {
     try {
       const res = await axios.get('/api/member/listings');
 
       dispatch({
-        type: profilePage,
+        type: PROFILE_PAGE,
         payload: res.data
       });
     } catch (err) {
@@ -85,7 +100,7 @@ const ListingState = props => {
       const res = await axios.post('/api/listings/lfg/create');
 
       dispatch({
-        type: addLFG,
+        type: ADD_LFG,
         payload: res.data
       });
     } catch (err) {
@@ -101,7 +116,7 @@ const ListingState = props => {
       const res = await axios.post('/api/listings/lfm/create');
 
       dispatch({
-        type: addLFM,
+        type: ADD_LFM,
         payload: res.data
       });
     } catch (err) {
@@ -118,7 +133,7 @@ const ListingState = props => {
       await axios.delete(`/api/listings/lfg/delete/${id}`);
 
       dispatch({
-        type: deleteLFG,
+        type: DELETE_LFG,
         payload: id
       });
     } catch (err) {
@@ -135,7 +150,7 @@ const ListingState = props => {
       await axios.delete(`/api/listings/lfm/delete/${id}`);
 
       dispatch({
-        type: deleteLFM,
+        type: DELETE_LFM,
         payload: id
       });
     } catch (err) {
@@ -145,38 +160,46 @@ const ListingState = props => {
       });
     }
   };
-  // Update LFG
-  const updateLFG = async lfg => {
-    // const config = {
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   }
-    // };
 
-    try {
-      const res = await axios.put(`route.../${lfg.id}`);
-
-      dispatch({
-        type: TYPE,
-        payload: res.data
-      });
-    } catch (err) {
-      console.log(err); // find out what error message comes from err
-      dispatch({
-        type: LFG_ERROR,
-        payload: err.response.msg
-      });
-    }
-  };
+  // // Update LFG
+  // const updateLFG = async lfg => {
+  //   // const config = {
+  //   //   headers: {
+  //   //     'Content-Type': 'application/json'
+  //   //   }
+  //   // };
+  //   try {
+  //     const res = await axios.put(`route.../${lfg.id}`);
+  //     dispatch({
+  //       type: TYPE,
+  //       payload: res.data
+  //     });
+  //   } catch (err) {
+  //     console.log(err); // find out what error message comes from err
+  //     dispatch({
+  //       type: LFG_ERROR,
+  //       payload: err.response.msg
+  //     });
+  //   }
+  // };
 
   return (
     <ListingsContext.Provider
       value={{
-        key: state.key, // add all state values
+        generalListings: state.generalListings,
+        searchListings: state.searchListings,
+        memberListings: state.memberListings,
+        newListing: state.newListing,
+        loading: true,
+        error: null,
+        getGeneralListings,
+        getSearchLFG,
+        getSearchLFM,
+        getUserMemberListings, // add all state values
         addLFG,
+        addLFM,
         deleteLFG,
-        updateLFG,
-        getLFG //, add additional methods created here
+        deleteLFM
       }}
     >
       {props.children}
