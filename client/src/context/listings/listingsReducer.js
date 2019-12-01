@@ -7,7 +7,9 @@ import {
   ADD_LFG,
   ADD_LFM,
   DELETE_LFG,
-  DELETE_LFM
+  DELETE_LFM,
+  GENERAL_LISTINGS_ERROR,
+  SEARCH_LFG_ERROR
 } from './ListingsState';
 
 export default (state, action) => {

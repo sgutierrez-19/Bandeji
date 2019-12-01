@@ -10,7 +10,10 @@ import {
   ADD_LFG,
   ADD_LFM,
   DELETE_LFG,
-  DELETE_LFM
+  DELETE_LFM,
+  SEARCH_LFG_ERROR,
+  SEARCH_LFM_ERROR,
+  GENERAL_LISTINGS_ERROR
 } from '../types';
 
 const ListingState = props => {
@@ -37,7 +40,7 @@ const ListingState = props => {
       });
     } catch (err) {
       dispatch({
-        type: LFG_ERROR,
+        type: GENERAL_LISTINGS_ERROR,
         payload: err.response.msg
       });
     }
@@ -54,7 +57,7 @@ const ListingState = props => {
       });
     } catch (err) {
       dispatch({
-        type: LFG_ERROR,
+        type: SEARCH_LFG_ERROR,
         payload: err.response.msg
       });
     }
@@ -71,7 +74,7 @@ const ListingState = props => {
       });
     } catch (err) {
       dispatch({
-        type: LFG_ERROR,
+        type: SEARCH_LFM_ERROR,
         payload: err.response.msg
       });
     }

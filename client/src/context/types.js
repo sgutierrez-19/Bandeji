@@ -25,5 +25,13 @@ export const ADD_LFM = 'ADD_LFM';
 export const DELETE_LFG = 'DELETE_LFG';
 export const DELETE_LFM = 'DELETE_LFM';
 
+//Band Member Types
+
+export const SIGNUP_BAND_MEMBER = 'SIGNUP_BAND_MEMBER'; // registration
+export const GET_BAND_MEMBER = 'GET_BAND_MEMBER';
+export const UPDATE_BAND_MEMBER = 'UPDATE_BAND_MEMBER';
+export const BAND_MEMBER_ERROR = 'BAND_MEMBER_ERROR';
+export const CLEAR_BAND_MEMBER_ERROR = 'CLEAR_BAND_MEMBER_ERROR';
+
 // TO BE REMOVED
 export const TYPE = 'TYPE';
