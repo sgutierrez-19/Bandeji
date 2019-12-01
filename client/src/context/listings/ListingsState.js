@@ -2,11 +2,23 @@ import React, { useReducer } from 'react';
 import axios from 'axios';
 import ListingsContext from './listingsContext';
 import listingsReducer from './listingsReducer';
-import { TYPE, LFG_ERROR } from '../types';
+import {
+  SEARCH_LFG,
+  SEARCH_LFG_ERROR,
+  SEARCH_LFM,
+  SEARCH_LFM_ERROR,
+  LOAD_GENERAL_LISTINGS,
+  GENERAL_LISTINGS_ERROR
+} from '../types';
 
 const ListingState = props => {
   const initialState = {
-    key: 'value' // add necessary state
+    generalListings: null,
+    searchListings: null,
+    memberListings: null,
+    newListing: null,
+    loading: true,
+    error: null
   };
 
   const [state, dispatch] = useReducer(listingsReducer, initialState);
@@ -17,12 +29,12 @@ const ListingState = props => {
       const res = await axios.get('/api/listings');
 
       dispatch({
-        type: loadHome,
+        type: LOAD_GENERAL_LISTINGS,
         payload: res.data
       });
     } catch (err) {
       dispatch({
-        type: LFG_ERROR,
+        type: GENERAL_LISTINGS_ERROR,
         payload: err.response.msg
       });
     }
@@ -34,12 +46,12 @@ const ListingState = props => {
       const res = await axios.get('/api/listings/lfg/search');
 
       dispatch({
-        type: searchLFG,
+        type: SEARCH_LFG,
         payload: res.data
       });
     } catch (err) {
       dispatch({
-        type: LFG_ERROR,
+        type: SEARCH_LFG_ERROR,
         payload: err.response.msg
       });
     }
@@ -51,132 +63,140 @@ const ListingState = props => {
       const res = await axios.get('/api/listings/lfm/search');
 
       dispatch({
-        type: searchLFM,
+        type: SEARCH_LFM,
         payload: res.data
       });
     } catch (err) {
       dispatch({
-        type: LFG_ERROR,
+        type: SEARCH_LFM_ERROR,
         payload: err.response.msg
       });
     }
   };
 
-  // 4) Get LFG/LFM on homepage page load
-  const getUserMemberListings = async () => {
-    try {
-      const res = await axios.get('/api/member/listings');
+  // // 4) Get LFG/LFM on homepage page load
+  // const getUserMemberListings = async () => {
+  //   try {
+  //     const res = await axios.get('/api/member/listings');
 
-      dispatch({
-        type: profilePage,
-        payload: res.data
-      });
-    } catch (err) {
-      dispatch({
-        type: LFG_ERROR,
-        payload: err.response.msg
-      });
-    }
-  };
+  //     dispatch({
+  //       type: profilePage,
+  //       payload: res.data
+  //     });
+  //   } catch (err) {
+  //     dispatch({
+  //       type: LFG_ERROR,
+  //       payload: err.response.msg
+  //     });
+  //   }
+  // };
 
-  // 5) Add LFG
-  const addLFG = async lfg => {
-    try {
-      const res = await axios.post('/api/listings/lfg/create');
+  // // 5) Add LFG
+  // const addLFG = async lfg => {
+  //   try {
+  //     const res = await axios.post('/api/listings/lfg/create');
 
-      dispatch({
-        type: addLFG,
-        payload: res.data
-      });
-    } catch (err) {
-      dispatch({
-        type: LFG_ERROR,
-        payload: err.response.msg
-      });
-    }
-  };
+  //     dispatch({
+  //       type: addLFG,
+  //       payload: res.data
+  //     });
+  //   } catch (err) {
+  //     dispatch({
+  //       type: LFG_ERROR,
+  //       payload: err.response.msg
+  //     });
+  //   }
+  // };
   // 6) Add LFM
-  const addLFM = async lfm => {
-    try {
-      const res = await axios.post('/api/listings/lfm/create');
+  // const addLFM = async lfm => {
+  //   try {
+  //     const res = await axios.post('/api/listings/lfm/create');
 
-      dispatch({
-        type: addLFM,
-        payload: res.data
-      });
-    } catch (err) {
-      dispatch({
-        type: LFG_ERROR,
-        payload: err.response.msg
-      });
-    }
-  };
+  //     dispatch({
+  //       type: addLFM,
+  //       payload: res.data
+  //     });
+  //   } catch (err) {
+  //     dispatch({
+  //       type: LFG_ERROR,
+  //       payload: err.response.msg
+  //     });
+  //   }
+  // };
 
-  // 7) Delete LFG
-  const deleteLFG = async id => {
-    try {
-      await axios.delete(`/api/listings/lfg/delete/${id}`);
+  // // 7) Delete LFG
+  // const deleteLFG = async id => {
+  //   try {
+  //     await axios.delete(`/api/listings/lfg/delete/${id}`);
 
-      dispatch({
-        type: deleteLFG,
-        payload: id
-      });
-    } catch (err) {
-      dispatch({
-        type: LFG_ERROR,
-        payload: err.response.msg
-      });
-    }
-  };
+  //     dispatch({
+  //       type: deleteLFG,
+  //       payload: id
+  //     });
+  //   } catch (err) {
+  //     dispatch({
+  //       type: LFG_ERROR,
+  //       payload: err.response.msg
+  //     });
+  //   }
+  // };
 
-  // 8) Delete LFM
-  const deleteLFM = async id => {
-    try {
-      await axios.delete(`/api/listings/lfm/delete/${id}`);
+  // // 8) Delete LFM
+  // const deleteLFM = async id => {
+  //   try {
+  //     await axios.delete(`/api/listings/lfm/delete/${id}`);
 
-      dispatch({
-        type: deleteLFM,
-        payload: id
-      });
-    } catch (err) {
-      dispatch({
-        type: LFG_ERROR,
-        payload: err.response.msg
-      });
-    }
-  };
-  // Update LFG
-  const updateLFG = async lfg => {
-    // const config = {
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   }
-    // };
+  //     dispatch({
+  //       type: deleteLFM,
+  //       payload: id
+  //     });
+  //   } catch (err) {
+  //     dispatch({
+  //       type: LFG_ERROR,
+  //       payload: err.response.msg
+  //     });
+  //   }
+  // };
+  // // Update LFG
+  // const updateLFG = async lfg => {
+  //   // const config = {
+  //   //   headers: {
+  //   //     'Content-Type': 'application/json'
+  //   //   }
+  //   // };
 
-    try {
-      const res = await axios.put(`route.../${lfg.id}`);
+  //   try {
+  //     const res = await axios.put(`route.../${lfg.id}`);
 
-      dispatch({
-        type: TYPE,
-        payload: res.data
-      });
-    } catch (err) {
-      console.log(err); // find out what error message comes from err
-      dispatch({
-        type: LFG_ERROR,
-        payload: err.response.msg
-      });
-    }
-  };
+  //     dispatch({
+  //       type: TYPE,
+  //       payload: res.data
+  //     });
+  //   } catch (err) {
+  //     console.log(err); // find out what error message comes from err
+  //     dispatch({
+  //       type: LFG_ERROR,
+  //       payload: err.response.msg
+  //     });
+  //   }
+  // };
 
   return (
     <ListingsContext.Provider
       value={{
-        key: state.key, // add all state values
-        addLFG,
-        deleteLFG,
-        updateLFG,
-        getLFG //, add additional methods created here
+        generalListings: state.generalListings,
+        searchListings: state.searchListings,
+        memberListings: state.memberListings,
+        newListing: state.newListing,
+        loading: state.loading,
+        error: state.error,
+        getGeneralListings,
+        getSearchLFG,
+        getSearchLFM
+        // addLFG,
+        // deleteLFG,
+        // updateLFG,
+        // getLFG //, add additional methods created here
       }}
     >
       {props.children}

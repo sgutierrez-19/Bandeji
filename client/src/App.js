@@ -9,6 +9,7 @@ import Profile from './components/pages/profile/Profile';
 import About from './components/pages/about/About';
 import Signup from './components/auth/signup/Signup';
 import LandingPage from './components/pages/landingPage/LandingPage';
+import BandProfile from './components/pages/bandProfile/BandProfile';
 import Page404 from './components/pages/404/404';
 
 // import PrivateRoute from './components/routing/privateRoute/PrivateRoute';
@@ -38,6 +39,11 @@ const App = () => {
                       {/* private routes - change once ready to make private */}
                       <Route exact path='/' component={Home} />
                       <Route exact path='/profile' component={Profile} />
+                      <Route
+                        exact
+                        path='/band/profile'
+                        component={BandProfile}
+                      />
                       {/* public routes */}
                       <Route exact path='/about' component={About} />
                       <Route exact path='/signup' component={Signup} />
