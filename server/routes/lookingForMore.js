@@ -50,7 +50,7 @@ router.post('/api/listings/lfm/create', async (req, res) => {
 
     res.json(listing);
   } catch (err) {
-    console.error(err.message);
+    console.log(err);
     res.status(500).send('Server Error');
   }
 });
@@ -92,7 +92,7 @@ router.get('/api/listings/lfm/search', async (req, res) => {
       res.json({ loadlfmDiscovery });
     }
   } catch (err) {
-    console.error(err.message);
+    console.log(err);
     res.status(500).send('Server Error');
   }
 });

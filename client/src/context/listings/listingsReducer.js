@@ -1,6 +1,6 @@
-import { TYPE, UPDATE_NEW_LISTING } from '../types';
 import {
   LOAD_GENERAL_LISTINGS,
+  UPDATE_NEW_LISTING,
   SEARCH_LFG,
   SEARCH_LFM,
   PROFILE_PAGE,
