@@ -24,6 +24,9 @@ export const ADD_LFG = 'ADD_LFG';
 export const ADD_LFM = 'ADD_LFM';
 export const DELETE_LFG = 'DELETE_LFG';
 export const DELETE_LFM = 'DELETE_LFM';
+export const LISTINGS_ERROR = 'LISTINGS_ERROR';
+export const LISTINGS_CLEAR_ERROR = 'LISTINGS_CLEAR_ERROR';
+export const UPDATE_NEW_LISTING = 'UPDATE_NEW_LISTING';
 
 //Band Member Types
 

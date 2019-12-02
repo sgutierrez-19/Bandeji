@@ -8,12 +8,12 @@ import {
   SEARCH_LFM,
   PROFILE_PAGE,
   ADD_LFG,
+  UPDATE_NEW_LISTING,
   ADD_LFM,
   DELETE_LFG,
   DELETE_LFM,
-  SEARCH_LFG_ERROR,
-  SEARCH_LFM_ERROR,
-  GENERAL_LISTINGS_ERROR
+  LISTINGS_ERROR,
+  LISTINGS_CLEAR_ERROR
 } from '../types';
 
 const ListingState = props => {
@@ -40,7 +40,7 @@ const ListingState = props => {
       });
     } catch (err) {
       dispatch({
-        type: GENERAL_LISTINGS_ERROR,
+        type: LISTINGS_ERROR,
         payload: err.response.msg
       });
     }
@@ -57,7 +57,7 @@ const ListingState = props => {
       });
     } catch (err) {
       dispatch({
-        type: SEARCH_LFG_ERROR,
+        type: LISTINGS_ERROR,
         payload: err.response.msg
       });
     }
@@ -74,7 +74,7 @@ const ListingState = props => {
       });
     } catch (err) {
       dispatch({
-        type: SEARCH_LFM_ERROR,
+        type: LISTINGS_ERROR,
         payload: err.response.msg
       });
     }
@@ -91,7 +91,7 @@ const ListingState = props => {
       });
     } catch (err) {
       dispatch({
-        type: LFG_ERROR,
+        type: LISTINGS_ERROR,
         payload: err.response.msg
       });
     }
@@ -100,7 +100,7 @@ const ListingState = props => {
   // 5) Add LFG
   const addLFG = async lfg => {
     try {
-      const res = await axios.post('/api/listings/lfg/create');
+      const res = await axios.post('/api/listings/lfg/create', lfg);
 
       dispatch({
         type: ADD_LFG,
@@ -108,15 +108,31 @@ const ListingState = props => {
       });
     } catch (err) {
       dispatch({
-        type: LFG_ERROR,
+        type: LISTINGS_ERROR,
         payload: err.response.msg
       });
     }
   };
+
+  // 5-A) Update newListing state during creation
+  const updateNewListing = data => {
+    try {
+      dispatch({
+        type: UPDATE_NEW_LISTING,
+        payload: data
+      });
+    } catch (err) {
+      dispatch({
+        type: LISTINGS_ERROR,
+        payload: err.response.msg
+      });
+    }
+  };
+
   // 6) Add LFM
   const addLFM = async lfm => {
     try {
-      const res = await axios.post('/api/listings/lfm/create');
+      const res = await axios.post('/api/listings/lfm/create', lfm);
 
       dispatch({
         type: ADD_LFM,
@@ -124,7 +140,7 @@ const ListingState = props => {
       });
     } catch (err) {
       dispatch({
-        type: LFG_ERROR,
+        type: LISTINGS_ERROR,
         payload: err.response.msg
       });
     }
@@ -141,7 +157,7 @@ const ListingState = props => {
       });
     } catch (err) {
       dispatch({
-        type: LFG_ERROR,
+        type: LISTINGS_ERROR,
         payload: err.response.msg
       });
     }
@@ -158,7 +174,7 @@ const ListingState = props => {
       });
     } catch (err) {
       dispatch({
-        type: LFG_ERROR,
+        type: LISTINGS_ERROR,
         payload: err.response.msg
       });
     }
@@ -193,13 +209,14 @@ const ListingState = props => {
         searchListings: state.searchListings,
         memberListings: state.memberListings,
         newListing: state.newListing,
-        loading: true,
-        error: null,
+        loading: state.loading,
+        error: state.error,
         getGeneralListings,
         getSearchLFG,
         getSearchLFM,
         getUserMemberListings, // add all state values
         addLFG,
+        updateNewListing,
         addLFM,
         deleteLFG,
         deleteLFM

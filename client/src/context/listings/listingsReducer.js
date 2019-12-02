@@ -1,4 +1,4 @@
-import { TYPE } from '../types';
+import { TYPE, UPDATE_NEW_LISTING } from '../types';
 import {
   LOAD_GENERAL_LISTINGS,
   SEARCH_LFG,
@@ -8,9 +8,9 @@ import {
   ADD_LFM,
   DELETE_LFG,
   DELETE_LFM,
-  GENERAL_LISTINGS_ERROR,
-  SEARCH_LFG_ERROR
-} from './ListingsState';
+  LISTINGS_ERROR,
+  LISTINGS_CLEAR_ERROR
+} from '../types';
 
 export default (state, action) => {
   switch (action.type) {
@@ -44,6 +44,16 @@ export default (state, action) => {
         newListing: action.payload,
         loading: false
       };
+    case UPDATE_NEW_LISTING:
+      const newListing = {
+        ...state.newListing,
+        ...action.payload
+      };
+      return {
+        ...state,
+        newListing,
+        loading: false
+      };
     case ADD_LFM:
       return {
         ...state,
@@ -61,6 +71,17 @@ export default (state, action) => {
         ...state,
         memberListings: action.payload,
         loading: false
+      };
+    case LISTINGS_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+        loading: false
+      };
+    case LISTINGS_CLEAR_ERROR:
+      return {
+        ...state,
+        error: null
       };
     default:
       return state;
