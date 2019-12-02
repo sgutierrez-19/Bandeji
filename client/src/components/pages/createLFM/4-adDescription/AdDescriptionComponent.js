@@ -25,7 +25,7 @@ export default function AdDescription() {
     let obj = { ad: newAd };
     updateNewListing(obj);
     console.log(newListing);
-    addLFM(newListing);
+    addLFM({ ...newListing, ...obj });
   };
 
   return (

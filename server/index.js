@@ -1,5 +1,6 @@
 // Requiring necessary npm packages
 var path = require('path');
+var logger = require('morgan');
 var express = require('express');
 var session = require('express-session');
 // Requiring passport as we've configured it
@@ -11,6 +12,7 @@ var db = require('./models');
 
 // Creating express app and configuring middleware needed for authentication
 var app = express();
+app.use(logger('combined'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 // We need to use sessions to keep track of our user's login status
