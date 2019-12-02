@@ -44,7 +44,8 @@ const BandMemberState = props => {
   // Get Band Member
   const getBandMember = async () => {
     try {
-      const res = await axios.get('route...');
+      const res = await axios.get('/api/member/band');
+      console.log(res);
 
       dispatch({
         type: GET_BAND_MEMBER,

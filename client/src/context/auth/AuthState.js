@@ -16,7 +16,7 @@ import {
 
 const AuthState = props => {
   const initialState = {
-    token: localStorage.getItem('token'),
+    userData: null,
     isAuthenticated: null,
     loading: true,
     user: null,
@@ -82,14 +82,12 @@ const AuthState = props => {
 
     try {
       console.log('formData', formData);
-      const res = await axios.post('/api/auth', formData, config);
-      console.log('response data -', res.data);
+      const res = await axios.post('/api/login', formData, config);
+      console.log('response -', res);
       dispatch({
         type: LOGIN_SUCCESS,
         payload: res.data
       });
-
-      loadUser();
     } catch (err) {
       dispatch({
         type: LOGIN_FAIL,

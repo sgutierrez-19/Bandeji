@@ -5,6 +5,51 @@ const router = require('express').Router();
 
 var isAuthenticatedData = require('../config/middleware/isAuthenticatedData');
 
+router.get('/api/member/band', async (req, res) => {
+  try {
+    const member = await db.Member.findOne({
+      where: {
+        UserId: req.user.id
+      }
+    });
+    const band = await db.Band.findOne({
+      where: {
+        UserId: req.user.id
+      }
+    });
+    const bandMembers = await db.BandMember.findAll({
+      where: { BandId: band.id }
+    });
+
+    const bandMembersInfo = [];
+    for (let i = 0; i < bandMembers.length; i++) {
+      const bandMembersInfoProcess = await db.Member.findOne({
+        where: {
+          id: bandMembers[i].MemberId
+        }
+      });
+      const memberInstrumentsProcess = await db.MemberInstrument.findAll({
+        where: {
+          MemberId: bandMembers[i].MemberId
+        }
+      });
+      bandMembersInfo.push({
+        bandmember: bandMembers[i],
+        member: bandMembersInfoProcess,
+        memberinstrument: memberInstrumentsProcess
+      });
+    }
+    res.json({
+      userMember: member,
+      band,
+      bandMembersInfo
+    });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send('Server Error');
+  }
+});
+
 // @desc -  additional band member creation - does not have userID
 // @route - api/band/bandmember
 // @access - private

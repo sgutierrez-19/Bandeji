@@ -6,6 +6,16 @@ const router = require('express').Router();
 // Requiring our custom middleware for checking if a user is logged in
 var isAuthenticatedData = require('../config/middleware/isAuthenticatedData');
 
+//
+router.get('/api/auth', async (req, res) => {
+  if (req.user) {
+    // The user is not logged in, send back an empty object
+    res.status(200).send('logged in');
+  } else {
+    res.status(401).send('logged out');
+  }
+});
+
 // Using the passport.authenticate middleware with our local strategy.
 // If the user has valid login credentials, send them to the members page.
 // Otherwise the user will be sent an error
@@ -20,49 +30,23 @@ router.post('/api/login', passport.authenticate('local'), async (req, res) => {
     const isInBand = await db.BandMember.findOne({
       where: { MemberId: member.id }
     });
-
     if (isInBand) {
-      const band = await db.Band.findOne({
-        where: {
-          UserId: req.user.id
-        }
-      });
-      const bandMembers = await db.BandMember.findAll({
-        where: { BandId: band.id }
-      });
-
-      const bandMembersInfo = [];
-      for (let i = 0; i < bandMembers.length; i++) {
-        const bandMembersInfoProcess = await db.Member.findOne({
-          where: {
-            id: bandMembers[i].MemberId
-          }
-        });
-        const memberInstrumentsProcess = await db.MemberInstrument.findAll({
-          where: {
-            MemberId: bandMembers[i].MemberId
-          }
-        });
-        bandMembersInfo.push({
-          bandmember: bandMembers[i],
-          member: bandMembersInfoProcess,
-          memberinstrument: memberInstrumentsProcess
-        });
-      }
       res.json({
         email: req.user.email,
         id: req.user.id,
-        userMember: member,
-        band,
-        bandMembersInfo
+        member,
+        inBand: true
       });
-    } else if (!isInBand) {
+    } else {
       res.json({
         email: req.user.email,
         id: req.user.id,
-        member
+        member,
+        inBand: false
       });
     }
+
+    // }
   } catch (error) {
     console.log(error.message);
     res.status(500).send('Server Error');
