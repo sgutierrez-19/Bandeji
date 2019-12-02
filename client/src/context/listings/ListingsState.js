@@ -179,6 +179,9 @@ const ListingState = props => {
       });
     }
   };
+  // 9) Listings clear error
+  const listingsClearError = async () =>
+    dispatch({ type: LISTINGS_CLEAR_ERROR });
 
   // // Update LFG
   // const updateLFG = async lfg => {
@@ -219,7 +222,8 @@ const ListingState = props => {
         updateNewListing,
         addLFM,
         deleteLFG,
-        deleteLFM
+        deleteLFM,
+        listingsClearError
       }}
     >
       {props.children}
