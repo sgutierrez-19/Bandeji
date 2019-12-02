@@ -11,6 +11,9 @@ import Signup from './components/pages/signup/Signup';
 import LandingPage from './components/pages/landingPage/LandingPage';
 import BandProfile from './components/pages/bandProfile/BandProfile';
 import Page404 from './components/pages/404/404';
+import CreateLFG from './components/pages/createLFG/CreateLFG';
+import CreateLFM from './components/pages/createLFM/CreateLFM';
+
 
 // import PrivateRoute from './components/routing/privateRoute/PrivateRoute';
 
@@ -44,6 +47,8 @@ const App = () => {
                         path='/band/profile'
                         component={BandProfile}
                       />
+                      <Route exact path='/createlfg' component={CreateLFG} />
+                      <Route exact path='/createlfm' component={CreateLFM} />
                       {/* public routes */}
                       <Route exact path='/about' component={About} />
                       <Route exact path='/signup' component={Signup} />
