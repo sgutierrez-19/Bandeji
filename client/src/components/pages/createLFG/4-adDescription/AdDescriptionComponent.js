@@ -22,10 +22,10 @@ export default function AdDescription() {
 
   const updateListingInProgress = e => {
     e.preventDefault();
-    let obj = { ad: newAd }
+    let obj = { ad: newAd };
     updateNewListing(obj);
-    addLFG(newListing)
-  }
+    addLFG({ ...newListing, ...obj });
+  };
 
   return (
     <Fragment>
