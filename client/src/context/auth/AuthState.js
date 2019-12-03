@@ -11,13 +11,15 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-  CLEAR_ERRORS
+  CLEAR_ERRORS,
+  UPDATE_NEW_USERMEMBER
 } from '../types';
 
 const AuthState = props => {
   const initialState = {
     userData: null,
     isAuthenticated: null,
+    createNewUserMember: null,
     loading: true,
     user: null,
     error: null
@@ -57,7 +59,7 @@ const AuthState = props => {
     };
 
     try {
-      const res = await axios.post('/api/users', formData, config);
+      const res = await axios.post('/api/signup', formData, config);
 
       dispatch({
         type: SIGNUP_SUCCESS,
@@ -66,6 +68,33 @@ const AuthState = props => {
 
       loadUser();
     } catch (err) {
+      console.log(err);
+      dispatch({
+        type: SIGNUP_FAIL,
+        payload: err.response.data.msg
+      });
+    }
+  };
+
+  // Register User
+  const registerBandMember = async formData => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+    try {
+      const res = await axios.post(
+        '/api/member/bandmember/signup',
+        formData,
+        config
+      );
+      dispatch({
+        type: SIGNUP_SUCCESS,
+        payload: res.data
+      });
+    } catch (err) {
+      console.log(err);
       dispatch({
         type: SIGNUP_FAIL,
         payload: err.response.data.msg
@@ -97,6 +126,20 @@ const AuthState = props => {
     }
   };
 
+  const updateCreateNewUserMember = data => {
+    try {
+      dispatch({
+        type: UPDATE_NEW_USERMEMBER,
+        payload: data
+      });
+    } catch (err) {
+      dispatch({
+        type: SIGNUP_FAIL,
+        payload: err.response.msg
+      });
+    }
+  };
+
   // Logout
   const logout = () => dispatch({ type: LOGOUT });
 
@@ -108,12 +151,15 @@ const AuthState = props => {
       value={{
         token: state.token,
         isAuthenticated: state.isAuthenticated,
+        createNewUserMember: state.createNewUserMember,
         loading: state.loading,
         user: state.user,
         error: state.error,
         register,
         loadUser,
         login,
+        updateCreateNewUserMember,
+        registerBandMember,
         logout,
         clearErrors
       }}

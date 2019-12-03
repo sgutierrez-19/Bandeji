@@ -7,13 +7,12 @@ import Alerts from './components/layout/alerts/Alerts';
 import Home from './components/pages/home/Home';
 import Profile from './components/pages/profile/Profile';
 import About from './components/pages/about/About';
-import Signup from './components/pages/signup/Signup';
+import Signup from './components/pages/signup/CreateSignup';
 import LandingPage from './components/pages/landingPage/LandingPage';
 import BandProfile from './components/pages/bandProfile/BandProfile';
 import Page404 from './components/pages/404/404';
 import CreateLFG from './components/pages/createLFG/CreateLFG';
 import CreateLFM from './components/pages/createLFM/CreateLFM';
-
 
 // import PrivateRoute from './components/routing/privateRoute/PrivateRoute';
 

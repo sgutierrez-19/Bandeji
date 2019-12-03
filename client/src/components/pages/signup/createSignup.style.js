@@ -30,13 +30,6 @@ const useStyles = makeStyles(theme => ({
   adTextBoxHeight: {
     height: 300,
     fontSize: '12em'
-  },
-  option: {
-    fontSize: 15,
-    '& > span': {
-      marginRight: 10,
-      fontSize: 18
-    }
   }
 }));
 

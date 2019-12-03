@@ -6,7 +6,8 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-  CLEAR_ERRORS
+  CLEAR_ERRORS,
+  UPDATE_NEW_USERMEMBER
 } from '../types';
 
 export default (state, action) => {
@@ -19,6 +20,10 @@ export default (state, action) => {
         user: action.payload
       };
     case SIGNUP_SUCCESS:
+      return {
+        ...state,
+        loading: false
+      };
     case LOGIN_SUCCESS:
       return {
         ...state,
@@ -29,6 +34,16 @@ export default (state, action) => {
     case SIGNUP_FAIL:
     case AUTH_ERROR:
     case LOGIN_FAIL:
+    case UPDATE_NEW_USERMEMBER:
+      const createNewUserMember = {
+        ...state.createNewUserMember,
+        ...action.payload
+      };
+      return {
+        ...state,
+        createNewUserMember,
+        loading: false
+      };
     case LOGOUT:
       localStorage.removeItem('token');
       return {

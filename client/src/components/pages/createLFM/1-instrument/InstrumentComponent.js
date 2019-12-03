@@ -12,12 +12,15 @@ import Typography from '@material-ui/core/Typography';
 import { useStyles } from '../createLFM.style';
 import { Fragment } from 'react';
 import ListingsContext from '../../../../context/listings/listingsContext';
+import UserMemberContext from '../../../../context/userMember/userMemberContext';
 
 export default function lfgDistance({ nextStep }) {
   const classes = useStyles();
   const listingsContext = useContext(ListingsContext);
   const { updateNewListing, newListing } = listingsContext;
   const [newInstrument, setNewInstrument] = useState('');
+  const userMemberContext = useContext(UserMemberContext);
+  const { instruments } = userMemberContext;
 
   useEffect(() => {
     console.log('STATE', newListing);
@@ -56,10 +59,13 @@ export default function lfgDistance({ nextStep }) {
                   labelId='demo-simple-select-label'
                   id='demo-simple-select'
                 >
-                  <MenuItem value={'Voice-Soprano'}>Voice-Soprano</MenuItem>
-                  <MenuItem value={'Voice-Alto'}>Voice-Alto</MenuItem>
-                  <MenuItem value={'Voice-Tenor'}>Voice-Tenor</MenuItem>
-                  <MenuItem value={'Voice-Bas'}>Voice-Bass</MenuItem>
+                  {instruments.map(instrument => {
+                    return (
+                      <MenuItem key={instrument} value={instrument}>
+                        {instrument}
+                      </MenuItem>
+                    );
+                  })}
                 </Select>
               </FormControl>
             </Grid>

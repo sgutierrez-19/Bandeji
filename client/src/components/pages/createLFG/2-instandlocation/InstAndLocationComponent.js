@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { useStyles } from '../createLFG.style';
 import { Fragment, useState, useContext, useEffect } from 'react';
 import ListingsContext from '../../../../context/listings/listingsContext';
+import UserMemberContext from '../../../../context/userMember/userMemberContext';
 
 export default function lfgInstLocation({ prevStep, nextStep }) {
   const classes = useStyles();
@@ -21,7 +22,9 @@ export default function lfgInstLocation({ prevStep, nextStep }) {
   const [newState, setNewState] = useState('');
   const [newZipcode, setNewZipcode] = useState('');
   const listingsContext = useContext(ListingsContext);
+  const userMemberContext = useContext(UserMemberContext);
   const { updateNewListing, newListing } = listingsContext;
+  const { instruments } = userMemberContext;
 
   useEffect(() => {
     console.log('STATE', newListing);
@@ -29,10 +32,15 @@ export default function lfgInstLocation({ prevStep, nextStep }) {
 
   const updateListingInProgress = e => {
     e.preventDefault();
-    let obj = { instrument: newInstrument, city: newCity, state: newState, zipcode: newZipcode }
+    let obj = {
+      instrument: newInstrument,
+      city: newCity,
+      state: newState,
+      zipcode: newZipcode
+    };
     updateNewListing(obj);
     nextStep();
-  }
+  };
 
   return (
     <Fragment>
@@ -56,13 +64,14 @@ export default function lfgInstLocation({ prevStep, nextStep }) {
                   onChange={e => setNewInstrument(e.target.value)}
                   labelId='demo-simple-select-label'
                   id='demo-simple-select'
-                //   value={distance}
-                //   onChange={handleChange}
                 >
-                  <MenuItem value={'Voice-Soprano'}>Voice-Soprano</MenuItem>
-                  <MenuItem value={'Voice-Alto'}>Voice-Alto</MenuItem>
-                  <MenuItem value={'Voice-Tenor'}>Voice-Tenor</MenuItem>
-                  <MenuItem value={'Voice-Bas'}>Voice-Bass</MenuItem>
+                  {instruments.map(instrument => {
+                    return (
+                      <MenuItem key={instrument} value={instrument}>
+                        {instrument}
+                      </MenuItem>
+                    );
+                  })}
                 </Select>
               </FormControl>
               <Grid item xs={4} sm={4}>
@@ -79,6 +88,7 @@ export default function lfgInstLocation({ prevStep, nextStep }) {
               </Grid>
               <Grid item xs={4}>
                 <TextField
+                  autofi
                   variant='outlined'
                   required
                   fullWidth
@@ -103,6 +113,16 @@ export default function lfgInstLocation({ prevStep, nextStep }) {
               </Grid>
             </Grid>
           </Grid>
+          <Button
+            type='submit'
+            fullWidth
+            variant='contained'
+            color='primary'
+            className={classes.submit}
+            onClick={prevStep}
+          >
+            Back
+          </Button>
           <Button
             type='submit'
             fullWidth

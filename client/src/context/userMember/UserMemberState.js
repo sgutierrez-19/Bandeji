@@ -6,7 +6,79 @@ import { TYPE, BAND_ERROR } from '../types';
 
 const UserMemberState = props => {
   const initialState = {
-    key: 'value' // add necessary state
+    states: [
+      'Alaska',
+      'Alabama',
+      'Arkansas',
+      'Arizona',
+      'California',
+      'Colorado',
+      'Connecticut',
+      'Delaware',
+      'Florida',
+      'Georgia',
+      'Hawaii',
+      'Iowa',
+      'Idaho',
+      'Illinois',
+      'Indiana',
+      'Kansas',
+      'Kentucky',
+      'Louisiana',
+      'Massachusetts',
+      'Maryland',
+      'Maine',
+      'Michigan',
+      'Minnesota',
+      'Missouri',
+      'Mississippi',
+      'Montana',
+      'North Carolina',
+      'North Dakota',
+      'Nebraska',
+      'New Hampshire',
+      'New Jersey',
+      'New Mexico',
+      'Nevada',
+      'New York',
+      'Ohio',
+      'Oklahoma',
+      'Oregon',
+      'Pennsylvania',
+      'Rhode Island',
+      'South Carolina',
+      'South Dakota',
+      'Tennessee',
+      'Texas',
+      'Utah',
+      'Virginia',
+      'Vermont',
+      'Washington',
+      'Wisconsin',
+      'West Virginia',
+      'Wyoming'
+    ],
+    instruments: [
+      'Accordion',
+      'Banjo',
+      'Cello',
+      'Clarinet',
+      'Drums',
+      'Flute',
+      'Guitar',
+      'Guitar-Bass',
+      'Keyboard',
+      'Obo',
+      'Piano',
+      'Trumpet',
+      'Voice-Any',
+      'Voice-Soprano',
+      'Voice-Alto',
+      'Voice-Tenor',
+      'Voice-Bass',
+      'Violin',
+      'Viola'
+    ]
   };
 
   const [state, dispatch] = useReducer(userMemberReducer, initialState);
@@ -66,7 +138,9 @@ const UserMemberState = props => {
   return (
     <UserMemberContext.Provider
       value={{
-        key: state.key, // state.key.value, // add all state values
+        key: state.key,
+        states: state.states,
+        instruments: state.instruments,
         addUserMember,
         getUserMember,
         updateUserMember

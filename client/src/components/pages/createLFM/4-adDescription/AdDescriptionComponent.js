@@ -7,25 +7,21 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { useStyles } from '../createLFM.style';
-import { Fragment, useState, useContext, useEffect } from 'react';
+import { Fragment, useState, useContext } from 'react';
 import ListingsContext from '../../../../context/listings/listingsContext';
 
-export default function AdDescription() {
+export default function AdDescription({ prevStep, nextStep }) {
   const classes = useStyles();
   const [newAd, setNewAd] = useState('');
   const listingsContext = useContext(ListingsContext);
   const { updateNewListing, addLFM, newListing } = listingsContext;
 
-  useEffect(() => {
-    console.log('STATE', newListing);
-  }, [newListing]);
-
   const updateListingInProgress = e => {
     e.preventDefault();
     let obj = { ad: newAd };
     updateNewListing(obj);
-    console.log(newListing);
     addLFM({ ...newListing, ...obj });
+    nextStep();
   };
 
   return (
@@ -62,9 +58,19 @@ export default function AdDescription() {
             variant='contained'
             color='primary'
             className={classes.submit}
+            onClick={prevStep}
+          >
+            Back
+          </Button>
+          <Button
+            type='submit'
+            fullWidth
+            variant='contained'
+            color='primary'
+            className={classes.submit}
             onClick={updateListingInProgress}
           >
-            Next
+            Finish
           </Button>
         </form>
       </div>

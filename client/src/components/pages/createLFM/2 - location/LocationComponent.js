@@ -24,10 +24,10 @@ export default function lfgInstLocation({ prevStep, nextStep }) {
 
   const updateListingInProgress = e => {
     e.preventDefault();
-    let obj = { city: newCity, state: newState, zipcode: newZipcode }
+    let obj = { city: newCity, state: newState, zipcode: newZipcode };
     updateNewListing(obj);
     nextStep();
-  }
+  };
 
   return (
     <Fragment>
@@ -80,6 +80,16 @@ export default function lfgInstLocation({ prevStep, nextStep }) {
             </Grid>
             {/* </Grid> */}
           </Grid>
+          <Button
+            type='submit'
+            fullWidth
+            variant='contained'
+            color='primary'
+            className={classes.submit}
+            onClick={prevStep}
+          >
+            Back
+          </Button>
           <Button
             type='submit'
             fullWidth
