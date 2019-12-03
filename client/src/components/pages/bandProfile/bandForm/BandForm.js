@@ -10,10 +10,9 @@ export default function BandForm() {
 
   return (
     <form noValidate className={classes.form}>
-      <Grid container spacing={4}>
-        <Grid item xs={12} sm={6} md={12} alignContent='center'>
+      <Grid container spacing={4} alignContent='center'>
+        <Grid item xs={12} sm={6} md={12}>
           <TextField
-            item
             xs={12}
             sm={6}
             md={4}
@@ -27,7 +26,7 @@ export default function BandForm() {
             autoFocus
           />
         </Grid>
-        <Grid item xs={12} sm={6} md={4} alignContent='center'>
+        <Grid item xs={12} sm={6} md={4}>
           <TextField
             variant='standard'
             margin='normal'
@@ -39,7 +38,7 @@ export default function BandForm() {
             autoFocus
           />
         </Grid>
-        <Grid item xs={12} sm={6} md={4} alignContent='center'>
+        <Grid item xs={12} sm={6} md={4}>
           <TextField
             variant='standard'
             margin='normal'
@@ -51,7 +50,7 @@ export default function BandForm() {
             autoFocus
           />
         </Grid>
-        <Grid item xs={12} sm={6} md={4} alignContent='center'>
+        <Grid item xs={12} sm={6} md={4}>
           <TextField
             variant='standard'
             margin='normal'
@@ -63,7 +62,7 @@ export default function BandForm() {
             autoFocus
           />
         </Grid>
-        <Grid item xs={12} alignContent='left' className={classes.floatRight}>
+        <Grid item xs={12} className={classes.floatRight}>
           <Fab
             variant='extended'
             color='primary'

@@ -37,13 +37,18 @@ import instruments from '../../../../instruments/instruments';
 
 export default function BandMembers() {
   const classes = useStyles();
-  const [instrument, setInstrument] = useState();
+  const [instrument, setInstrument] = useState('Select an Instrument');
   const handleChange = event => {
     setInstrument(event.target.value);
   };
 
   return (
-    <Grid container component='main' className={classes.root}>
+    <Grid
+      container
+      component='main'
+      className={classes.root}
+      alignContent='center'
+    >
       <CssBaseline />
       <Grid item xs={12} sm={12} md={12} component={Paper} elevation={6} square>
         <Typography
@@ -54,10 +59,9 @@ export default function BandMembers() {
           Members
         </Typography>
         <form noValidate className={classes.form}>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6} md={4} alignContent='center'>
+          <Grid container spacing={2} alignContent='center'>
+            <Grid item xs={12} sm={6} md={4}>
               <TextField
-                item
                 xs={12}
                 sm={6}
                 md={4}
@@ -71,7 +75,7 @@ export default function BandMembers() {
                 autoFocus
               />
             </Grid>
-            <Grid item xs={12} sm={6} md={4} alignContent='center'>
+            <Grid item xs={12} sm={6} md={4}>
               <TextField
                 variant='outlined'
                 id='instruments'
@@ -87,6 +91,9 @@ export default function BandMembers() {
                 }}
                 margin='normal'
               >
+                <MenuItem key={-1} value={'Select an Instrument'} disabled>
+                  Select an Instrument
+                </MenuItem>
                 {instruments.map((option, index) => (
                   <MenuItem key={index} value={option}>
                     {option}
@@ -94,10 +101,9 @@ export default function BandMembers() {
                 ))}
               </TextField>
             </Grid>
-            <Grid item xs={12} sm={6} md={4} alignContent='center'>
+            <Grid item xs={12} sm={6} md={4}>
               <Fab
                 variant='extended'
-                color='success'
                 aria-label='add'
                 size='small'
                 className={classes.buttonSuccess}
@@ -115,7 +121,6 @@ export default function BandMembers() {
               </Fab>
               <Fab
                 variant='extended'
-                color='danger'
                 aria-label='add'
                 size='small'
                 className={classes.buttonDanger}
