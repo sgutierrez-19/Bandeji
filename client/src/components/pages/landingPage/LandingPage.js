@@ -20,7 +20,7 @@ export default function LandingPage() {
       alignContent='center'
     >
       <CssBaseline />
-      <Grid item xs={false} sm={7} md={9} className={classes.image}>
+      <Grid item xs={12} sm={7} md={9} className={classes.image}>
         <div className={classes.callToAction}>
           <Typography variant='h1' align='center' className={classes.text}>
             Connect
@@ -43,7 +43,16 @@ export default function LandingPage() {
         </div>
       </Grid>
 
-      <Grid item xs={12} sm={5} md={3} component={Paper} elevation={6} square>
+      <Grid
+        item
+        xs={12}
+        sm={5}
+        md={3}
+        component={Paper}
+        elevation={6}
+        square
+        className={classes.login}
+      >
         <Login />
       </Grid>
     </Grid>

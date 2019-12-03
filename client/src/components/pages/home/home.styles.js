@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(4)
   },
   title: {
-    paddingBottom: theme.spacing(4)
+    paddingBottom: theme.spacing(6)
   }
 }));
 
