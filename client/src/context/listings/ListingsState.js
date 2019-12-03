@@ -33,9 +33,9 @@ const ListingState = props => {
   const [state, dispatch] = useReducer(listingsReducer, initialState);
 
   // 1) Get LFG/LFM on homepage page load
-  const getGeneralListings = async () => {
+  const getGeneralListings = async zipcode => {
     try {
-      const res = await axios.get('/api/listings');
+      const res = await axios.get(`/api/listings/${zipcode}`);
 
       dispatch({
         type: LOAD_GENERAL_LISTINGS,

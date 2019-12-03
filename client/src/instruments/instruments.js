@@ -20,4 +20,4 @@ const instruments = [
   'Viola'
 ];
 
-module.exports = instruments;
+export default instruments;

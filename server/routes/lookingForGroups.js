@@ -63,16 +63,16 @@ router.post('/api/listings/lfg/create', async (req, res) => {
 // @desc -  Upon load of discovery page, load lfg/lfm based off usermember location - hard coded for now....need to figure out geolocation/mysql
 // @route - api/lfg/view(WILL NEED TO BE CHANGED)
 // @access - private
-router.get('/api/listings', async (req, res) => {
+router.get('/api/listings/:zipcode', async (req, res) => {
   try {
     const loadlfgDiscovery = await db.lfg.findAll({
       where: {
-        zipcode: req.body.zipcode
+        zipcode: req.params.zipcode
       }
     });
     const loadlfmDiscovery = await db.lfm.findAll({
       where: {
-        zipcode: req.body.zipcode
+        zipcode: req.params.zipcode
       }
     });
     res.json({ loadlfgDiscovery, loadlfmDiscovery });
