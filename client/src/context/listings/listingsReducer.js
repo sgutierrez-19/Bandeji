@@ -9,7 +9,9 @@ import {
   DELETE_LFG,
   DELETE_LFM,
   LISTINGS_ERROR,
-  LISTINGS_CLEAR_ERROR
+  LISTINGS_CLEAR_ERROR,
+  SET_CURRENT_LISTING,
+  CLEAR_CURRENT_LISTING
 } from '../types';
 
 export default (state, action) => {
@@ -71,6 +73,16 @@ export default (state, action) => {
         ...state,
         memberListings: action.payload,
         loading: false
+      };
+    case SET_CURRENT_LISTING:
+      return {
+        ...state,
+        currentListing: action.payload
+      };
+    case CLEAR_CURRENT_LISTING:
+      return {
+        ...state,
+        currentListing: null
       };
     case LISTINGS_ERROR:
       return {

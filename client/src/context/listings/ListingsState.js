@@ -13,12 +13,15 @@ import {
   DELETE_LFG,
   DELETE_LFM,
   LISTINGS_ERROR,
-  LISTINGS_CLEAR_ERROR
+  LISTINGS_CLEAR_ERROR,
+  SET_CURRENT_LISTING,
+  CLEAR_CURRENT_LISTING
 } from '../types';
 
 const ListingState = props => {
   const initialState = {
     // nulled?
+    currentListing: null,
     generalListings: null,
     searchListings: null,
     memberListings: null,
@@ -183,6 +186,19 @@ const ListingState = props => {
   const listingsClearError = async () =>
     dispatch({ type: LISTINGS_CLEAR_ERROR });
 
+  // Set Current Listing
+  const setCurrent = listing => {
+    dispatch({
+      type: SET_CURRENT_LISTING,
+      payload: listing
+    });
+  };
+
+  // Clear Current Listing
+  const clearCurrent = () => {
+    dispatch({ type: CLEAR_CURRENT_LISTING });
+  };
+
   // // Update LFG
   // const updateLFG = async lfg => {
   //   // const config = {
@@ -223,6 +239,8 @@ const ListingState = props => {
         addLFM,
         deleteLFG,
         deleteLFM,
+        setCurrent,
+        clearCurrent,
         listingsClearError
       }}
     >

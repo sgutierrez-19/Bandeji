@@ -14,7 +14,11 @@ const useStyles = makeStyles(theme => ({
         : theme.palette.grey[50],
     backgroundSize: 'cover',
     backgroundPosition: 'center',
-    alignContent: 'center'
+    alignContent: 'center',
+    height: '100vh'
+  },
+  login: {
+    height: '100vh'
   },
   text: {
     color: 'white',

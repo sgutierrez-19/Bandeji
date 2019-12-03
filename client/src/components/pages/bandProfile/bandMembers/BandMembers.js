@@ -12,27 +12,28 @@ import Typography from '@material-ui/core/Typography';
 // import Fab from '@material-ui/core/Fab';
 
 import { useStyles } from './bandMembers.style';
-const instruments = [
-  'Accordion',
-  'Banjo',
-  'Cello',
-  'Clarinet',
-  'Drums',
-  'Flute',
-  'Guitar',
-  'Guitar-Bass',
-  'Keyboard',
-  'Obo',
-  'Piano',
-  'Trumpet',
-  'Voice-Any',
-  'Voice-Soprano',
-  'Voice-Alto',
-  'Voice-Tenor',
-  'Voice-Bass',
-  'Violin',
-  'Viola'
-];
+import instruments from '../../../../instruments/instruments';
+// const instruments = [
+//   'Accordion',
+//   'Banjo',
+//   'Cello',
+//   'Clarinet',
+//   'Drums',
+//   'Flute',
+//   'Guitar',
+//   'Guitar-Bass',
+//   'Keyboard',
+//   'Obo',
+//   'Piano',
+//   'Trumpet',
+//   'Voice-Any',
+//   'Voice-Soprano',
+//   'Voice-Alto',
+//   'Voice-Tenor',
+//   'Voice-Bass',
+//   'Violin',
+//   'Viola'
+// ];
 
 export default function BandMembers() {
   const classes = useStyles();
