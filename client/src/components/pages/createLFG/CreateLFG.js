@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-
 import DistanceComponent from './1-distance/DistanceComponent';
 import InstAndLocationComponent from './2-instandlocation/InstAndLocationComponent';
 import YoutubeComponent from './3-youtube/YoutubeComponent';
