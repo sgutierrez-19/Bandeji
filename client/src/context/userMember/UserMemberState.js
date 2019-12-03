@@ -2,7 +2,7 @@ import React, { useReducer } from 'react';
 import axios from 'axios';
 import UserMemberContext from './userMemberContext';
 import userMemberReducer from './userMemberReducer';
-import { TYPE, BAND_ERROR } from '../types';
+import { GET_USERMEMBER, UPDATE_USERMEMBER, BAND_ERROR, TYPE } from '../types';
 
 const UserMemberState = props => {
   const initialState = {
@@ -78,7 +78,9 @@ const UserMemberState = props => {
       'Voice-Bass',
       'Violin',
       'Viola'
-    ]
+    ],
+    userMemberInfo: null,
+    loading: true
   };
 
   const [state, dispatch] = useReducer(userMemberReducer, initialState);
@@ -86,10 +88,10 @@ const UserMemberState = props => {
   // Get UserMember
   const getUserMember = async () => {
     try {
-      const res = await axios.get('...route');
+      const res = await axios.get('/api/member/usermember');
 
       dispatch({
-        type: TYPE,
+        type: GET_USERMEMBER,
         payload: res.data
       });
     } catch (err) {
@@ -118,12 +120,12 @@ const UserMemberState = props => {
   };
 
   // Update UserMember
-  const updateUserMember = async userMember => {
+  const updateUserMember = async () => {
     try {
-      const res = await axios.put(`route.../${userMember.id}`);
+      const res = await axios.put(`/api/member/updateusermember`);
 
       dispatch({
-        type: TYPE,
+        type: UPDATE_USERMEMBER,
         payload: res.data
       });
     } catch (err) {
@@ -138,9 +140,10 @@ const UserMemberState = props => {
   return (
     <UserMemberContext.Provider
       value={{
-        key: state.key,
+        userMemberInfo: state.userMemberInfo,
         states: state.states,
         instruments: state.instruments,
+        loading: state.loading,
         addUserMember,
         getUserMember,
         updateUserMember

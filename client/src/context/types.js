@@ -16,6 +16,10 @@ export const SEARCH_ERROR = 'SEARCH_ERROR';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 export const UPDATE_NEW_USERMEMBER = 'UPDATE_NEW_USERMEMBER';
 
+//user types
+export const GET_USERMEMBER = 'GET_USERMEMBER';
+export const UPDATE_USERMEMBER = 'UPDATE_USERMEMBER';
+
 //listings types
 export const LOAD_GENERAL_LISTINGS = 'LOAD_GENERAL_LISTINGS';
 export const SEARCH_LFG = 'SEARCH_LFG';
