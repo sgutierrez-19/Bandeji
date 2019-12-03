@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 // import clsx from 'clsx';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Box from '@material-ui/core/Box';
@@ -38,7 +38,17 @@ function Copyright() {
 
 export default function Home() {
   const listingsContext = useContext(ListingsContext);
-  const { currentListing } = listingsContext;
+  const {
+    currentListing,
+    generalListings,
+    getGeneralListings
+  } = listingsContext;
+
+  useEffect(() => {
+    getGeneralListings();
+    // eslint-disable-next-line
+  }, []);
+
   const classes = useStyles();
 
   return (
@@ -55,7 +65,7 @@ export default function Home() {
             {currentListing ? (
               <Grid item xs={12} md={6} lg={8}>
                 <Paper>
-                  <ListingsDetail></ListingsDetail>
+                  <ListingsDetail listing={currentListing} />
                 </Paper>
               </Grid>
             ) : (
@@ -78,7 +88,7 @@ export default function Home() {
                   <Grid container spacing={2}>
                     <Grid item xs={12}>
                       <Paper className={classes.listings}>
-                        <Listings />
+                        <Listings listings={generalListings} />
                       </Paper>
                     </Grid>
                   </Grid>
