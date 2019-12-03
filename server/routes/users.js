@@ -62,9 +62,9 @@ router.post('/api/signup', async (req, res) => {
       const user = await db.User.create({
         email: req.body.email,
         password: req.body.password,
-        userName: req.body.userName
+        userName: req.body.username
       });
-      if (!req.body.memberName) {
+      if (!req.body.name) {
         return res.status(500).send('The name field cannot be blank');
       } else if (!req.body.city) {
         return res.status(500).send('The city field cannot be blank');
@@ -76,7 +76,7 @@ router.post('/api/signup', async (req, res) => {
         return res.status(500).send('The instrument field cannot be blank');
       }
       const member = await db.Member.create({
-        memberName: req.body.memberName,
+        memberName: req.body.name,
         city: req.body.city,
         state: req.body.state,
         zipcode: req.body.zipcode,
@@ -95,15 +95,15 @@ router.post('/api/signup', async (req, res) => {
       const user = await db.User.create({
         email: req.body.email,
         password: req.body.password,
-        userName: req.body.userName
+        userName: req.body.username
       });
-      if (!req.body.memberName) {
+      if (!req.body.name) {
         return res.status(500).send('The name field cannot be blank');
-      } else if (!req.body.bandCity || !req.body.memberCity) {
+      } else if (!req.body.bandCity || !req.body.city) {
         return res.status(500).send('The city field cannot be blank');
-      } else if (!req.body.bandState || !req.body.memberState) {
+      } else if (!req.body.bandState || !req.body.state) {
         return res.status(500).send('The state field cannot be blank');
-      } else if (!req.body.bandZipcode || !req.body.memberZipcode) {
+      } else if (!req.body.bandZipcode || !req.body.zipcode) {
         return res.status(500).send('The zip code field cannot be blank');
       } else if (!req.body.instrument) {
         return res.status(500).send('The instrument field cannot be blank');
@@ -121,13 +121,13 @@ router.post('/api/signup', async (req, res) => {
         UserId: user.id
       });
       const member = await db.Member.create({
-        memberName: req.body.memberName,
-        city: req.body.memberCity,
-        state: req.body.memberState,
-        zipcode: req.body.memberZipcode,
-        latitude: req.body.memberLatitude,
-        longitude: req.body.memberLongitude,
-        profilePicture: req.body.memberProfilePicture,
+        memberName: req.body.name,
+        city: req.body.city,
+        state: req.body.state,
+        zipcode: req.body.zipcode,
+        latitude: req.body.latitude,
+        longitude: req.body.longitude,
+        profilePicture: req.body.profilePicture,
         createdByUserId: user.id,
         UserId: user.id
       });
@@ -143,7 +143,8 @@ router.post('/api/signup', async (req, res) => {
       res.redirect(307, '/api/login');
     }
   } catch (error) {
-    return res.status(401).json(err);
+    console.log(error);
+    return res.status(401).json(error);
   }
 });
 

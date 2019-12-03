@@ -14,6 +14,7 @@ export const LFG_ERROR = 'LFG_ERROR';
 export const LFM_ERROR = 'LFM_ERROR';
 export const SEARCH_ERROR = 'SEARCH_ERROR';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
+export const UPDATE_NEW_USERMEMBER = 'UPDATE_NEW_USERMEMBER';
 
 //listings types
 export const LOAD_GENERAL_LISTINGS = 'LOAD_GENERAL_LISTINGS';
