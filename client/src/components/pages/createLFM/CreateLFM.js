@@ -32,7 +32,7 @@ export default function SignUp() {
           <AdDescriptionComponent nextStep={nextStep} prevStep={prevStep} />
         );
       case 5:
-        console.log('yay');
+        history.push('/');
         break;
       default:
         history.push('/');

@@ -10,7 +10,6 @@ import { useStyles } from '../createLFG.style';
 import { Fragment, useState, useContext, useEffect } from 'react';
 import ListingsContext from '../../../../context/listings/listingsContext';
 
-
 export default function youtube({ prevStep, nextStep }) {
   const classes = useStyles();
   const [newYoutube, setNewYoutube] = useState('');
@@ -23,10 +22,10 @@ export default function youtube({ prevStep, nextStep }) {
 
   const updateListingInProgress = e => {
     e.preventDefault();
-    let obj = { youtubeLink: newYoutube }
+    let obj = { youtubeLink: newYoutube };
     updateNewListing(obj);
     nextStep();
-  }
+  };
 
   return (
     <Fragment>
@@ -55,6 +54,16 @@ export default function youtube({ prevStep, nextStep }) {
               </Grid>
             </Grid>
           </Grid>
+          <Button
+            type='submit'
+            fullWidth
+            variant='contained'
+            color='primary'
+            className={classes.submit}
+            onClick={prevStep}
+          >
+            Back
+          </Button>
           <Button
             type='submit'
             fullWidth
