@@ -82,7 +82,7 @@ const BandMemberState = props => {
       const res = await axios.put(`/api/band/update`, bandData);
       dispatch({
         type: UPDATE_BAND_MEMBER,
-        payload: res.data
+        payload: bandData
       });
     } catch (err) {
       console.log(err); // find out what error message comes from err

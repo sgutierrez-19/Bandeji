@@ -3,6 +3,7 @@ import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Fab from '@material-ui/core/Fab';
+import Typography from '@material-ui/core/Typography';
 import BandMemberContext from '../../../../context/bandMember/bandMemberContext';
 import { useStyles } from './bandForm.style';
 
@@ -32,6 +33,9 @@ export default function BandForm({ refreshPage }) {
     <form noValidate className={classes.form}>
       <Grid container spacing={4} alignContent='center'>
         <CssBaseline />
+        <Typography variant='h3' align='center'>
+          Update your band
+        </Typography>
         <Grid item xs={12} sm={6} md={12}>
           <TextField
             xs={12}
