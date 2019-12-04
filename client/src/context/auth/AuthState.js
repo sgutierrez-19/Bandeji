@@ -18,7 +18,7 @@ import {
 const AuthState = props => {
   const initialState = {
     userData: null,
-    isAuthenticated: null,
+    isAuthenticated: false,
     createNewUserMember: null,
     loading: true,
     user: null,
@@ -111,9 +111,7 @@ const AuthState = props => {
     };
 
     try {
-      console.log('formData', formData);
       const res = await axios.post('/api/login', formData, config);
-      console.log('response -', res);
       dispatch({
         type: LOGIN_SUCCESS,
         payload: res.data
@@ -141,7 +139,12 @@ const AuthState = props => {
   };
 
   // Logout
-  const logout = () => dispatch({ type: LOGOUT });
+  const logout = async () => {
+    await axios.get('/logout');
+    try {
+      dispatch({ type: LOGOUT });
+    } catch (err) {}
+  };
 
   // Clear Errors
   const clearErrors = () => dispatch({ type: CLEAR_ERRORS });
@@ -149,7 +152,7 @@ const AuthState = props => {
   return (
     <AuthContext.Provider
       value={{
-        token: state.token,
+        userData: state.userData,
         isAuthenticated: state.isAuthenticated,
         createNewUserMember: state.createNewUserMember,
         loading: state.loading,

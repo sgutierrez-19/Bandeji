@@ -41,19 +41,12 @@ export default function Home() {
   const {
     currentListing,
     generalListings,
+    searchListings,
     getGeneralListings
   } = listingsContext;
 
   useEffect(() => {
     getGeneralListings('92614');
-    console.log(
-      'Home Component - currentListing:',
-      currentListing && currentListing
-    );
-    console.log(
-      'Home Component - generalListing:',
-      generalListings && generalListings
-    );
   }, [currentListing]);
 
   const classes = useStyles();
@@ -95,7 +88,11 @@ export default function Home() {
                   <Grid container spacing={2}>
                     <Grid item xs={12}>
                       <Paper className={classes.listings}>
-                        <Listings listings={generalListings} />
+                        <Listings
+                          listings={
+                            searchListings ? searchListings : generalListings
+                          }
+                        />
                       </Paper>
                     </Grid>
                   </Grid>
