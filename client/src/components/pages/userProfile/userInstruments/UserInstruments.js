@@ -21,7 +21,7 @@ export default function BandMembers({ refreshPage }) {
     instruments,
     updateUserMemberInstrument
   } = userMemberContext;
-  console.log(userMemberInfo);
+  console.log('userMemberInfo:', userMemberInfo);
 
   const updateInst = id => async e => {
     e.preventDefault();
@@ -45,7 +45,7 @@ export default function BandMembers({ refreshPage }) {
         >
           Members
         </Typography>
-        {userMemberInfo.MemberInstruments.map(instrument => {
+        {userMemberInfo.userMember.MemberInstruments.map(instrument => {
           return (
             <form
               key={instrument.id}
