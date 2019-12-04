@@ -122,7 +122,7 @@ const UserMemberState = props => {
   // Update UserMember
   const updateUserMember = async data => {
     try {
-      const res = await axios.put(`/api/member/updateusermember`, data);
+      await axios.put(`/api/member/updateusermember`, data);
       console.log('updateUserMember data: ', data);
       dispatch({
         type: UPDATE_USERMEMBER,

@@ -50,13 +50,6 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(1),
     width: '100%'
   },
-  paper: {
-    margin: theme.spacing(8, 0),
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center'
-  },
   form: {
     // Fix IE 11 issue.
     margin: theme.spacing(2)

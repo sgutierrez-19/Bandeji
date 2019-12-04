@@ -3,7 +3,6 @@ import axios from 'axios';
 import BandMemberContext from './bandMemberContext';
 import bandMemberReducer from './bandMemberReducer';
 import {
-  SIGNUP_BAND_MEMBER,
   GET_BAND_MEMBER,
   UPDATE_BAND_MEMBER,
   BAND_MEMBER_ERROR,
@@ -57,15 +56,15 @@ const BandMemberState = props => {
   };
 
   // Update Band Member
-  const updateBandMember = async (id, bandMember) => {
+  const updateBandMember = async (memberid, instrumentid, bandMember) => {
     try {
-      const res = await axios.put(
-        `/api/member/updatebandmember/${id}`,
+      await axios.put(
+        `/api/member/updatebandmember/${memberid}/${instrumentid}`,
         bandMember
       );
       dispatch({
         type: UPDATE_BAND_MEMBER,
-        payload: res.data
+        payload: bandMember
       });
     } catch (err) {
       console.log(err); // find out what error message comes from err
@@ -79,30 +78,10 @@ const BandMemberState = props => {
   // Update Band Member
   const updateBand = async bandData => {
     try {
-      const res = await axios.put(`/api/band/update`, bandData);
+      await axios.put(`/api/band/update`, bandData);
       dispatch({
         type: UPDATE_BAND_MEMBER,
         payload: bandData
-      });
-    } catch (err) {
-      console.log(err); // find out what error message comes from err
-      dispatch({
-        type: BAND_MEMBER_ERROR,
-        payload: err.response.msg
-      });
-    }
-  };
-
-  // Update Band Member
-  const updateBandMemberInstrument = async (id, instrument) => {
-    try {
-      const res = await axios.put(
-        `/api/member/updatebandmemberinstrument/${id}`,
-        instrument
-      );
-      dispatch({
-        type: UPDATE_BAND_MEMBER,
-        payload: res.data
       });
     } catch (err) {
       console.log(err); // find out what error message comes from err
@@ -128,7 +107,6 @@ const BandMemberState = props => {
         getBandMember,
         updateBandMember,
         updateBand,
-        updateBandMemberInstrument,
         clearBandMemberError
       }}
     >
