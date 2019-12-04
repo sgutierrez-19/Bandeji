@@ -46,31 +46,20 @@ router.get('/api/member/listings', async (req, res) => {
 // @access - private
 router.put('/api/member/updateusermember', async (req, res) => {
   try {
-    if (!req.body.memberName) {
-      return res.status(500).send('The name field cannot be blank');
-    } else if (!req.body.city) {
-      return res.status(500).send('The city field cannot be blank');
-    } else if (!req.body.state) {
-      return res.status(500).send('The state field cannot be blank');
-    } else if (!req.body.zipcode) {
-      return res.status(500).send('The zip code field cannot be blank');
-    }
-    const member = await db.Member.update(
-      {
-        memberName: req.body.memberName,
-        city: req.body.city,
-        state: req.body.state,
-        zipcode: req.body.zipcode,
-        latitude: req.body.latitude,
-        longitude: req.body.longitude,
-        profilePicture: req.body.profilePicture
-      },
-      {
-        where: {
-          UserId: req.user.id
-        }
+    const { memberName, city, state, zipcode, profilePicture } = req.body;
+    const toUpdate = {};
+    if (memberName) toUpdate.memberName = memberName;
+    if (city) toUpdate.city = city;
+    if (state) toUpdate.state = state;
+    if (zipcode) toUpdate.zipcode = zipcode;
+    if (profilePicture) toUpdate.profilePicture = profilePicture;
+    console.log(toUpdate);
+
+    const member = await db.Member.update(toUpdate, {
+      where: {
+        UserId: req.user.id
       }
-    );
+    });
     res.json(member);
   } catch (error) {
     console.log(error.message);

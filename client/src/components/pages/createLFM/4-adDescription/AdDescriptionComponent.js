@@ -43,6 +43,8 @@ export default function AdDescription({ prevStep, nextStep }) {
                   variant='outlined'
                   required
                   fullWidth
+                  multiline
+                  rows='3'
                   id='ad'
                   label='Ad Description'
                   name='ad'

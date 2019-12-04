@@ -1,14 +1,23 @@
-import { TYPE } from '../types';
+import { GET_USERMEMBER, UPDATE_USERMEMBER } from '../types';
 
 export default (state, action) => {
   switch (action.type) {
-    case TYPE:
+    case GET_USERMEMBER:
       return {
         ...state,
-        key: action.payload,
+        userMemberInfo: action.payload,
         loading: false
       };
-
+    case UPDATE_USERMEMBER:
+      const userMemberInfo = {
+        ...state.userMemberInfo,
+        ...action.payload
+      };
+      return {
+        ...state,
+        userMemberInfo,
+        loading: false
+      };
     default:
       return state;
   }
