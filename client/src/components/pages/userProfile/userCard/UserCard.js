@@ -18,7 +18,7 @@ const useStyles = makeStyles({
 export default function UserCard() {
   const classes = useStyles();
   const userMemberContext = useContext(UserMemberContext);
-  const { getUserMember, userMemberInfo } = userMemberContext;
+  const { userMemberInfo } = userMemberContext;
 
   return (
     <Card className={classes.card}>
