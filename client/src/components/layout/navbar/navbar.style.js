@@ -1,12 +1,14 @@
 import { fade, makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
+  appBar: {
+    margin: '0 2%'
+  },
   grow: {
     flexGrow: 1
   },
   menuButton: {
     marginRight: theme.spacing(2),
-
     color: 'white',
     '&:hover': {
       color: 'lightgray',
@@ -14,10 +16,7 @@ const useStyles = makeStyles(theme => ({
     }
   },
   title: {
-    display: 'none',
-    [theme.breakpoints.up('sm')]: {
-      display: 'block'
-    },
+    // marginLeft: '1rem',
     color: 'white',
     '&:hover': {
       color: 'lightgray',

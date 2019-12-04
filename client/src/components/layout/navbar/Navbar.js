@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 // import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -6,18 +6,24 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 // import InputBase from '@material-ui/core/InputBase';
-import Badge from '@material-ui/core/Badge';
+// import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import MenuIcon from '@material-ui/icons/Menu';
 // import SearchIcon from '@material-ui/icons/Search';
-import AccountCircle from '@material-ui/icons/AccountCircle';
+// import AccountCircle from '@material-ui/icons/AccountCircle';
 // import MailIcon from '@material-ui/icons/Mail';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import MoreIcon from '@material-ui/icons/MoreVert';
+// import NotificationsIcon from '@material-ui/icons/Notifications';
+// import MoreIcon from '@material-ui/icons/MoreVert';
 import { useStyles } from './navbar.style';
 
+import AuthContext from '../../../context/auth/authContext';
+
 export default function Navbar() {
+  const authContext = useContext(AuthContext);
+  const { userData, logout, isAuthenticated } = authContext;
+  console.log(userData && userData.inBand);
+
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -25,9 +31,9 @@ export default function Navbar() {
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-  const handleProfileMenuOpen = event => {
-    setAnchorEl(event.currentTarget);
-  };
+  // const handleProfileMenuOpen = event => {
+  //   setAnchorEl(event.currentTarget);
+  // };
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
@@ -69,52 +75,71 @@ export default function Navbar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <IconButton aria-label='show 4 new mails' color='inherit'>
-          <Badge badgeContent={4} color='secondary'>
-            <Link to='/createlfm'>Create Listing</Link>
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton aria-label='show 11 new notifications' color='inherit'>
-          <Badge badgeContent={11} color='secondary'>
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          aria-label='account of current user'
-          aria-controls='primary-search-account-menu'
-          aria-haspopup='true'
-          color='inherit'
+      {isAuthenticated && (
+        <Link
+          to={userData && userData.inBand ? '/band/profile' : '/userprofile'}
         >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
+          <MenuItem>
+            <IconButton color='inherit'>
+              {/* <Typography
+                className={classes.title}
+                variant='subtitle1'
+                noWrap
+              ></Typography> */}
+            </IconButton>
+
+            <p>Profile</p>
+          </MenuItem>
+        </Link>
+      )}
+      {!isAuthenticated && (
+        <Link to='/signup'>
+          <MenuItem>
+            <IconButton color='inherit'>
+              {/* <Typography
+                className={classes.title}
+                variant='subtitle1'
+                noWrap
+              ></Typography> */}
+            </IconButton>
+            <p>Signup</p>
+          </MenuItem>
+        </Link>
+      )}
+      {isAuthenticated ? (
+        <Link to='' onClick={() => logout()}>
+          <MenuItem>
+            <IconButton color='inherit'>
+              {/* <Typography className={classes.title} variant='subtitle1' noWrap>
+                Logout
+              </Typography> */}
+            </IconButton>
+            <p>Logout</p>
+          </MenuItem>
+        </Link>
+      ) : (
+        <Link to='/login'>
+          <MenuItem>
+            <IconButton color='inherit'>
+              {/* <Typography className={classes.title} variant='subtitle1' noWrap>
+                Login
+              </Typography> */}
+            </IconButton>
+            <p>Login</p>
+          </MenuItem>
+        </Link>
+      )}
     </Menu>
   );
 
   return (
     <div className={classes.grow}>
       <AppBar position='static'>
-        <Toolbar>
-          <IconButton
-            edge='start'
-            className={classes.menuButton}
-            color='inherit'
-            aria-label='open drawer'
-          >
-            <MenuIcon />
-          </IconButton>
+        <Toolbar className={classes.appBar}>
           <Typography className={classes.title} variant='h5' noWrap>
             <Link to='/' className={classes.title}>
               {' '}
-              Pick Up Group
+              Band-it
             </Link>
           </Typography>
           {/* <div className={classes.search}>
@@ -132,21 +157,50 @@ export default function Navbar() {
           </div> */}
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
+            {isAuthenticated && (
+              <Typography className={classes.title} variant='subtitle1' noWrap>
+                <Link
+                  to={
+                    userData && userData.inBand
+                      ? '/band/profile'
+                      : '/userprofile'
+                  }
+                  className={classes.menuButton}
+                >
+                  Profile
+                </Link>
+              </Typography>
+            )}
+            {isAuthenticated && (
+              <Typography className={classes.title} variant='subtitle1' noWrap>
+                <Link to='/createlfm' className={classes.menuButton}>
+                  Create Listing
+                </Link>
+              </Typography>
+            )}
+
             <Typography className={classes.title} variant='subtitle1' noWrap>
-              <Link to='/band/profile' className={classes.menuButton}>
-                Profile
-              </Link>
+              {isAuthenticated ? (
+                <Link
+                  to=''
+                  onClick={() => logout()}
+                  className={classes.menuButton}
+                >
+                  Logout
+                </Link>
+              ) : (
+                <Link to='/login' className={classes.menuButton}>
+                  Login
+                </Link>
+              )}
             </Typography>
-            <Typography className={classes.title} variant='subtitle1' noWrap>
-              <Link to='/createlfm' className={classes.menuButton}>
-                Create Listing
-              </Link>
-            </Typography>
-            <Typography className={classes.title} variant='subtitle1' noWrap>
-              <Link to='/login' className={classes.menuButton}>
-                Logout
-              </Link>
-            </Typography>
+            {!isAuthenticated && (
+              <Typography className={classes.title} variant='subtitle1' noWrap>
+                <Link to='/signup' className={classes.menuButton}>
+                  Signup
+                </Link>
+              </Typography>
+            )}
           </div>
           <div className={classes.sectionMobile}>
             <IconButton
@@ -156,7 +210,7 @@ export default function Navbar() {
               onClick={handleMobileMenuOpen}
               color='inherit'
             >
-              <MoreIcon />
+              <MenuIcon />
             </IconButton>
           </div>
         </Toolbar>

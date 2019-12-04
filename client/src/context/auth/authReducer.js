@@ -25,9 +25,10 @@ export default (state, action) => {
         loading: false
       };
     case LOGIN_SUCCESS:
+      // console.log(action.payload);
       return {
         ...state,
-        userMember: action.payload,
+        userData: action.payload,
         isAuthenticated: true,
         loading: false
       };
@@ -45,7 +46,6 @@ export default (state, action) => {
         loading: false
       };
     case LOGOUT:
-      localStorage.removeItem('token');
       return {
         ...state,
         token: null,

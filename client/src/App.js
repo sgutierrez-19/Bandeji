@@ -5,7 +5,7 @@ import Navbar from './components/layout/navbar/Navbar';
 import Alerts from './components/layout/alerts/Alerts';
 // Pages
 import Home from './components/pages/home/Home';
-import Profile from './components/pages/profile/Profile';
+// import Profile from './components/pages/profile/Profile';
 import About from './components/pages/about/About';
 import Signup from './components/pages/signup/CreateSignup';
 import LandingPage from './components/pages/landingPage/LandingPage';
@@ -14,7 +14,7 @@ import Page404 from './components/pages/404/404';
 import CreateLFG from './components/pages/createLFG/CreateLFG';
 import CreateLFM from './components/pages/createLFM/CreateLFM';
 import UserProfile from './components/pages/userProfile/UserProfile';
-// import PrivateRoute from './components/routing/privateRoute/PrivateRoute';
+import PrivateRoute from './components/routing/privateRoute/PrivateRoute';
 
 // State
 import AuthState from './context/auth/AuthState';
@@ -39,16 +39,24 @@ const App = () => {
                     <Alerts />
                     <Switch>
                       {/* private routes - change once ready to make private */}
-                      <Route exact path='/' component={Home} />
-                      <Route exact path='/profile' component={Profile} />
-                      <Route
+                      <PrivateRoute exact path='/' component={Home} />
+                      {/* <Route exact path='/profile' component={Profile} /> */}
+                      <PrivateRoute
                         exact
                         path='/band/profile'
                         component={BandProfile}
                       />
-                      <Route exact path='/createlfg' component={CreateLFG} />
-                      <Route exact path='/createlfm' component={CreateLFM} />
-                      <Route
+                      <PrivateRoute
+                        exact
+                        path='/createlfg'
+                        component={CreateLFG}
+                      />
+                      <PrivateRoute
+                        exact
+                        path='/createlfm'
+                        component={CreateLFM}
+                      />
+                      <PrivateRoute
                         exact
                         path='/userprofile'
                         component={UserProfile}
