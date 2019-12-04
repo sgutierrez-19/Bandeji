@@ -25,7 +25,8 @@ const useStyles = makeStyles(theme => ({
     flex: '1 0 auto'
   },
   cover: {
-    width: 151
+    width: '150px',
+    height: '150px'
   },
   view: {
     margin: '0'
