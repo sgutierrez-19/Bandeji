@@ -1,20 +1,12 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-// import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-// import InputBase from '@material-ui/core/InputBase';
-// import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import MenuIcon from '@material-ui/icons/Menu';
-// import SearchIcon from '@material-ui/icons/Search';
-// import AccountCircle from '@material-ui/icons/AccountCircle';
-// import MailIcon from '@material-ui/icons/Mail';
-// import NotificationsIcon from '@material-ui/icons/Notifications';
-// import MoreIcon from '@material-ui/icons/MoreVert';
 import { useStyles } from './navbar.style';
 
 import AuthContext from '../../../context/auth/authContext';
@@ -80,14 +72,7 @@ export default function Navbar() {
           to={userData && userData.inBand ? '/band/profile' : '/userprofile'}
         >
           <MenuItem>
-            <IconButton color='inherit'>
-              {/* <Typography
-                className={classes.title}
-                variant='subtitle1'
-                noWrap
-              ></Typography> */}
-            </IconButton>
-
+            <IconButton color='inherit'></IconButton>
             <p>Profile</p>
           </MenuItem>
         </Link>
@@ -95,13 +80,7 @@ export default function Navbar() {
       {!isAuthenticated && (
         <Link to='/signup'>
           <MenuItem>
-            <IconButton color='inherit'>
-              {/* <Typography
-                className={classes.title}
-                variant='subtitle1'
-                noWrap
-              ></Typography> */}
-            </IconButton>
+            <IconButton color='inherit'></IconButton>
             <p>Signup</p>
           </MenuItem>
         </Link>
@@ -109,22 +88,14 @@ export default function Navbar() {
       {isAuthenticated ? (
         <Link to='' onClick={() => logout()}>
           <MenuItem>
-            <IconButton color='inherit'>
-              {/* <Typography className={classes.title} variant='subtitle1' noWrap>
-                Logout
-              </Typography> */}
-            </IconButton>
+            <IconButton color='inherit'></IconButton>
             <p>Logout</p>
           </MenuItem>
         </Link>
       ) : (
         <Link to='/login'>
           <MenuItem>
-            <IconButton color='inherit'>
-              {/* <Typography className={classes.title} variant='subtitle1' noWrap>
-                Login
-              </Typography> */}
-            </IconButton>
+            <IconButton color='inherit'></IconButton>
             <p>Login</p>
           </MenuItem>
         </Link>

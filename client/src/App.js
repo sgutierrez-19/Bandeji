@@ -40,7 +40,6 @@ const App = () => {
                     <Switch>
                       {/* private routes - change once ready to make private */}
                       <PrivateRoute exact path='/' component={Home} />
-                      {/* <Route exact path='/profile' component={Profile} /> */}
                       <PrivateRoute
                         exact
                         path='/band/profile'

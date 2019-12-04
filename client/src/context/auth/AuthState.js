@@ -111,9 +111,7 @@ const AuthState = props => {
     };
 
     try {
-      // console.log('formData', formData);
       const res = await axios.post('/api/login', formData, config);
-      // console.log('response -', res);
       dispatch({
         type: LOGIN_SUCCESS,
         payload: res.data
@@ -142,8 +140,7 @@ const AuthState = props => {
 
   // Logout
   const logout = async () => {
-    const res = await axios.get('/logout');
-    console.log('AuthState res - ', res);
+    await axios.get('/logout');
     try {
       dispatch({ type: LOGOUT });
     } catch (err) {}
