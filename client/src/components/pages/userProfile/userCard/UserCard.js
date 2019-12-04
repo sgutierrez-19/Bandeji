@@ -27,16 +27,16 @@ export default function UserCard() {
           component='img'
           alt='Contemplative Reptile'
           height='300'
-          src={userMemberInfo.userMember.profilePicture}
+          src={userMemberInfo.profilePicture}
           title='User Picture'
         />
         <CardContent>
           <Typography gutterBottom variant='h5' component='h2'>
-            {userMemberInfo.userMember.memberName}
+            {userMemberInfo.memberName}
           </Typography>
           <Typography variant='body2' color='textSecondary' component='p'>
-            {userMemberInfo.userMember.city}, {userMemberInfo.userMember.state},{' '}
-            {userMemberInfo.userMember.zipcode}
+            {userMemberInfo.city}, {userMemberInfo.state},{' '}
+            {userMemberInfo.zipcode}
           </Typography>
         </CardContent>
       </CardActionArea>

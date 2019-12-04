@@ -32,7 +32,7 @@ export default function AdDescription({ prevStep, nextStep }) {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component='h1' variant='h2'>
-          Tell everyone about the bank and what you are looking for:
+          Tell everyone about your band and what you are looking for:
         </Typography>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
