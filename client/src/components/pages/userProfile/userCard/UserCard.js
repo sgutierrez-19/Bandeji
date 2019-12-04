@@ -7,7 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 // import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import BandMemberContext from '../../../../context/bandMember/bandMemberContext';
+import UserMemberContext from '../../../../context/userMember/userMemberContext';
 
 const useStyles = makeStyles({
   card: {
@@ -15,10 +15,10 @@ const useStyles = makeStyles({
   }
 });
 
-export default function BandCard() {
+export default function UserCard() {
   const classes = useStyles();
-  const bandMemberContext = useContext(BandMemberContext);
-  const { bandUserMember } = bandMemberContext;
+  const userMemberContext = useContext(UserMemberContext);
+  const { getUserMember, userMemberInfo } = userMemberContext;
 
   return (
     <Card className={classes.card}>
@@ -27,16 +27,16 @@ export default function BandCard() {
           component='img'
           alt='Contemplative Reptile'
           height='300'
-          image={bandUserMember.band.bandPicture}
-          title='Contemplative Reptile'
+          image={userMemberInfo.profilePicture}
+          title='User Picture'
         />
         <CardContent>
           <Typography gutterBottom variant='h5' component='h2'>
-            {bandUserMember.band.bandName}
+            {userMemberInfo.memberName}
           </Typography>
           <Typography variant='body2' color='textSecondary' component='p'>
-            {bandUserMember.band.city}, {bandUserMember.band.state},{' '}
-            {bandUserMember.band.zipcode}
+            {userMemberInfo.city}, {userMemberInfo.state},{' '}
+            {userMemberInfo.zipcode}
           </Typography>
         </CardContent>
       </CardActionArea>

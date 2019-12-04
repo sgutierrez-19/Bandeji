@@ -10,15 +10,19 @@ export default (state, action) => {
   switch (action.type) {
     case SIGNUP_BAND_MEMBER:
     case UPDATE_BAND_MEMBER:
+      const bandUserMember = {
+        ...state.bandUserMember,
+        ...state.payload
+      };
       return {
         ...state,
-        bandMember: action.payload,
-        loading: true
+        bandUserMember,
+        loading: false
       };
     case GET_BAND_MEMBER:
       return {
         ...state,
-        bandMember: action.payload,
+        bandUserMember: action.payload,
         loading: false
       };
     case BAND_MEMBER_ERROR:

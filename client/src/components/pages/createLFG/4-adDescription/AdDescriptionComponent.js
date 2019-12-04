@@ -41,6 +41,8 @@ export default function AdDescription({ prevStep, nextStep }) {
                 <TextField
                   className='adTextBoxHeight'
                   variant='outlined'
+                  multiline
+                  rows='3'
                   required
                   fullWidth
                   id='ad'

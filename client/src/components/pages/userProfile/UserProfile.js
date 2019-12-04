@@ -7,22 +7,20 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import UserCard from './userCard/UserCard';
+import UserForm from './userForm/UserForm';
+import UserInstruments from './userInstruments/UserInstruments';
+import UserMemberContext from '../../../context/userMember/userMemberContext';
+import { useStyles } from './userProfile.style';
 
-import BandCard from './bandCard/BandCard';
-import BandForm from './bandForm/BandForm';
-import BandMembers from './bandMembers/BandMembers';
-import BandMemberContext from '../../../context/bandMember/bandMemberContext';
-
-import { useStyles } from './bandProfile.style';
-
-export default function BandProfile() {
+export default function UserProfile() {
   const classes = useStyles();
-  const bandMemberContext = useContext(BandMemberContext);
+  const userMemberContext = useContext(UserMemberContext);
+  const { getUserMember, userMemberInfo, loading } = userMemberContext;
   const [refresh, setRefresh] = useState(0);
-  const { bandUserMember, loading, getBandMember } = bandMemberContext;
 
   useEffect(() => {
-    getBandMember();
+    getUserMember();
   }, [refresh]);
 
   const refreshPage = () => {
@@ -36,7 +34,7 @@ export default function BandProfile() {
       <Grid item xs={12} sm={6} md={4} component={Paper} elevation={6} square>
         <div className={classes.paper}>
           {!loading ? (
-            <BandCard refreshPage={refreshPage} />
+            <UserCard refreshPage={refreshPage} />
           ) : (
             <CircularProgress />
           )}
@@ -44,13 +42,12 @@ export default function BandProfile() {
       </Grid>
       <Grid item xs={false} sm={6} md={8} className={classes.profile}>
         <Typography variant='h3' align='center'>
-          {/* {bandMember.band.bandName} */}
-          {/* {!loading ? bandMember.band.bandName : <CircularProgress />} */}
+          {!loading ? 'Hi' : <CircularProgress />}
         </Typography>
         {!loading ? (
           <div>
-            <BandForm refreshPage={refreshPage} />
-            <BandMembers refreshPage={refreshPage} />
+            <UserForm refreshPage={refreshPage} />
+            <UserInstruments refreshPage={refreshPage} />
           </div>
         ) : (
           <CircularProgress />
