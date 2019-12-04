@@ -19,7 +19,7 @@ export default function BandProfile() {
   const classes = useStyles();
   const bandMemberContext = useContext(BandMemberContext);
   const [refresh, setRefresh] = useState(0);
-  const { bandUserMember, loading, getBandMember } = bandMemberContext;
+  const { loading, getBandMember } = bandMemberContext;
 
   useEffect(() => {
     getBandMember();

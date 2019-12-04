@@ -16,7 +16,7 @@ import { useStyles } from './userProfile.style';
 export default function UserProfile() {
   const classes = useStyles();
   const userMemberContext = useContext(UserMemberContext);
-  const { getUserMember, userMemberInfo, loading } = userMemberContext;
+  const { getUserMember, loading } = userMemberContext;
   const [refresh, setRefresh] = useState(0);
 
   useEffect(() => {
