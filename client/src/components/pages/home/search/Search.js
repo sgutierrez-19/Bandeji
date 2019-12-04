@@ -20,15 +20,32 @@ export default function Search() {
   const { getSearchLFG, getSearchLFM } = listingsContext;
 
   const classes = useStyles();
-  const [value, setValue] = useState('individuals');
-  const [instrument, setInstrument] = useState('Accordion');
+  const [searchType, setSearchType] = useState('individuals');
+  const [city, setCity] = useState('');
+  const [state, setState] = useState('');
+  const [zipcode, setZipCode] = useState('');
+  const [instrument, setInstrument] = useState('');
+
+  const search = async e => {
+    e.preventDefault();
+    const obj = {};
+    if (city) obj.city = city;
+    if (state) obj.state = state;
+    if (zipcode) obj.zipcode = zipcode;
+    if (instrument) obj.instrument = instrument;
+    if (searchType === 'individuals') {
+      await getSearchLFG({ ...obj });
+    } else {
+      await getSearchLFM({ ...obj });
+    }
+  };
 
   const handleInstrumentChange = event => {
     setInstrument(event.target.value);
   };
 
   const handleChange = event => {
-    setValue(event.target.value);
+    setSearchType(event.target.value);
   };
 
   return (
@@ -44,7 +61,7 @@ export default function Search() {
                 className={classes.radioGroup}
                 aria-label='Search Type'
                 name='searchType'
-                value={value}
+                value={searchType}
                 onChange={handleChange}
               >
                 <FormControlLabel
@@ -71,29 +88,35 @@ export default function Search() {
               fullWidth
               id='city'
               label='City'
+              defaultValue={city}
+              onChange={e => setCity(e.target.value)}
               autoFocus
             />
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
+              autoComplete='state'
               variant='outlined'
               required
               fullWidth
               id='state'
               label='State'
               name='state'
-              autoComplete='state'
+              defaultValue={state}
+              onChange={e => setState(e.target.value)}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
-              autoComplete='zipcode'
-              name='zipcode'
               variant='outlined'
               required
               fullWidth
               id='zipcode'
               label='Zip Code'
+              name='zipcode'
+              autoComplete='zipcode'
+              defaultValue={zipcode}
+              onChange={e => setZipCode(e.target.value)}
               autoFocus
             />
           </Grid>
@@ -127,11 +150,7 @@ export default function Search() {
           variant='contained'
           color='primary'
           className={classes.submit}
-          onClick={
-            value === 'Individuals'
-              ? () => getSearchLFG()
-              : () => getSearchLFM()
-          }
+          onClick={search}
         >
           Search
         </Button>
