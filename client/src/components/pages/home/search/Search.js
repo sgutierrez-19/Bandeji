@@ -26,7 +26,7 @@ export default function Search() {
   const [zipcode, setZipCode] = useState('');
   const [instrument, setInstrument] = useState('');
 
-  const searchListings = async e => {
+  const search = async e => {
     e.preventDefault();
     const obj = {};
     if (city) obj.city = city;
@@ -150,7 +150,7 @@ export default function Search() {
           variant='contained'
           color='primary'
           className={classes.submit}
-          onClick={searchListings}
+          onClick={search}
         >
           Search
         </Button>

@@ -46,7 +46,7 @@ export default function Home() {
   } = listingsContext;
 
   useEffect(() => {
-    getGeneralListings('92614');
+    getGeneralListings('ddddd');
   }, [currentListing]);
 
   const classes = useStyles();
