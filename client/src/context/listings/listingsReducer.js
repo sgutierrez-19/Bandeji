@@ -75,7 +75,6 @@ export default (state, action) => {
         loading: false
       };
     case SET_CURRENT_LISTING:
-      console.log('Listing Reducer - ', action.payload);
       return {
         ...state,
         currentListing: action.payload
