@@ -106,15 +106,14 @@ router.post('/api/member/bandmember/signup', async (req, res) => {
 // @access - private
 router.put('/api/member/updatebandmember/:id', async (req, res) => {
   try {
-    if (!req.body.bMemberName) {
-      return res.status(500).send('The name field cannot be blank');
-    } else if (!req.body.bMemberCity) {
-      return res.status(500).send('The city field cannot be blank');
-    } else if (!req.body.bMemberState) {
-      return res.status(500).send('The state field cannot be blank');
-    } else if (!req.body.bMemberZipcode) {
-      return res.status(500).send('The zip code field cannot be blank');
-    }
+    const { memberName, city, state, zipcode, profilePicture } = req.body;
+    const toUpdate = {};
+    if (memberName) toUpdate.bMemberName = memberName;
+    if (city) toUpdate.bMemberCity = city;
+    if (state) toUpdate.bMemberState = state;
+    if (zipcode) toUpdate.bMemberZipcode = zipcode;
+    if (profilePicture) toUpdate.bMemberProfilePicture = profilePicture;
+    console.log(toUpdate);
     const memberToUpdate = await db.Member.findOne({
       where: {
         id: req.params.id,
@@ -129,23 +128,12 @@ router.put('/api/member/updatebandmember/:id', async (req, res) => {
         .status(500)
         .send(`You do not have permission to edit this member`);
     }
-    const member = await db.Member.update(
-      {
-        memberName: req.body.bMemberName,
-        city: req.body.bMemberCity,
-        state: req.body.bMemberState,
-        zipcode: req.body.bMemberZipcode,
-        latitude: req.body.bMemberLatitude,
-        longitude: req.body.bMemberLongitude,
-        profilePicture: req.body.bMemberProfilePicture
-      },
-      {
-        where: {
-          id: req.params.id,
-          createdByUserId: req.user.id
-        }
+    const member = await db.Member.update(toUpdate, {
+      where: {
+        id: req.params.id,
+        createdByUserId: req.user.id
       }
-    );
+    });
     res.json({ message: `Your band member was updated successfully` });
   } catch (error) {
     console.log(error.message);
@@ -201,31 +189,19 @@ router.put('/api/member/updatebandmemberinstrument/:id', async (req, res) => {
 // @access - private
 router.put('/api/band/update', async (req, res) => {
   try {
-    if (!req.body.bandName) {
-      return res.status(500).send('The band name field cannot be blank');
-    } else if (!req.body.bandCity) {
-      return res.status(500).send('The city field cannot be blank');
-    } else if (!req.body.bandState) {
-      return res.status(500).send('The state field cannot be blank');
-    } else if (!req.body.bandZipcode) {
-      return res.status(500).send('The zip code field cannot be blank');
-    }
-    const band = db.Band.update(
-      {
-        bandName: req.body.bandName,
-        bandPicture: req.body.bandPicture,
-        city: req.body.bandCity,
-        state: req.body.bandState,
-        zipcode: req.body.bandZipcode,
-        latitude: req.body.bandLatitude,
-        longitude: req.body.bandLongitude
-      },
-      {
-        where: {
-          UserId: req.user.id
-        }
+    const { bandName, city, state, zipcode, bandPicture } = req.body;
+    const toUpdate = {};
+    if (bandName) toUpdate.bandName = bandName;
+    if (city) toUpdate.city = city;
+    if (state) toUpdate.state = state;
+    if (zipcode) toUpdate.zipcode = zipcode;
+    if (bandPicture) toUpdate.bandPicture = bandPicture;
+    console.log(toUpdate);
+    const band = db.Band.update(toUpdate, {
+      where: {
+        UserId: req.user.id
       }
-    );
+    });
     res.json({ message: `Your band has been updated successfully` });
   } catch (error) {
     console.log(error.message);

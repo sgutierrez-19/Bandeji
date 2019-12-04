@@ -12,13 +12,13 @@ export default (state, action) => {
     case UPDATE_BAND_MEMBER:
       return {
         ...state,
-        bandMember: action.payload,
-        loading: true
+        bandUserMember: action.payload,
+        loading: false
       };
     case GET_BAND_MEMBER:
       return {
         ...state,
-        bandMember: action.payload,
+        bandUserMember: action.payload,
         loading: false
       };
     case BAND_MEMBER_ERROR:

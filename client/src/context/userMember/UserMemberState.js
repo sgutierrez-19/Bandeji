@@ -120,9 +120,30 @@ const UserMemberState = props => {
   };
 
   // Update UserMember
-  const updateUserMember = async () => {
+  const updateUserMember = async data => {
     try {
-      const res = await axios.put(`/api/member/updateusermember`);
+      const res = await axios.put(`/api/member/updateusermember`, data);
+      console.log('updateUserMember data: ', data);
+      dispatch({
+        type: UPDATE_USERMEMBER,
+        payload: data
+      });
+    } catch (err) {
+      console.log(err); // find out what error message comes from err
+      dispatch({
+        type: BAND_ERROR,
+        payload: err.response.msg
+      });
+    }
+  };
+
+  // Update UserMember
+  const updateUserMemberInstrument = async (id, data) => {
+    try {
+      const res = await axios.put(
+        `/api/member/updateusermemberinstrument/${id}`,
+        data
+      );
 
       dispatch({
         type: UPDATE_USERMEMBER,
@@ -146,7 +167,8 @@ const UserMemberState = props => {
         loading: state.loading,
         addUserMember,
         getUserMember,
-        updateUserMember
+        updateUserMember,
+        updateUserMemberInstrument
       }}
     >
       {props.children}

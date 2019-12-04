@@ -12,34 +12,30 @@ import {
 
 const BandMemberState = props => {
   const initialState = {
-    bandMember: null,
+    bandUserMember: null,
     loading: true,
     error: null // add necessary state
   };
 
   const [state, dispatch] = useReducer(bandMemberReducer, initialState);
 
-  // Signup Band Member
-  const signupBandMember = async bandMember => {
-    try {
-      const res = await axios.get('/api/member/bandmember/signup', bandMember);
+  // Signup Band Member --ALREADY IN AUTHSTATE.js (registerBandMember())
+  // const signupBandMember = async bandMember => {
+  //   try {
+  //     const res = await axios.get('/api/member/bandmember/signup', bandMember);
 
-      dispatch({
-        type: SIGNUP_BAND_MEMBER,
-        payload: res.data
-      });
-    } catch (err) {
-      console.log(err);
-      dispatch({
-        type: BAND_MEMBER_ERROR,
-        payload: err.response.msg
-      });
-    }
-  };
-
-  // updateBandMember() - update band, bandmember, memberinsturment tables
-
-  // clearUserError()
+  //     dispatch({
+  //       type: SIGNUP_BAND_MEMBER,
+  //       payload: res.data
+  //     });
+  //   } catch (err) {
+  //     console.log(err);
+  //     dispatch({
+  //       type: BAND_MEMBER_ERROR,
+  //       payload: err.response.msg
+  //     });
+  //   }
+  // };
 
   // Get Band Member
   const getBandMember = async () => {
@@ -61,10 +57,49 @@ const BandMemberState = props => {
   };
 
   // Update Band Member
-  const updateBandMember = async bandMember => {
+  const updateBandMember = async (id, bandMember) => {
     try {
-      const res = await axios.put('/api/band/update', bandMember);
+      const res = await axios.put(
+        `/api/member/updatebandmember/${id}`,
+        bandMember
+      );
+      dispatch({
+        type: UPDATE_BAND_MEMBER,
+        payload: res.data
+      });
+    } catch (err) {
+      console.log(err); // find out what error message comes from err
+      dispatch({
+        type: BAND_MEMBER_ERROR,
+        payload: err.response.msg
+      });
+    }
+  };
 
+  // Update Band Member
+  const updateBand = async bandData => {
+    try {
+      const res = await axios.put(`/api/band/update`, bandData);
+      dispatch({
+        type: UPDATE_BAND_MEMBER,
+        payload: res.data
+      });
+    } catch (err) {
+      console.log(err); // find out what error message comes from err
+      dispatch({
+        type: BAND_MEMBER_ERROR,
+        payload: err.response.msg
+      });
+    }
+  };
+
+  // Update Band Member
+  const updateBandMemberInstrument = async (id, instrument) => {
+    try {
+      const res = await axios.put(
+        `/api/member/updatebandmemberinstrument/${id}`,
+        instrument
+      );
       dispatch({
         type: UPDATE_BAND_MEMBER,
         payload: res.data
@@ -80,17 +115,20 @@ const BandMemberState = props => {
 
   // Clear Band Member Errors
   const clearBandMemberError = () =>
-    dispatch({ type: CLEAR_BAND_MEMBER_ERROR });
+    dispatch({
+      type: CLEAR_BAND_MEMBER_ERROR
+    });
 
   return (
     <BandMemberContext.Provider
       value={{
-        bandMember: state.bandMember,
+        bandUserMember: state.bandUserMember,
         loading: state.loading,
         error: state.error,
-        signupBandMember,
         getBandMember,
         updateBandMember,
+        updateBand,
+        updateBandMemberInstrument,
         clearBandMemberError
       }}
     >

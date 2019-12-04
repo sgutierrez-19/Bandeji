@@ -9,9 +9,13 @@ export default (state, action) => {
         loading: false
       };
     case UPDATE_USERMEMBER:
+      const userMemberInfo = {
+        ...state.userMemberInfo,
+        ...action.payload
+      };
       return {
         ...state,
-        userMemberInfo: action.payload,
+        userMemberInfo,
         loading: false
       };
     default:
