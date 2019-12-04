@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Radio from '@material-ui/core/Radio';
@@ -9,11 +9,16 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
+import ListingsContext from '../../../../context/listings/listingsContext';
+
 import { useStyles } from './search.style';
 
 import instruments from '../../../../instruments/instruments';
 
-export default function SignUp() {
+export default function Search() {
+  const listingsContext = useContext(ListingsContext);
+  const { getSearchLFG, getSearchLFM } = listingsContext;
+
   const classes = useStyles();
   const [value, setValue] = useState('individuals');
   const [instrument, setInstrument] = useState('Accordion');
@@ -122,6 +127,11 @@ export default function SignUp() {
           variant='contained'
           color='primary'
           className={classes.submit}
+          onClick={
+            value === 'Individuals'
+              ? () => getSearchLFG()
+              : () => getSearchLFM()
+          }
         >
           Search
         </Button>

@@ -18,7 +18,6 @@ export default function Listings({ listings }) {
   const listingsContext = useContext(ListingsContext);
   const { setCurrent } = listingsContext;
 
-  console.log('Listing Component - generalListings:', listings);
   const classes = useStyles();
   // const theme = useTheme();
   return (

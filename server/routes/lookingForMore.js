@@ -59,6 +59,7 @@ router.post('/api/listings/lfm/create', async (req, res) => {
 // @route - api/lfm/searchlfm
 // @access - private
 router.get('/api/listings/lfm/search', async (req, res) => {
+  //****** PABLO
   try {
     if (
       !req.body.instrument &&

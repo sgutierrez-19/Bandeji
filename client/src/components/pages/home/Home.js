@@ -46,14 +46,6 @@ export default function Home() {
 
   useEffect(() => {
     getGeneralListings('92614');
-    console.log(
-      'Home Component - currentListing:',
-      currentListing && currentListing
-    );
-    console.log(
-      'Home Component - generalListing:',
-      generalListings && generalListings
-    );
   }, [currentListing]);
 
   const classes = useStyles();
