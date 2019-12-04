@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 // import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -11,7 +12,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuIcon from '@material-ui/icons/Menu';
 // import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
+// import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import { useStyles } from './navbar.style';
@@ -71,7 +72,7 @@ export default function Navbar() {
       <MenuItem>
         <IconButton aria-label='show 4 new mails' color='inherit'>
           <Badge badgeContent={4} color='secondary'>
-            <MailIcon />
+            <Link to='/createlfm'>Create Listing</Link>
           </Badge>
         </IconButton>
         <p>Messages</p>
@@ -111,7 +112,10 @@ export default function Navbar() {
             <MenuIcon />
           </IconButton>
           <Typography className={classes.title} variant='h5' noWrap>
-            Pick Up Group
+            <Link to='/' className={classes.title}>
+              {' '}
+              Pick Up Group
+            </Link>
           </Typography>
           {/* <div className={classes.search}>
             <div className={classes.searchIcon}>
@@ -128,26 +132,21 @@ export default function Navbar() {
           </div> */}
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <IconButton aria-label='show 4 new mails' color='inherit'>
-              <Badge badgeContent={4} color='secondary'>
-                <MailIcon />
-              </Badge>
-            </IconButton>
-            <IconButton aria-label='show 17 new notifications' color='inherit'>
-              <Badge badgeContent={17} color='secondary'>
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              edge='end'
-              aria-label='account of current user'
-              aria-controls={menuId}
-              aria-haspopup='true'
-              onClick={handleProfileMenuOpen}
-              color='inherit'
-            >
-              <AccountCircle />
-            </IconButton>
+            <Typography className={classes.title} variant='subtitle1' noWrap>
+              <Link to='/band/profile' className={classes.menuButton}>
+                Profile
+              </Link>
+            </Typography>
+            <Typography className={classes.title} variant='subtitle1' noWrap>
+              <Link to='/createlfm' className={classes.menuButton}>
+                Create Listing
+              </Link>
+            </Typography>
+            <Typography className={classes.title} variant='subtitle1' noWrap>
+              <Link to='/login' className={classes.menuButton}>
+                Logout
+              </Link>
+            </Typography>
           </div>
           <div className={classes.sectionMobile}>
             <IconButton

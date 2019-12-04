@@ -36,12 +36,17 @@ const ListingState = props => {
   const getGeneralListings = async zipcode => {
     try {
       const res = await axios.get(`/api/listings/${zipcode}`);
-
+      const response = [
+        ...res.data.loadlfgDiscovery,
+        res.data.loadlfmDiscovery
+      ];
+      // console.log('Listing State', response);
       dispatch({
         type: LOAD_GENERAL_LISTINGS,
-        payload: res.data
+        payload: response
       });
     } catch (err) {
+      console.log(err);
       dispatch({
         type: LISTINGS_ERROR,
         payload: err.response.msg
@@ -188,6 +193,7 @@ const ListingState = props => {
 
   // Set Current Listing
   const setCurrent = listing => {
+    console.log('Listing State', listing);
     dispatch({
       type: SET_CURRENT_LISTING,
       payload: listing
@@ -225,6 +231,7 @@ const ListingState = props => {
     <ListingsContext.Provider
       value={{
         generalListings: state.generalListings,
+        currentListing: state.currentListing,
         searchListings: state.searchListings,
         memberListings: state.memberListings,
         newListing: state.newListing,
