@@ -45,9 +45,16 @@ export default function Home() {
   } = listingsContext;
 
   useEffect(() => {
-    getGeneralListings();
-    // eslint-disable-next-line
-  }, []);
+    getGeneralListings('92614');
+    console.log(
+      'Home Component - currentListing:',
+      currentListing && currentListing
+    );
+    console.log(
+      'Home Component - generalListing:',
+      generalListings && generalListings
+    );
+  }, [currentListing]);
 
   const classes = useStyles();
 

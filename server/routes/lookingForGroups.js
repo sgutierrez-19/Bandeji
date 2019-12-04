@@ -70,6 +70,7 @@ router.get('/api/listings/:zipcode', async (req, res) => {
         zipcode: req.params.zipcode
       }
     });
+    // get member picture using lfg.memberId and memb
     const loadlfmDiscovery = await db.lfm.findAll({
       where: {
         zipcode: req.params.zipcode
