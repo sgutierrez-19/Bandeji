@@ -1,5 +1,12 @@
-module.exports = function (sequelize, DataTypes) {
-    var MemberInstrument = sequelize.define("MemberInstrument", {
+module.exports = function(sequelize, DataTypes) {
+  var MemberInstrument = sequelize.define(
+    'MemberInstrument',
+    {
+      // code added during deletion of instrument table in DB
+      instrument: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
       createdAt: {
         allowNull: true,
         type: DataTypes.DATE
@@ -8,10 +15,15 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: true,
         type: DataTypes.DATE
       }
-    }, {
+    },
+    {
       freezeTableName: true
-    });
-    return MemberInstrument;
+    }
+  );
+
+  // code added after delection of instrument table in DB
+  MemberInstrument.associate = function(models) {
+    MemberInstrument.belongsTo(models.Member);
   };
-  
-  
+  return MemberInstrument;
+};

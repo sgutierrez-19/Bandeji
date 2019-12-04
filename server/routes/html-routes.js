@@ -1,12 +1,12 @@
-const router = require("express").Router();
-const db = require("../models");
+const router = require('express').Router();
+const db = require('../models');
+const path = require('path');
 
 // Requiring our custom middleware for checking if a user is logged in
-const isAuthenticated = require("../config/middleware/isAuthenticated");
+const isAuthenticated = require('../config/middleware/isAuthenticated');
 
 // Requiring our custom middleware for checking if a user isn't logged in
-const isNotAuthenticated = require("../config/middleware/isNotAuthenticated");
-
+const isNotAuthenticated = require('../config/middleware/isNotAuthenticated');
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 //                        Middleware section                               //
@@ -16,38 +16,32 @@ const isNotAuthenticated = require("../config/middleware/isNotAuthenticated");
 // to see the difference between handlebars and react
 
 // These routes should redirect to home page if they are already logged in:
-router.route(["/signup", "/login"]).get(isNotAuthenticated);
+router.route(['/signup', '/login']).get(isNotAuthenticated);
 
 // These routes should redirect to login page if they are not logged in:
-router.route(["/", "/candle", "/candle/create"]).get(isAuthenticated);
+router.route(['/', '/candle', '/candle/create']).get(isAuthenticated);
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 //                      END Middleware section                             //
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-
-
-
-
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 //                       HTML Routes section                               //
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 // Send every request to the React app and let frontend routing handle pages
 // Define any API routes before this runs
-router.route([
-    "/",
-    "/signup",
-    "/login",
-    "/candle",
-    "/candle/create"
-  ]).get(function(req, res) {
-  res.sendFile(path.join(__dirname, "../../client/build/index.html"));
-});
+router
+  .route(['/', '/signup', '/login', '/listings', '/listings/add', '/profile'])
+  .get((req, res) => {
+    res.sendFile(path.join(__dirname, '../../client/build/index.html'));
+  });
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 //                     END HTML Routes section                             //
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 // add a status of 404 to any page request that isn't listed above
-router.get("*", function (req, res) {
-  res.status(404).sendFile(path.join(__dirname, "../../client/build/index.html"));
+router.get('*', (req, res) => {
+  res
+    .status(404)
+    .sendFile(path.join(__dirname, '../../client/build/index.html'));
 });
 
 module.exports = router;
