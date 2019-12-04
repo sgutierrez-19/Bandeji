@@ -7,7 +7,7 @@ module.exports = function(sequelize, DataTypes) {
         allowNull: false
       },
       bandPicture: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(2000),
         allowNull: true
       },
       city: {

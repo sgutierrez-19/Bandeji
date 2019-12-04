@@ -27,7 +27,7 @@ export default function UserCard() {
           component='img'
           alt='Contemplative Reptile'
           height='300'
-          image={userMemberInfo.userMember.profilePicture}
+          src={userMemberInfo.userMember.profilePicture}
           title='User Picture'
         />
         <CardContent>
