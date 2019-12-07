@@ -23,6 +23,15 @@ const useStyles = makeStyles(theme => ({
       textDecoration: 'none'
     }
   },
+  brand: {
+    fontFamily: "'Kalam', cursive",
+    fontSize: '1.8rem',
+    color: 'white',
+    '&:hover': {
+      color: 'lightgray',
+      textDecoration: 'none'
+    }
+  },
   search: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -73,3 +82,14 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export { useStyles };
+
+////// FONTS
+
+// font-family: 'Acme', sans-serif;
+// font-family: 'Kalam', cursive;
+// font-family: 'Kaushan Script', cursive;
+// font-family: 'Sacramento', cursive;
+// font-family: 'Gloria Hallelujah', cursive;
+// font-family: 'Covered By Your Grace', cursive;
+// font-family: 'Nothing You Could Do', cursive;
+// font-family: 'Mr Dafoe', cursive;

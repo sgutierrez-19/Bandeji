@@ -43,7 +43,7 @@ export default function BandMembers({ refreshPage }) {
           align='center'
           className={classes.instrumentTitle}
         >
-          Members
+          Your Instruments
         </Typography>
         {userMemberInfo.userMember.MemberInstruments.map(instrument => {
           return (

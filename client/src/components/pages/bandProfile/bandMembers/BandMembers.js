@@ -25,16 +25,16 @@ export default function BandMembers({ refreshPage }) {
   const bandMemberContext = useContext(BandMemberContext);
   const { bandUserMember, updateBandMember } = bandMemberContext;
   const bandMembersarray = bandUserMember.bandMembersInfo;
-  const bandMembers = bandMembersarray.shift();
+  const [_, ...bandMembers] = bandMembersarray;
   console.log(bandMembers);
 
   // NEED TO GET UPDATE MEMBERS BUTTON WORKING
   const updateInst = (memberid, instrumentid) => async e => {
     e.preventDefault();
-    // const obj = {
-    //   instrument = inst
-    // }
-    await updateBandMember(memberid, instrumentid, instrument);
+    const toUpdate = {};
+    if (name) toUpdate.memberName = name;
+    if (instrument) toUpdate.instrument = instrument;
+    await updateBandMember(memberid, instrumentid, { ...toUpdate });
     refreshPage();
   };
 
@@ -50,8 +50,8 @@ export default function BandMembers({ refreshPage }) {
         <Typography component='h1' variant='h4' className={classes.title}>
           Band Members
         </Typography>
-        {bandMembersarray &&
-          bandMembersarray.map(member => {
+        {bandMembers &&
+          bandMembers.map(member => {
             return (
               <form
                 key={member.member.id}
@@ -88,7 +88,7 @@ export default function BandMembers({ refreshPage }) {
                           select
                           label='Instrument'
                           className={classes.textField}
-                          // defaultValue={member.memberinstrument[0].instrument}
+                          defaultValue={member.memberinstrument[0].instrument}
                           onChange={e => setInstrument(e.target.value)}
                           SelectProps={{
                             MenuProps: {
