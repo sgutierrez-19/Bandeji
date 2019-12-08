@@ -4,16 +4,15 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Fab from '@material-ui/core/Fab';
-
 import ListingsContext from '../../../../context/listings/listingsContext';
-
 import { useStyles } from './listings.style';
 
 export default function Listings({ listings }) {
   const listingsContext = useContext(ListingsContext);
   const { setCurrent } = listingsContext;
 
-  const descListings = listings && listings[0].reverse();
+  // puts listings in reverse order so newest is first
+  // const descListings = listings && listings[0].reverse();
 
   const classes = useStyles();
   return (
@@ -22,8 +21,8 @@ export default function Listings({ listings }) {
         Listings
       </Typography>
       {// listings && listings[0]
-      descListings &&
-        descListings.map(listing => {
+      listings &&
+        listings.map(listing => {
           return (
             <Card key={listing.id} className={classes.card}>
               <CardMedia

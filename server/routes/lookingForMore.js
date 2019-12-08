@@ -4,6 +4,23 @@ const router = require('express').Router();
 
 // var isAuthenticatedData = require('../config/middleware/isAuthenticatedData');
 
+// @desc -  Upon load of discovery page, load LFM based off usermember location - hard coded for now....need to figure out geolocation/mysql
+// @route - /api/listings/lfm/:zipcode
+// @access - private
+router.get('/api/listings/lfm/:zipcode', async (req, res) => {
+  try {
+    const loadlfmDiscovery = await db.lfm.findAll({
+      where: {
+        zipcode: req.params.zipcode
+      }
+    });
+    res.json(loadlfmDiscovery);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
 // group - create listing
 // @desc -   Create LFM listing
 // @route - api/lfm/create

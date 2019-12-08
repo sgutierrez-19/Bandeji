@@ -60,31 +60,23 @@ router.post('/api/listings/lfg/create', async (req, res) => {
   }
 });
 
-// @desc -  Upon load of discovery page, load lfg/lfm based off usermember location - hard coded for now....need to figure out geolocation/mysql
-// @route - api/lfg/view(WILL NEED TO BE CHANGED)
+// @desc -  Upon load of discovery page, load LFG based off usermember location - hard coded for now....need to figure out geolocation/mysql
+// @route - /api/listings/lfg/:zipcode
 // @access - private
-router.get('/api/listings/:zipcode', async (req, res) => {
+router.get('/api/listings/lfg/:zipcode', async (req, res) => {
   try {
     const loadlfgDiscovery = await db.lfg.findAll({
       where: {
         zipcode: req.params.zipcode
       }
     });
-    // get member picture using lfg.memberId and memb
-    const loadlfmDiscovery = await db.lfm.findAll({
-      where: {
-        zipcode: req.params.zipcode
-      }
-    });
-    res.json({ loadlfgDiscovery, loadlfmDiscovery });
+    res.json(loadlfgDiscovery);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
   }
 });
 
-//
-//
 // @desc -  search LFG
 // @route - api/lfg/searchlfg
 // @access - private
