@@ -44,26 +44,18 @@ export default function Home() {
     getGeneralLFMListings
   } = listingsContext;
   const authContext = useContext(AuthContext);
-  const { userData, user } = authContext;
+  const { userData } = authContext;
 
   useEffect(() => {
     if (userData.inBand === true) {
       console.log('State says is in band :)');
-      console.log('userdata', userData);
-      console.log('user', user);
-      console.log('user', user);
-
-      // getGeneralLFGListings()
+      getGeneralLFGListings(userData.member.zipcode);
     } else if (userData.inBand === false) {
       console.log('State says not in band :O');
-      console.log('userdata', userData);
-      console.log('user', user);
+      getGeneralLFMListings(userData.member.zipcode);
     } else {
       console.log('State did not load band information');
-      console.log('userdata', userData);
-      console.log('user', user);
     }
-    // getGeneralListings('92603');
   }, [currentListing]);
 
   const classes = useStyles();

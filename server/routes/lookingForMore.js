@@ -7,12 +7,13 @@ const router = require('express').Router();
 // @desc -  Upon load of discovery page, load LFM based off usermember location - hard coded for now....need to figure out geolocation/mysql
 // @route - /api/listings/lfm/:zipcode
 // @access - private
-router.get('/api/listings/lfm/:zipcode', async (req, res) => {
+router.get('/api/listings/lfm/general/:zipcode', async (req, res) => {
   try {
     const loadlfmDiscovery = await db.lfm.findAll({
       where: {
         zipcode: req.params.zipcode
-      }
+      },
+      include: [db.Band]
     });
     res.json(loadlfmDiscovery);
   } catch (err) {
@@ -76,39 +77,19 @@ router.post('/api/listings/lfm/create', async (req, res) => {
 // @route - api/lfm/searchlfm
 // @access - private
 router.get('/api/listings/lfm/search', async (req, res) => {
-  //****** PABLO
   try {
-    if (
-      !req.body.instrument &&
-      !req.body.city &&
-      !req.body.state &&
-      !req.body.zipcode
-    ) {
-      return res.status(500).send('Your search parameters may not be blank');
-    } else if (!req.body.instrument) {
-      return res.status(500).send('The instrument field may not be blank');
-    } else if (!req.body.city && !req.body.zipcode) {
-      return res.status(500).send('Please enter city/state or zip code');
-    } else if (!req.body.state && !req.body.zipcode) {
-      return res.status(500).send('Please enter city/state or zip code');
-    } else if (req.body.zipcode) {
-      const loadlfmDiscovery = await db.lfm.findAll({
-        where: {
-          zipcode: req.body.zipcode,
-          instrument: req.body.instrument
-        }
-      });
-      res.json({ loadlfmDiscovery });
-    } else if (req.body.city && req.body.state && !req.body.zipcode) {
-      const loadlfmDiscovery = await db.lfm.findAll({
-        where: {
-          city: req.body.city,
-          state: req.body.state,
-          instrument: req.body.instrument
-        }
-      });
-      res.json({ loadlfmDiscovery });
-    }
+    const { city, state, zipcode, instrument } = req.body;
+    const searchWhat = {};
+    if (city) searchWhat.city = city;
+    if (state) searchWhat.state = state;
+    if (zipcode) searchWhat.zipcode = zipcode;
+    if (instrument) searchWhat.instrument = instrument;
+
+    const loadlfmDiscovery = await db.lfm.findAll({
+      where: searchWhat,
+      include: [db.Band]
+    });
+    res.json(loadlfmDiscovery);
   } catch (err) {
     console.log(err);
     res.status(500).send('Server Error');

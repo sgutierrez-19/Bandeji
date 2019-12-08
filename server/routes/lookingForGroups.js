@@ -63,12 +63,13 @@ router.post('/api/listings/lfg/create', async (req, res) => {
 // @desc -  Upon load of discovery page, load LFG based off usermember location - hard coded for now....need to figure out geolocation/mysql
 // @route - /api/listings/lfg/:zipcode
 // @access - private
-router.get('/api/listings/lfg/:zipcode', async (req, res) => {
+router.get('/api/listings/lfg/general/:zipcode', async (req, res) => {
   try {
     const loadlfgDiscovery = await db.lfg.findAll({
       where: {
         zipcode: req.params.zipcode
-      }
+      },
+      include: [db.Member]
     });
     res.json(loadlfgDiscovery);
   } catch (err) {
@@ -81,39 +82,19 @@ router.get('/api/listings/lfg/:zipcode', async (req, res) => {
 // @route - api/lfg/searchlfg
 // @access - private
 router.get('/api/listings/lfg/search', async (req, res) => {
-  //******** PABLO
   try {
-    if (
-      !req.body.instrument &&
-      !req.body.city &&
-      !req.body.state &&
-      !req.body.zipcode
-    ) {
-      return res.status(500).send('Your search parameters may not be blank');
-    } else if (!req.body.instrument) {
-      return res.status(500).send('The instrument field may not be blank');
-    } else if (!req.body.city && !req.body.zipcode) {
-      return res.status(500).send('Please enter city/state or zip code');
-    } else if (!req.body.state && !req.body.zipcode) {
-      return res.status(500).send('Please enter city/state or zip code');
-    } else if (req.body.zipcode) {
-      const loadlfgDiscovery = await db.lfg.findAll({
-        where: {
-          zipcode: req.body.zipcode,
-          instrument: req.body.instrument
-        }
-      });
-      res.json({ loadlfgDiscovery });
-    } else if (req.body.city && req.body.state && !req.body.zipcode) {
-      const loadlfgDiscovery = await db.lfg.findAll({
-        where: {
-          city: req.body.city,
-          state: req.body.state,
-          instrument: req.body.instrument
-        }
-      });
-      res.json({ loadlfgDiscovery });
-    }
+    const { city, state, zipcode, instrument } = req.body;
+    const searchWhat = {};
+    if (city) searchWhat.city = city;
+    if (state) searchWhat.state = state;
+    if (zipcode) searchWhat.zipcode = zipcode;
+    if (instrument) searchWhat.instrument = instrument;
+
+    const loadlfgDiscovery = await db.lfg.findAll({
+      where: searchWhat,
+      include: [db.Member]
+    });
+    res.json(loadlfgDiscovery);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');

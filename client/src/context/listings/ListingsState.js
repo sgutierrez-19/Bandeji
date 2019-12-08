@@ -35,7 +35,7 @@ const ListingState = props => {
   // 1) Get LFG/LFM on homepage page load
   const getGeneralLFGListings = async zipcode => {
     try {
-      const res = await axios.get(`/api/listings/lfg/${zipcode}`);
+      const res = await axios.get(`/api/listings/lfg/general/${zipcode}`);
 
       dispatch({
         type: LOAD_GENERAL_LISTINGS,
@@ -53,11 +53,10 @@ const ListingState = props => {
   // 1) Get LFG/LFM on homepage page load
   const getGeneralLFMListings = async zipcode => {
     try {
-      const res = await axios.get(`/api/listings/lfm/${zipcode}`);
-
+      const res = await axios.get(`/api/listings/lfm/general/${zipcode}`);
       dispatch({
         type: LOAD_GENERAL_LISTINGS,
-        payload: res
+        payload: res.data
       });
     } catch (err) {
       console.log(err);
