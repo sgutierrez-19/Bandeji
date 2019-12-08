@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -31,15 +32,17 @@ export default function LandingPage() {
           <Typography variant='h1' align='center' className={classes.text}>
             <b>You!</b>
           </Typography>
-          <Fab
-            variant='extended'
-            color='primary'
-            aria-label='add'
-            size='large'
-            className={classes.button}
-          >
-            Get Started
-          </Fab>
+          <Link to='/signup' className={classes.title}>
+            <Fab
+              variant='extended'
+              color='primary'
+              aria-label='add'
+              size='large'
+              className={classes.button}
+            >
+              Get Started
+            </Fab>
+          </Link>
         </div>
       </Grid>
 

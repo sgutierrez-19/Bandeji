@@ -89,6 +89,7 @@ router.get('/api/listings/:zipcode', async (req, res) => {
 // @route - api/lfg/searchlfg
 // @access - private
 router.get('/api/listings/lfg/search', async (req, res) => {
+  //******** PABLO
   try {
     if (
       !req.body.instrument &&

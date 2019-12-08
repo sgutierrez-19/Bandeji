@@ -24,7 +24,9 @@ const useStyles = makeStyles(theme => ({
   },
   listings: {
     martingTop: theme.spacing(2),
-    padding: theme.spacing(2)
+    padding: theme.spacing(2),
+    maxHeight: '35rem',
+    overflow: 'auto'
   },
   copyright: {
     marginTop: theme.spacing(4)

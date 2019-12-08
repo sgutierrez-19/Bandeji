@@ -55,9 +55,10 @@ const ListingState = props => {
   };
 
   // 2) search lfgs based on location & instrument
-  const getSearchLFG = async () => {
+  const getSearchLFG = async body => {
+    // ********  PABLO
     try {
-      const res = await axios.get('/api/listings/lfg/search');
+      const res = await axios.get('/api/listings/lfg/search', body);
 
       dispatch({
         type: SEARCH_LFG,
@@ -72,9 +73,10 @@ const ListingState = props => {
   };
 
   // 3) search lfms based on location & instrument
-  const getSearchLFM = async () => {
+  const getSearchLFM = async body => {
+    // ******** PABLO
     try {
-      const res = await axios.get('/api/listings/lfm/search');
+      const res = await axios.get('/api/listings/lfm/search', body);
 
       dispatch({
         type: SEARCH_LFM,
@@ -193,7 +195,6 @@ const ListingState = props => {
 
   // Set Current Listing
   const setCurrent = listing => {
-    console.log('Listing State', listing);
     dispatch({
       type: SET_CURRENT_LISTING,
       payload: listing
