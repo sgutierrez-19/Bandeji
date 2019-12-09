@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 // import clsx from 'clsx';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Box from '@material-ui/core/Box';
@@ -37,6 +38,7 @@ function Copyright() {
 export default function Home() {
   const listingsContext = useContext(ListingsContext);
   const {
+    // isAuthenticated,
     currentListing,
     generalListings,
     searchListings,
@@ -46,15 +48,20 @@ export default function Home() {
   const authContext = useContext(AuthContext);
   const { userData } = authContext;
 
+  let history = useHistory();
+  function login() {
+    history.push('/login');
+  }
+
   useEffect(() => {
-    if (userData.inBand === true) {
+    if (!userData) {
+      login();
+    } else if (userData.inBand === true) {
       console.log('State says is in band :)');
       getGeneralLFGListings(userData.member.zipcode);
     } else if (userData.inBand === false) {
       console.log('State says not in band :O');
       getGeneralLFMListings(userData.member.zipcode);
-    } else {
-      console.log('State did not load band information');
     }
   }, [currentListing]);
 

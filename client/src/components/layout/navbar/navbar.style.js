@@ -16,7 +16,16 @@ const useStyles = makeStyles(theme => ({
     }
   },
   title: {
-    // marginLeft: '1rem',
+    color: 'white',
+    '&:hover': {
+      color: 'lightgray',
+      textDecoration: 'none'
+    }
+  },
+  brand: {
+    fontFamily: "'Raleway', sans-serif",
+    fontWeight: 'bold',
+    fontSize: '1.8rem',
     color: 'white',
     '&:hover': {
       color: 'lightgray',

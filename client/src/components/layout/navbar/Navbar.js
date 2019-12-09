@@ -14,7 +14,7 @@ import AuthContext from '../../../context/auth/authContext';
 export default function Navbar() {
   const authContext = useContext(AuthContext);
   const { userData, logout, isAuthenticated } = authContext;
-  console.log(userData && userData.inBand);
+  console.log('User - ', userData && userData.inBand);
 
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -77,6 +77,14 @@ export default function Navbar() {
           </MenuItem>
         </Link>
       )}
+      {isAuthenticated && (
+        <Link to='/band/profile'>
+          <MenuItem>
+            <IconButton color='inherit'></IconButton>
+            <p>Band Profile</p>
+          </MenuItem>
+        </Link>
+      )}
       {!isAuthenticated && (
         <Link to='/signup'>
           <MenuItem>
@@ -108,9 +116,9 @@ export default function Navbar() {
       <AppBar position='static'>
         <Toolbar className={classes.appBar}>
           <Typography className={classes.title} variant='h5' noWrap>
-            <Link to='/' className={classes.title}>
+            <Link to='/' className={classes.brand}>
               {' '}
-              Band-it
+              Bandeji
             </Link>
           </Typography>
           {/* <div className={classes.search}>
@@ -133,12 +141,19 @@ export default function Navbar() {
                 <Link
                   to={
                     userData && userData.inBand
-                      ? '/band/profile'
+                      ? '/userprofile'
                       : '/userprofile'
                   }
                   className={classes.menuButton}
                 >
                   Profile
+                </Link>
+              </Typography>
+            )}
+            {isAuthenticated && (
+              <Typography className={classes.title} variant='subtitle1' noWrap>
+                <Link to='/band/profile' className={classes.menuButton}>
+                  Band Profile
                 </Link>
               </Typography>
             )}
