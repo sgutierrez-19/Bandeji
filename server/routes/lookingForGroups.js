@@ -81,7 +81,7 @@ router.get('/api/listings/lfg/general/:zipcode', async (req, res) => {
 // @desc -  search LFG
 // @route - api/lfg/searchlfg
 // @access - private
-router.get('/api/listings/lfg/search', async (req, res) => {
+router.post('/api/listings/lfg/search', async (req, res) => {
   try {
     const { city, state, zipcode, instrument } = req.body;
     const searchWhat = {};
@@ -89,11 +89,12 @@ router.get('/api/listings/lfg/search', async (req, res) => {
     if (state) searchWhat.state = state;
     if (zipcode) searchWhat.zipcode = zipcode;
     if (instrument) searchWhat.instrument = instrument;
-
     const loadlfgDiscovery = await db.lfg.findAll({
       where: searchWhat,
       include: [db.Member]
     });
+    console.log('in route: ', searchWhat);
+
     res.json(loadlfgDiscovery);
   } catch (err) {
     console.error(err.message);
