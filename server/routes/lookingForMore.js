@@ -76,7 +76,7 @@ router.post('/api/listings/lfm/create', async (req, res) => {
 // @desc -  Search lfms
 // @route - api/lfm/searchlfm
 // @access - private
-router.get('/api/listings/lfm/search', async (req, res) => {
+router.post('/api/listings/lfm/search', async (req, res) => {
   try {
     const { city, state, zipcode, instrument } = req.body;
     const searchWhat = {};
