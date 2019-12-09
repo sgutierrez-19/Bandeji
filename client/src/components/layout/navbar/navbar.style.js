@@ -16,7 +16,6 @@ const useStyles = makeStyles(theme => ({
     }
   },
   title: {
-    // marginLeft: '1rem',
     color: 'white',
     '&:hover': {
       color: 'lightgray',
@@ -24,7 +23,8 @@ const useStyles = makeStyles(theme => ({
     }
   },
   brand: {
-    fontFamily: "'Kalam', cursive",
+    fontFamily: "'Raleway', sans-serif",
+    fontWeight: 'bold',
     fontSize: '1.8rem',
     color: 'white',
     '&:hover': {
@@ -82,14 +82,3 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export { useStyles };
-
-////// FONTS
-
-// font-family: 'Acme', sans-serif;
-// font-family: 'Kalam', cursive;
-// font-family: 'Kaushan Script', cursive;
-// font-family: 'Sacramento', cursive;
-// font-family: 'Gloria Hallelujah', cursive;
-// font-family: 'Covered By Your Grace', cursive;
-// font-family: 'Nothing You Could Do', cursive;
-// font-family: 'Mr Dafoe', cursive;
