@@ -69,10 +69,15 @@ const ListingState = props => {
 
   // 2) search lfgs based on location & instrument
   const getSearchLFG = async body => {
-    // ********  PABLO
     try {
-      const res = await axios.get('/api/listings/lfg/search', body);
-
+      const config = {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      };
+      const res = await axios.post('/api/listings/lfg/search', body, config);
+      console.log('Body', body);
+      console.log('res.data', res.data);
       dispatch({
         type: SEARCH_LFG,
         payload: res.data
@@ -87,10 +92,13 @@ const ListingState = props => {
 
   // 3) search lfms based on location & instrument
   const getSearchLFM = async body => {
-    // ******** PABLO
     try {
-      const res = await axios.get('/api/listings/lfm/search', body);
-
+      const config = {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      };
+      const res = await axios.post('/api/listings/lfm/search', body, config);
       dispatch({
         type: SEARCH_LFM,
         payload: res.data
