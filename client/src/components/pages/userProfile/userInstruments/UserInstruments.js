@@ -45,7 +45,7 @@ export default function BandMembers({ refreshPage }) {
         >
           Members
         </Typography>
-        {userMemberInfo.userMember.MemberInstruments.map(instrument => {
+        {userMemberInfo.MemberInstruments.map(instrument => {
           return (
             <form
               key={instrument.id}

@@ -98,7 +98,7 @@ router.put('/api/member/updateusermemberinstrument/:id', async (req, res) => {
   }
 });
 
-// @desc -  route to get all information about a usermember (pulls more if is               in band).  USED AFTER ANY UPDATE
+// @desc -  route to get all information about a usermember
 // @route - api/member/usermember
 // @access - private
 router.get('/api/member/usermember', async (req, res) => {
@@ -109,46 +109,7 @@ router.get('/api/member/usermember', async (req, res) => {
       },
       include: [db.MemberInstrument]
     });
-    const isInBand = await db.BandMember.findOne({
-      where: { MemberId: member.id }
-    });
-
-    if (isInBand) {
-      const band = await db.Band.findOne({
-        where: {
-          UserId: req.user.id
-        }
-      });
-      const bandMembers = await db.BandMember.findAll({
-        where: { BandId: band.id }
-      });
-
-      const bandMembersInfo = [];
-      for (let i = 0; i < bandMembers.length; i++) {
-        const bandMembersInfoProcess = await db.Member.findOne({
-          where: {
-            id: bandMembers[i].MemberId
-          }
-        });
-        const memberInstrumentsProcess = await db.MemberInstrument.findAll({
-          where: {
-            MemberId: bandMembers[i].MemberId
-          }
-        });
-        bandMembersInfo.push({
-          bandmember: bandMembers[i],
-          member: bandMembersInfoProcess,
-          memberinstrument: memberInstrumentsProcess
-        });
-      }
-      res.json({
-        userMember: member,
-        band,
-        bandMembersInfo
-      });
-    } else if (!isInBand) {
-      res.json(member);
-    }
+    res.json(member);
   } catch (error) {
     console.log(error.message);
     res.status(500).send('Server Error');

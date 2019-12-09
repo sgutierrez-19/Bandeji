@@ -10,12 +10,10 @@ import Link from '@material-ui/core/Link';
 import Map from './map/Map';
 import Listings from './listings/Listings';
 import Search from './search/Search';
-
 import ListingsDetail from './listingsDetail/ListingsDetail';
-
 import ListingsContext from '../../../context/listings/listingsContext';
-
 import { useStyles } from './home.styles';
+import AuthContext from '../../../context/auth/authContext';
 
 function Copyright() {
   const classes = useStyles();
@@ -42,11 +40,22 @@ export default function Home() {
     currentListing,
     generalListings,
     searchListings,
-    getGeneralListings
+    getGeneralLFGListings,
+    getGeneralLFMListings
   } = listingsContext;
+  const authContext = useContext(AuthContext);
+  const { userData } = authContext;
 
   useEffect(() => {
-    getGeneralListings('92614');
+    if (userData.inBand === true) {
+      console.log('State says is in band :)');
+      getGeneralLFGListings(userData.member.zipcode);
+    } else if (userData.inBand === false) {
+      console.log('State says not in band :O');
+      getGeneralLFMListings(userData.member.zipcode);
+    } else {
+      console.log('State did not load band information');
+    }
   }, [currentListing]);
 
   const classes = useStyles();

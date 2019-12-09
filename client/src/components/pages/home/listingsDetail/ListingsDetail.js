@@ -55,9 +55,15 @@ export default function ListingsDetail({ listing }) {
               Video:
             </Typography>
             <Typography variant='h4' color='inherit' paragraph>
-              <Link color='inherit' href={listing.youtubeLink}>
-                {listing.youtubeLink}
-              </Link>
+              <iframe
+                width='560'
+                height='315'
+                src={`https://www.youtube.com/embed/${listing.youtubeLink}`}
+                frameborder='0'
+                allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
+                allowfullscreen
+              ></iframe>
+              {/* <Link color='inherit' href={listing.youtubeLink}></Link> */}
             </Typography>
             <p>
               <Fab

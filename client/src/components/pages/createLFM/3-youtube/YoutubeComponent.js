@@ -16,10 +16,6 @@ export default function youtube({ prevStep, nextStep }) {
   const listingsContext = useContext(ListingsContext);
   const { updateNewListing, newListing } = listingsContext;
 
-  useEffect(() => {
-    console.log('STATE', newListing);
-  }, [newListing]);
-
   const updateListingInProgress = e => {
     e.preventDefault();
     let obj = { youtubeLink: newYoutube };

@@ -1,5 +1,4 @@
 import React, { useState, useContext } from 'react';
-// import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import Paper from '@material-ui/core/Paper';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -8,33 +7,33 @@ import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Fab from '@material-ui/core/Fab';
-// import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-// import Fab from '@material-ui/core/Fab';
 import UserMemberContext from '../../../../context/userMember/userMemberContext';
 import { useStyles } from './bandMembers.style';
 import BandMemberContext from '../../../../context/bandMember/bandMemberContext';
 
 export default function BandMembers({ refreshPage }) {
   const classes = useStyles();
-  const [instrument, setInstrument] = useState('Select an Instrument');
-  const [name, setName] = useState('Select an Instrument');
+  const [instrument, setInstrument] = useState('');
+  const [name, setName] = useState('');
   const userMemberContext = useContext(UserMemberContext);
   const { instruments } = userMemberContext;
   const bandMemberContext = useContext(BandMemberContext);
   const { bandUserMember, updateBandMember } = bandMemberContext;
   const bandMembersarray = bandUserMember.bandMembersInfo;
-  const bandMembers = bandMembersarray.shift();
-  console.log(bandMembers);
+  const [_, ...bandMembers] = bandMembersarray;
 
-  // NEED TO GET UPDATE MEMBERS BUTTON WORKING
   const updateInst = (memberid, instrumentid) => async e => {
     e.preventDefault();
-    // const obj = {
-    //   instrument = inst
-    // }
-    await updateBandMember(memberid, instrumentid, instrument);
+    const toUpdate = {};
+    if (name) toUpdate.memberName = name;
+    if (instrument) toUpdate.instrument = instrument;
+    console.log(toUpdate);
+    await updateBandMember(memberid, instrumentid, {
+      ...bandUserMember,
+      ...toUpdate
+    });
     refreshPage();
   };
 
@@ -50,8 +49,8 @@ export default function BandMembers({ refreshPage }) {
         <Typography component='h1' variant='h4' className={classes.title}>
           Band Members
         </Typography>
-        {bandMembersarray &&
-          bandMembersarray.map(member => {
+        {bandMembers &&
+          bandMembers.map(member => {
             return (
               <form
                 key={member.member.id}
@@ -88,7 +87,7 @@ export default function BandMembers({ refreshPage }) {
                           select
                           label='Instrument'
                           className={classes.textField}
-                          // defaultValue={member.memberinstrument[0].instrument}
+                          defaultValue={member.memberinstrument[0].instrument}
                           onChange={e => setInstrument(e.target.value)}
                           SelectProps={{
                             MenuProps: {
@@ -104,9 +103,9 @@ export default function BandMembers({ refreshPage }) {
                           >
                             Select an Instrument
                           </MenuItem>
-                          {instruments.map((option, index) => (
-                            <MenuItem key={index} value={option}>
-                              {option}
+                          {instruments.map((instrument, index) => (
+                            <MenuItem key={index} value={instrument}>
+                              {instrument}
                             </MenuItem>
                           ))}
                         </TextField>
@@ -123,7 +122,7 @@ export default function BandMembers({ refreshPage }) {
                         className={classes.buttonPrimary}
                         onClick={updateInst(
                           member.member.id,
-                          member.memberinstrument.id
+                          member.memberinstrument[0].id
                         )}
                       >
                         Update

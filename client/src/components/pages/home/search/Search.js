@@ -8,23 +8,22 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-
 import ListingsContext from '../../../../context/listings/listingsContext';
-
 import { useStyles } from './search.style';
-
-import instruments from '../../../../instruments/instruments';
+import UserMemberContext from '../../../../context/userMember/userMemberContext';
 
 export default function Search() {
   const listingsContext = useContext(ListingsContext);
   const { getSearchLFG, getSearchLFM } = listingsContext;
-
   const classes = useStyles();
   const [searchType, setSearchType] = useState('individuals');
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
   const [zipcode, setZipCode] = useState('');
   const [instrument, setInstrument] = useState('');
+
+  const userMemberContext = useContext(UserMemberContext);
+  const { instruments } = userMemberContext;
 
   const search = async e => {
     e.preventDefault();
@@ -33,6 +32,7 @@ export default function Search() {
     if (state) obj.state = state;
     if (zipcode) obj.zipcode = zipcode;
     if (instrument) obj.instrument = instrument;
+    console.log(obj);
     if (searchType === 'individuals') {
       await getSearchLFG({ ...obj });
     } else {
@@ -88,7 +88,7 @@ export default function Search() {
               fullWidth
               id='city'
               label='City'
-              defaultValue={city}
+              value={city}
               onChange={e => setCity(e.target.value)}
               autoFocus
             />
@@ -102,7 +102,7 @@ export default function Search() {
               id='state'
               label='State'
               name='state'
-              defaultValue={state}
+              value={state}
               onChange={e => setState(e.target.value)}
             />
           </Grid>
@@ -115,7 +115,7 @@ export default function Search() {
               label='Zip Code'
               name='zipcode'
               autoComplete='zipcode'
-              defaultValue={zipcode}
+              value={zipcode}
               onChange={e => setZipCode(e.target.value)}
               autoFocus
             />

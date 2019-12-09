@@ -22,10 +22,6 @@ export default function lfgDistance({ nextStep }) {
   const userMemberContext = useContext(UserMemberContext);
   const { instruments } = userMemberContext;
 
-  useEffect(() => {
-    console.log('STATE', newListing);
-  }, [newListing]);
-
   const updateListingInProgress = e => {
     e.preventDefault();
     let instrumentAdd = { instrument: newInstrument };

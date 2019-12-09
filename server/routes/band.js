@@ -101,7 +101,7 @@ router.post('/api/member/bandmember/signup', async (req, res) => {
   }
 });
 
-// @desc -  route for usermember to update members in their band (if that                   member doesn't have an associated UserId AND usermember was the                 user to create them originally)
+// @desc -  route for usermember to update, (if that                   member               doesn't have an associated UserId AND usermember was the                        user to create them originally), a band members name and instrument             in the MEMBER, MEMBERINSTRUMENT, and BANDMEMBER tables
 // @route - api/member/updategroupmember
 // @access - private
 router.put(
@@ -116,7 +116,6 @@ router.put(
         if (state) toUpdateMember.state = state;
         if (zipcode) toUpdateMember.zipcode = zipcode;
         if (profilePicture) toUpdateMember.profilePicture = profilePicture;
-        console.log(toUpdateMember);
         const memberToUpdate = await db.Member.findOne({
           where: {
             id: req.params.memberid,
@@ -149,7 +148,7 @@ router.put(
           findMember.Member.createdByUserId === req.user.id &&
           findMember.Member.UserId === null
         ) {
-          const instrument = await db.MemberInstrument.update(
+          await db.MemberInstrument.update(
             {
               instrument: req.body.instrument
             },
@@ -158,6 +157,14 @@ router.put(
                 MemberId: findMember.Member.id,
                 id: req.params.instrumentid
               }
+            }
+          );
+          await db.BandMember.update(
+            {
+              instrument: req.body.instrument
+            },
+            {
+              where: { MemberId: findMember.Member.id }
             }
           );
         }
@@ -174,49 +181,6 @@ router.put(
   }
 );
 
-// @desc -  route for usermember to update the instrument of a member he's created so long as member does not have a userId assigned
-// @route - api/individual/update
-// @access - private
-// router.put('/api/member/updatebandmemberinstrument/:id', async (req, res) => {
-//   try {
-//     if (!req.body.instrument) {
-//       return res.status(500).send('The instrument field cannot be blank');
-//     }
-//     const findMember = await db.MemberInstrument.findOne({
-//       where: {
-//         id: req.params.id
-//       },
-//       include: [db.Member]
-//     });
-//     if (
-//       findMember.Member.createdByUserId === req.user.id &&
-//       findMember.Member.UserId === null
-//     ) {
-//       const instrument = await db.MemberInstrument.update(
-//         {
-//           instrument: req.body.instrument
-//         },
-//         {
-//           where: {
-//             MemberId: findMember.Member.id,
-//             id: req.params.id
-//           }
-//         }
-//       );
-//       res.json({
-//         message: `${findMember.Member.memberName}'s instrument has been updated successfully`
-//       });
-//     } else {
-//       return res
-//         .status(500)
-//         .send(`You do not have permission to edit this member's instrument`);
-//     }
-//   } catch (error) {
-//     console.log(error.message);
-//     return res.status(500).send('Server Error');
-//   }
-// });
-
 // @desc -  updates usermember's associated band table's name, location and band pic
 // @route - api/band/update
 // @access - private
@@ -229,7 +193,6 @@ router.put('/api/band/update', async (req, res) => {
     if (state) toUpdate.state = state;
     if (zipcode) toUpdate.zipcode = zipcode;
     if (bandPicture) toUpdate.bandPicture = bandPicture;
-    console.log(toUpdate);
     const band = db.Band.update(toUpdate, {
       where: {
         UserId: req.user.id
