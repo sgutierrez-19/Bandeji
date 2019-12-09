@@ -33,17 +33,30 @@ const ListingState = props => {
   const [state, dispatch] = useReducer(listingsReducer, initialState);
 
   // 1) Get LFG/LFM on homepage page load
-  const getGeneralListings = async zipcode => {
+  const getGeneralLFGListings = async zipcode => {
     try {
-      const res = await axios.get(`/api/listings/${zipcode}`);
-      const response = [
-        ...res.data.loadlfgDiscovery,
-        res.data.loadlfmDiscovery
-      ];
-      // console.log('Listing State', response);
+      const res = await axios.get(`/api/listings/lfg/general/${zipcode}`);
+
       dispatch({
         type: LOAD_GENERAL_LISTINGS,
-        payload: response
+        payload: res.data
+      });
+    } catch (err) {
+      console.log(err);
+      dispatch({
+        type: LISTINGS_ERROR,
+        payload: err.response.msg
+      });
+    }
+  };
+
+  // 1) Get LFG/LFM on homepage page load
+  const getGeneralLFMListings = async zipcode => {
+    try {
+      const res = await axios.get(`/api/listings/lfm/general/${zipcode}`);
+      dispatch({
+        type: LOAD_GENERAL_LISTINGS,
+        payload: res.data
       });
     } catch (err) {
       console.log(err);
@@ -238,7 +251,8 @@ const ListingState = props => {
         newListing: state.newListing,
         loading: state.loading,
         error: state.error,
-        getGeneralListings,
+        getGeneralLFGListings,
+        getGeneralLFMListings,
         getSearchLFG,
         getSearchLFM,
         getUserMemberListings, // add all state values

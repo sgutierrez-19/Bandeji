@@ -41,7 +41,7 @@ export default function UserForm({ refreshPage }) {
             margin='normal'
             id='memberName'
             label='Name'
-            defaultValue={userMemberInfo.userMember.memberName}
+            defaultValue={userMemberInfo.memberName}
             className={classes.nameField}
             onChange={e => setName(e.target.value)}
             name='memberName'
@@ -56,7 +56,7 @@ export default function UserForm({ refreshPage }) {
             margin='normal'
             id='city'
             label='City'
-            defaultValue={userMemberInfo.userMember.city}
+            defaultValue={userMemberInfo.city}
             className={classes.addressField}
             onChange={e => setCity(e.target.value)}
             name='city'
@@ -70,7 +70,7 @@ export default function UserForm({ refreshPage }) {
             id='state'
             label='State'
             onChange={e => setState(e.target.value)}
-            defaultValue={userMemberInfo.userMember.state}
+            defaultValue={userMemberInfo.state}
             className={classes.addressField}
             name='state'
             autoFocus
@@ -83,7 +83,7 @@ export default function UserForm({ refreshPage }) {
             id='zipcode'
             label='Zip Code'
             onChange={e => setZipcode(e.target.value)}
-            defaultValue={userMemberInfo.userMember.zipcode}
+            defaultValue={userMemberInfo.zipcode}
             className={classes.addressField}
             name='zipcode'
             autoFocus
@@ -100,7 +100,7 @@ export default function UserForm({ refreshPage }) {
             id='profilePicture'
             label='ProfilePicture'
             onChange={e => setProfilePicture(e.target.value)}
-            defaultValue={userMemberInfo.userMember.profilePicture}
+            defaultValue={userMemberInfo.profilePicture}
             className={classes.addressField}
             name='profilePicture'
             autoFocus

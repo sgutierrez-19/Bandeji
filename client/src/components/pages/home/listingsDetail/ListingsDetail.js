@@ -3,7 +3,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Fab from '@material-ui/core/Fab';
-import Link from '@material-ui/core/Link';
+// import Link from '@material-ui/core/Link';
 
 import ListingsContext from '../../../../context/listings/listingsContext';
 
@@ -55,9 +55,16 @@ export default function ListingsDetail({ listing }) {
               Video:
             </Typography>
             <Typography variant='h4' color='inherit' paragraph>
-              <Link color='inherit' href={listing.youtubeLink}>
-                {listing.youtubeLink}
-              </Link>
+              <iframe
+                title={listing.id}
+                width='560'
+                height='315'
+                src={`https://www.youtube.com/embed/${listing.youtubeLink}`}
+                frameBorder='0'
+                allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
+                allowFullScreen
+              ></iframe>
+              {/* <Link color='inherit' href={listing.youtubeLink}></Link> */}
             </Typography>
             <p>
               <Fab

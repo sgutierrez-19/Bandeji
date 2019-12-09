@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 // import clsx from 'clsx';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Box from '@material-ui/core/Box';
@@ -10,12 +11,10 @@ import Link from '@material-ui/core/Link';
 import Map from './map/Map';
 import Listings from './listings/Listings';
 import Search from './search/Search';
-
 import ListingsDetail from './listingsDetail/ListingsDetail';
-
 import ListingsContext from '../../../context/listings/listingsContext';
-
 import { useStyles } from './home.styles';
+import AuthContext from '../../../context/auth/authContext';
 
 function Copyright() {
   const classes = useStyles();
@@ -39,14 +38,31 @@ function Copyright() {
 export default function Home() {
   const listingsContext = useContext(ListingsContext);
   const {
+    // isAuthenticated,
     currentListing,
     generalListings,
     searchListings,
-    getGeneralListings
+    getGeneralLFGListings,
+    getGeneralLFMListings
   } = listingsContext;
+  const authContext = useContext(AuthContext);
+  const { userData } = authContext;
+
+  let history = useHistory();
+  function login() {
+    history.push('/login');
+  }
 
   useEffect(() => {
-    getGeneralListings('92614');
+    if (!userData) {
+      login();
+    } else if (userData.inBand === true) {
+      console.log('State says is in band :)');
+      getGeneralLFGListings(userData.member.zipcode);
+    } else if (userData.inBand === false) {
+      console.log('State says not in band :O');
+      getGeneralLFMListings(userData.member.zipcode);
+    }
   }, [currentListing]);
 
   const classes = useStyles();

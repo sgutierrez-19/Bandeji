@@ -25,7 +25,6 @@ export default (state, action) => {
         loading: false
       };
     case LOGIN_SUCCESS:
-      // console.log(action.payload);
       return {
         ...state,
         userData: action.payload,
@@ -51,6 +50,7 @@ export default (state, action) => {
         token: null,
         isAuthenticated: false,
         loading: false,
+        userData: null,
         user: null,
         error: action.payload
       };

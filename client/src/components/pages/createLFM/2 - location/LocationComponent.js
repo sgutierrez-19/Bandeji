@@ -18,10 +18,6 @@ export default function lfgInstLocation({ prevStep, nextStep }) {
   const listingsContext = useContext(ListingsContext);
   const { updateNewListing, newListing } = listingsContext;
 
-  useEffect(() => {
-    console.log('STATE', newListing);
-  }, [newListing]);
-
   const updateListingInProgress = e => {
     e.preventDefault();
     let obj = { city: newCity, state: newState, zipcode: newZipcode };
