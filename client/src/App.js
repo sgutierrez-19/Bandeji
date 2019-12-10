@@ -5,8 +5,6 @@ import Navbar from './components/layout/navbar/Navbar';
 import Alerts from './components/layout/alerts/Alerts';
 // Pages
 import Home from './components/pages/home/Home';
-// import Profile from './components/pages/profile/Profile';
-import About from './components/pages/about/About';
 import Signup from './components/pages/signup/CreateSignup';
 import LandingPage from './components/pages/landingPage/LandingPage';
 import BandProfile from './components/pages/bandProfile/BandProfile';
@@ -15,7 +13,6 @@ import CreateLFG from './components/pages/createLFG/CreateLFG';
 import CreateLFM from './components/pages/createLFM/CreateLFM';
 import UserProfile from './components/pages/userProfile/UserProfile';
 import PrivateRoute from './components/routing/privateRoute/PrivateRoute';
-
 // State
 import AuthState from './context/auth/AuthState';
 import AlertState from './context/alert/AlertState';
@@ -61,7 +58,6 @@ const App = () => {
                         component={UserProfile}
                       />
                       {/* public routes */}
-                      <Route exact path='/about' component={About} />
                       <Route exact path='/signup' component={Signup} />
                       <Route exact path='/login' component={LandingPage} />
                       <Route component={Page404} />

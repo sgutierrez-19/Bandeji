@@ -1,4 +1,6 @@
 import React, { useEffect, useContext, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+
 // import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 // import TextField from '@material-ui/core/TextField'
@@ -11,17 +13,28 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import BandCard from './bandCard/BandCard';
 import BandForm from './bandForm/BandForm';
 import BandMembers from './bandMembers/BandMembers';
+import AuthContext from '../../../context/auth/authContext';
 import BandMemberContext from '../../../context/bandMember/bandMemberContext';
 
 import { useStyles } from './bandProfile.style';
 
 export default function BandProfile() {
   const classes = useStyles();
+  const authContext = useContext(AuthContext);
+  const { userData } = authContext;
   const bandMemberContext = useContext(BandMemberContext);
   const [refresh, setRefresh] = useState(0);
   const { loading, getBandMember } = bandMemberContext;
 
+  let history = useHistory();
+  function login() {
+    history.push('/login');
+  }
+
   useEffect(() => {
+    if (!userData) {
+      login();
+    }
     getBandMember();
   }, [refresh]);
 

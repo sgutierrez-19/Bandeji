@@ -7,14 +7,14 @@ import TextField from '@material-ui/core/TextField';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { useStyles } from '../createLFM.style';
-import { Fragment, useState, useContext, useEffect } from 'react';
+import { Fragment, useState, useContext } from 'react';
 import ListingsContext from '../../../../context/listings/listingsContext';
 
 export default function youtube({ prevStep, nextStep }) {
   const classes = useStyles();
   const [newYoutube, setNewYoutube] = useState('');
   const listingsContext = useContext(ListingsContext);
-  const { updateNewListing, newListing } = listingsContext;
+  const { updateNewListing } = listingsContext;
 
   const updateListingInProgress = e => {
     e.preventDefault();

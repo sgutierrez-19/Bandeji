@@ -5,14 +5,11 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Fab from '@material-ui/core/Fab';
 import ListingsContext from '../../../../context/listings/listingsContext';
-import AuthContext from '../../../../context/auth/authContext';
 import { useStyles } from './listings.style';
 
 export default function Listings({ listings }) {
   const listingsContext = useContext(ListingsContext);
   const { setCurrent } = listingsContext;
-  const authContext = useContext(AuthContext);
-  const { userData } = authContext;
 
   // puts listings in reverse order so newest is first
   // const descListings = listings && listings[0].reverse();

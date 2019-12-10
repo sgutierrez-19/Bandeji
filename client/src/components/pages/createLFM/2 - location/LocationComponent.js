@@ -7,7 +7,7 @@ import TextField from '@material-ui/core/TextField';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { useStyles } from '../createLFM.style';
-import { Fragment, useState, useContext, useEffect } from 'react';
+import { Fragment, useState, useContext } from 'react';
 import ListingsContext from '../../../../context/listings/listingsContext';
 
 export default function lfgInstLocation({ prevStep, nextStep }) {
@@ -16,7 +16,7 @@ export default function lfgInstLocation({ prevStep, nextStep }) {
   const [newState, setNewState] = useState('');
   const [newZipcode, setNewZipcode] = useState('');
   const listingsContext = useContext(ListingsContext);
-  const { updateNewListing, newListing } = listingsContext;
+  const { updateNewListing } = listingsContext;
 
   const updateListingInProgress = e => {
     e.preventDefault();
