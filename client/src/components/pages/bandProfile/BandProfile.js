@@ -1,21 +1,15 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-
-// import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-// import TextField from '@material-ui/core/TextField'
-// import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
 import BandCard from './bandCard/BandCard';
 import BandForm from './bandForm/BandForm';
 import BandMembers from './bandMembers/BandMembers';
 import AuthContext from '../../../context/auth/authContext';
 import BandMemberContext from '../../../context/bandMember/bandMemberContext';
-
 import { useStyles } from './bandProfile.style';
 
 export default function BandProfile() {

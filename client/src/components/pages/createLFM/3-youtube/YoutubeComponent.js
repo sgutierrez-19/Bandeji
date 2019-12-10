@@ -14,10 +14,12 @@ export default function youtube({ prevStep, nextStep }) {
   const classes = useStyles();
   const [newYoutube, setNewYoutube] = useState('');
   const listingsContext = useContext(ListingsContext);
-  const { updateNewListing } = listingsContext;
+  const { updateNewListing, newListing } = listingsContext;
 
   const updateListingInProgress = e => {
     e.preventDefault();
+    console.log('NEW', newListing);
+
     let obj = { youtubeLink: newYoutube };
     updateNewListing(obj);
     nextStep();
