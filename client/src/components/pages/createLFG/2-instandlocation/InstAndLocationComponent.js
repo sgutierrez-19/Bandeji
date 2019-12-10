@@ -8,7 +8,7 @@ import FormControl from '@material-ui/core/FormControl';
 import MenuItem from '@material-ui/core/MenuItem';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
 import Typography from '@material-ui/core/Typography';
 import { useStyles } from '../createLFG.style';
 import { Fragment, useState, useContext, useEffect } from 'react';
@@ -47,10 +47,12 @@ export default function lfgInstLocation({ prevStep, nextStep }) {
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
+          <LocationOnOutlinedIcon />
         </Avatar>
-        <Typography component='h1' variant='h2'>
-          Confirm the following for your listing:
+        <Typography className={classes.subHeader} component='h4' variant='h4'>
+          Please confirm your
+          <br />
+          main instrument and location:
         </Typography>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
@@ -74,65 +76,74 @@ export default function lfgInstLocation({ prevStep, nextStep }) {
                   })}
                 </Select>
               </FormControl>
-              <Grid item xs={4} sm={4}>
-                <TextField
-                  variant='outlined'
-                  required
-                  fullWidth
-                  id='city'
-                  label='City'
-                  name='city'
-                  value={newCity}
-                  onChange={e => setNewCity(e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={4}>
-                <TextField
-                  autofi
-                  variant='outlined'
-                  required
-                  fullWidth
-                  id='state'
-                  label='State'
-                  name='state'
-                  value={newState}
-                  onChange={e => setNewState(e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={4}>
-                <TextField
-                  variant='outlined'
-                  required
-                  fullWidth
-                  name='zipcode'
-                  label='Zip Code'
-                  id='zipcode'
-                  value={newZipcode}
-                  onChange={e => setNewZipcode(parseInt(e.target.value))}
-                />
-              </Grid>
             </Grid>
           </Grid>
-          <Button
-            type='submit'
-            fullWidth
-            variant='contained'
-            color='primary'
-            className={classes.submit}
-            onClick={prevStep}
-          >
-            Back
-          </Button>
-          <Button
-            type='submit'
-            fullWidth
-            variant='contained'
-            color='primary'
-            className={classes.submit}
-            onClick={updateListingInProgress}
-          >
-            Next
-          </Button>
+          <Grid container spacing={2}>
+            <Grid item xs={4} sm={4}>
+              <TextField
+                variant='outlined'
+                required
+                fullWidth
+                id='city'
+                label='City'
+                name='city'
+                value={newCity}
+                onChange={e => setNewCity(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={4}>
+              <TextField
+                autofi
+                variant='outlined'
+                required
+                fullWidth
+                id='state'
+                label='State'
+                name='state'
+                value={newState}
+                onChange={e => setNewState(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={4}>
+              <TextField
+                variant='outlined'
+                required
+                fullWidth
+                name='zipcode'
+                label='Zip Code'
+                id='zipcode'
+                value={newZipcode}
+                onChange={e => setNewZipcode(parseInt(e.target.value))}
+              />
+            </Grid>
+          </Grid>
+          <Grid container spacing={2}>
+            <Grid item xs={5}>
+              <Button
+                type='submit'
+                fullWidth
+                variant='contained'
+                color='primary'
+                className={classes.submit}
+                onClick={prevStep}
+              >
+                Back
+              </Button>
+            </Grid>
+            <Grid item xs={2}></Grid>
+            <Grid item xs={5}>
+              <Button
+                type='submit'
+                fullWidth
+                variant='contained'
+                color='primary'
+                className={classes.submit}
+                onClick={updateListingInProgress}
+              >
+                Next
+              </Button>
+            </Grid>
+          </Grid>
         </form>
       </div>
     </Fragment>

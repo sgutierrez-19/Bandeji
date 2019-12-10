@@ -8,7 +8,7 @@ import FormLabel from '@material-ui/core/FormLabel';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import CallSplitOutlinedIcon from '@material-ui/icons/CallSplitOutlined';
 import Typography from '@material-ui/core/Typography';
 import { useStyles } from '../createSignup.style';
 import { Fragment, useState, useContext, useEffect } from 'react';
@@ -44,56 +44,65 @@ export default function lfgInstLocation({
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
+          <CallSplitOutlinedIcon />
         </Avatar>
-        <Typography component='h1' variant='h2'>
-          Are you currently part of a band or solo?
+        <Typography className={classes.subHeader} component='h4' variant='h4'>
+          Are you currently
+          <br />
+          part of a band or solo?
         </Typography>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
-            {/* <Grid item xs={12}> */}
-            <FormControl component='fieldset' className={classes.formControl}>
-              <FormLabel component='legend'></FormLabel>
-              <RadioGroup
-                aria-label='isPartOfGroup'
-                name='isPartOfGroup'
-                value={isPartOfGroup}
-                onChange={e => setIsPartOfGroup(e.target.value)}
-              >
-                <FormControlLabel
-                  value='Individual'
-                  control={<Radio />}
-                  label="I'm solo"
-                />
-                <FormControlLabel
-                  value='Band'
-                  control={<Radio />}
-                  label="I'm part of a band"
-                />
-              </RadioGroup>
-            </FormControl>
-            {/* </Grid> */}
+            <Grid item xs={12}>
+              <FormControl component='fieldset' className={classes.formControl}>
+                <FormLabel component='legend'></FormLabel>
+                <RadioGroup
+                  aria-label='isPartOfGroup'
+                  name='isPartOfGroup'
+                  value={isPartOfGroup}
+                  onChange={e => setIsPartOfGroup(e.target.value)}
+                >
+                  <FormControlLabel
+                    value='Individual'
+                    control={<Radio />}
+                    label="I'm solo"
+                  />
+                  <FormControlLabel
+                    value='Band'
+                    control={<Radio />}
+                    label="I'm part of a band"
+                  />
+                </RadioGroup>
+              </FormControl>
+            </Grid>
           </Grid>
-          <Button
-            type='submit'
-            fullWidth
-            variant='contained'
-            color='primary'
-            className={classes.submit}
-            onClick={prevStep}
-          >
-            Back
-          </Button>
-          <Button
-            type='submit'
-            fullWidth
-            variant='contained'
-            color='primary'
-            className={classes.submit}
-            onClick={updateListingInProgress}
-          >
-            Next
-          </Button>
+          <Grid container spacing={2}>
+            <Grid item xs={5}>
+              <Button
+                type='submit'
+                fullWidth
+                variant='contained'
+                color='primary'
+                className={classes.submit}
+                onClick={prevStep}
+              >
+                Back
+              </Button>
+            </Grid>
+            <Grid item xs={2}></Grid>
+            <Grid item xs={5}>
+              <Button
+                type='submit'
+                fullWidth
+                variant='contained'
+                color='primary'
+                className={classes.submit}
+                onClick={updateListingInProgress}
+              >
+                Next
+              </Button>
+            </Grid>
+          </Grid>
         </form>
       </div>
     </Fragment>

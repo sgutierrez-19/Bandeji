@@ -8,6 +8,9 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column',
     alignItems: 'center'
   },
+  formSpace: {
+    margin: theme.spacing(1, 0)
+  },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main
@@ -21,8 +24,12 @@ const useStyles = makeStyles(theme => ({
   },
   // dropdown css
   formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120
+    margin: theme.spacing(3, 0),
+    width: '100%'
+  },
+  formControlInside: {
+    margin: theme.spacing(0, 0),
+    width: '100%'
   },
   selectEmpty: {
     marginTop: theme.spacing(2)

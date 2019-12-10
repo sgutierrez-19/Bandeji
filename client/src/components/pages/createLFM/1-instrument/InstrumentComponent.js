@@ -7,7 +7,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import MenuItem from '@material-ui/core/MenuItem';
 import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import EmojiPeopleOutlinedIcon from '@material-ui/icons/EmojiPeopleOutlined';
 import Typography from '@material-ui/core/Typography';
 import { useStyles } from '../createLFM.style';
 import { Fragment } from 'react';
@@ -34,16 +34,22 @@ export default function lfgDistance({ nextStep }) {
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
+          <EmojiPeopleOutlinedIcon />
         </Avatar>
-        <Typography component='h1' variant='h2'>
-          Let's get your listing started...
+        <Typography className={classes.subHeader} component='h3' variant='h3'>
+          Create your own listing!
         </Typography>
         <form className={classes.form}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <Typography component='h3' variant='h4'>
-                What kind of musician are you looking for?
+              <Typography
+                className={classes.subHeader}
+                component='h4'
+                variant='h4'
+              >
+                What kind of musician are you
+                <br />
+                looking for?
               </Typography>
               <FormControl className={classes.formControl}>
                 <InputLabel id='demo-simple-select-label'>
@@ -66,16 +72,22 @@ export default function lfgDistance({ nextStep }) {
               </FormControl>
             </Grid>
           </Grid>
-          <Button
-            type='submit'
-            fullWidth
-            variant='contained'
-            color='primary'
-            className={classes.submit}
-            onClick={updateListingInProgress}
-          >
-            Next
-          </Button>
+          <Grid container spacing={2}>
+            <Grid item xs={5}></Grid>
+            <Grid item xs={2}></Grid>
+            <Grid item xs={5}>
+              <Button
+                type='submit'
+                fullWidth
+                variant='contained'
+                color='primary'
+                className={classes.submit}
+                onClick={updateListingInProgress}
+              >
+                Next
+              </Button>
+            </Grid>
+          </Grid>
         </form>
       </div>
     </Fragment>
