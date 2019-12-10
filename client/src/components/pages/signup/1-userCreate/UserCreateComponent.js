@@ -65,7 +65,7 @@ export default function lfgDistance({ nextStep }) {
                 required
                 fullWidth
                 id='username'
-                label='Username Description'
+                label='Username'
                 name='username'
                 value={newUsername}
                 onChange={e => setNewUsername(e.target.value)}

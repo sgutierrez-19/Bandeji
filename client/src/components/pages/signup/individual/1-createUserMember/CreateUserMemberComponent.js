@@ -70,7 +70,7 @@ export default function youtube({ prevStep, doubleNextStep }) {
                 required
                 fullWidth
                 id='name'
-                label='First Name'
+                label='Name'
                 name='name'
                 value={newName}
                 onChange={e => setNewName(e.target.value)}
