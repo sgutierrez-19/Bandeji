@@ -29,27 +29,26 @@ const AuthState = props => {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
   // Load User
-  const loadUser = async () => {
-    const token = localStorage.getItem('token');
-    // if (token) {
-    //   setAuthToken(token);
-    // }
+  // const loadUser = async () => {
+  //   const token = localStorage.getItem('token');
+  //   // if (token) {
+  //   //   setAuthToken(token);
+  //   // }
+  //   try {
+  //     const res = await axios.get('/api/auth', {
+  //       headers: {
+  //         'x-auth-token': token
+  //       }
+  //     });
 
-    try {
-      const res = await axios.get('/api/auth', {
-        headers: {
-          'x-auth-token': token
-        }
-      });
-
-      dispatch({
-        type: USER_LOADED,
-        payload: res.data
-      });
-    } catch (err) {
-      dispatch({ type: AUTH_ERROR });
-    }
-  };
+  //     dispatch({
+  //       type: USER_LOADED,
+  //       payload: res.data
+  //     });
+  //   } catch (err) {
+  //     dispatch({ type: AUTH_ERROR });
+  //   }
+  // };
 
   // Register User
   const register = async formData => {
@@ -67,7 +66,7 @@ const AuthState = props => {
         payload: res.data
       });
 
-      loadUser();
+      // loadUser();
     } catch (err) {
       console.log(err);
       dispatch({
@@ -163,7 +162,7 @@ const AuthState = props => {
         user: state.user,
         error: state.error,
         register,
-        loadUser,
+        // loadUser,
         login,
         updateCreateNewUserMember,
         registerBandMember,

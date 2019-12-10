@@ -5,13 +5,14 @@ import LocationComponent from './2 - location/LocationComponent';
 import YoutubeComponent from './3-youtube/YoutubeComponent';
 import AdDescriptionComponent from './4-adDescription/AdDescriptionComponent';
 import Container from '@material-ui/core/Container';
-
 import AuthContext from '../../../context/auth/authContext';
+import BandMemberContext from '../../../context/bandMember/bandMemberContext';
 
 export default function SignUp() {
   const authContext = useContext(AuthContext);
   const { userData } = authContext;
-
+  const bandMemberContext = useContext(BandMemberContext);
+  const { getBandMember } = bandMemberContext;
   let history = useHistory();
 
   function login() {
@@ -22,7 +23,7 @@ export default function SignUp() {
     if (!userData) {
       login();
     }
-    // eslint-disable-next-line
+    getBandMember();
   }, []);
 
   const [step, setStep] = useState(1);

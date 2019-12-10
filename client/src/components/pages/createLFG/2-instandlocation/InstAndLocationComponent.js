@@ -13,18 +13,23 @@ import Typography from '@material-ui/core/Typography';
 import { useStyles } from '../createLFG.style';
 import { Fragment, useState, useContext, useEffect } from 'react';
 import ListingsContext from '../../../../context/listings/listingsContext';
+import AuthContext from '../../../../context/auth/authContext';
 import UserMemberContext from '../../../../context/userMember/userMemberContext';
 
 export default function lfgInstLocation({ prevStep, nextStep }) {
   const classes = useStyles();
-  const [newInstrument, setNewInstrument] = useState('');
-  const [newCity, setNewCity] = useState('');
-  const [newState, setNewState] = useState('');
-  const [newZipcode, setNewZipcode] = useState('');
   const listingsContext = useContext(ListingsContext);
   const userMemberContext = useContext(UserMemberContext);
   const { updateNewListing, newListing } = listingsContext;
   const { instruments } = userMemberContext;
+  const authContext = useContext(AuthContext);
+  const { userData } = authContext;
+  const [newInstrument, setNewInstrument] = useState(
+    userData.member.MemberInstruments[0].instrument
+  );
+  const [newCity, setNewCity] = useState(userData.member.city);
+  const [newState, setNewState] = useState(userData.member.state);
+  const [newZipcode, setNewZipcode] = useState(userData.member.zipcode);
 
   useEffect(() => {
     console.log('STATE', newListing);

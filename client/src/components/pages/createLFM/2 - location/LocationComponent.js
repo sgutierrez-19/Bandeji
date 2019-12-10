@@ -9,16 +9,19 @@ import Typography from '@material-ui/core/Typography';
 import { useStyles } from '../createLFM.style';
 import { Fragment, useState, useContext } from 'react';
 import ListingsContext from '../../../../context/listings/listingsContext';
+import BandMemberContext from '../../../../context/bandMember/bandMemberContext';
 
 export default function lfgInstLocation({ prevStep, nextStep }) {
   const classes = useStyles();
-  const [newCity, setNewCity] = useState('');
-  const [newState, setNewState] = useState('');
-  const [newZipcode, setNewZipcode] = useState('');
   const listingsContext = useContext(ListingsContext);
   const { updateNewListing } = listingsContext;
+  const bandMemberContext = useContext(BandMemberContext);
+  const { bandUserMember } = bandMemberContext;
+  const [newCity, setNewCity] = useState(bandUserMember.band.city);
+  const [newState, setNewState] = useState(bandUserMember.band.state);
+  const [newZipcode, setNewZipcode] = useState(bandUserMember.band.zipcode);
 
-  const updateListingInProgress = e => {
+  const updateListingInProgress = async e => {
     e.preventDefault();
     let obj = { city: newCity, state: newState, zipcode: newZipcode };
     updateNewListing(obj);

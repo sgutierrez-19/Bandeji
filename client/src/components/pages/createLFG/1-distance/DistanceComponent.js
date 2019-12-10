@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -16,12 +16,8 @@ import ListingsContext from '../../../../context/listings/listingsContext';
 export default function lfgDistance({ nextStep }) {
   const classes = useStyles();
   const listingsContext = useContext(ListingsContext);
-  const { updateNewListing, newListing } = listingsContext;
+  const { updateNewListing } = listingsContext;
   const [newDistance, setNewDistance] = useState('');
-
-  useEffect(() => {
-    console.log('STATE', newListing);
-  }, [newListing]);
 
   const updateListingInProgress = e => {
     e.preventDefault();

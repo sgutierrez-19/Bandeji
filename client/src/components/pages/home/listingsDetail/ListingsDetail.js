@@ -30,7 +30,7 @@ export default function ListingsDetail({ listing }) {
               {listing.ad}
             </Typography>
             <Typography variant='h5' color='inherit' paragraph>
-              Desired Instrument:
+              {listing.Band ? 'Desired Instrument' : 'Instrument Played:'}
             </Typography>
             <Typography variant='h4' color='inherit' paragraph>
               {/* {currentListing.ad}  */}
