@@ -12,7 +12,8 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   CLEAR_ERRORS,
-  UPDATE_NEW_USERMEMBER
+  UPDATE_NEW_USERMEMBER,
+  SET_LOADING
 } from '../types';
 
 const AuthState = props => {
@@ -146,6 +147,9 @@ const AuthState = props => {
     } catch (err) {}
   };
 
+  //Set Loading True
+  const setLoading = () => dispatch({ type: SET_LOADING });
+
   // Clear Errors
   const clearErrors = () => dispatch({ type: CLEAR_ERRORS });
 
@@ -164,7 +168,8 @@ const AuthState = props => {
         updateCreateNewUserMember,
         registerBandMember,
         logout,
-        clearErrors
+        clearErrors,
+        setLoading
       }}
     >
       {props.children}

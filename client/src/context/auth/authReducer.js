@@ -7,7 +7,8 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   CLEAR_ERRORS,
-  UPDATE_NEW_USERMEMBER
+  UPDATE_NEW_USERMEMBER,
+  SET_LOADING
 } from '../types';
 
 export default (state, action) => {
@@ -18,6 +19,11 @@ export default (state, action) => {
         isAuthenticated: true,
         loading: false,
         user: action.payload
+      };
+    case SET_LOADING:
+      return {
+        ...state,
+        loading: true
       };
     case SIGNUP_SUCCESS:
       return {

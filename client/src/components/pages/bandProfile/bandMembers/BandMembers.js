@@ -22,6 +22,7 @@ export default function BandMembers({ refreshPage }) {
   const bandMemberContext = useContext(BandMemberContext);
   const { bandUserMember, updateBandMember } = bandMemberContext;
   const bandMembersarray = bandUserMember.bandMembersInfo;
+  // eslint-disable-next-line
   const [_, ...bandMembers] = bandMembersarray;
 
   const updateInst = (memberid, instrumentid) => async e => {

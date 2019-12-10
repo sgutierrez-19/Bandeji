@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import DistanceComponent from './1-distance/DistanceComponent';
 import InstAndLocationComponent from './2-instandlocation/InstAndLocationComponent';
@@ -6,8 +6,24 @@ import YoutubeComponent from './3-youtube/YoutubeComponent';
 import AdDescriptionComponent from './4-adDescription/AdDescriptionComponent';
 import Container from '@material-ui/core/Container';
 
+import AuthContext from '../../../context/auth/authContext';
+
 export default function SignUp() {
+  const authContext = useContext(AuthContext);
+  const { userData } = authContext;
+
   let history = useHistory();
+
+  function login() {
+    history.push('/login');
+  }
+
+  useEffect(() => {
+    if (!userData) {
+      login();
+    }
+    // eslint-disable-next-line
+  }, []);
 
   const [step, setStep] = useState(1);
 
