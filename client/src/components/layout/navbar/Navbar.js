@@ -14,7 +14,8 @@ import AuthContext from '../../../context/auth/authContext';
 export default function Navbar() {
   const authContext = useContext(AuthContext);
   const { userData, logout, isAuthenticated } = authContext;
-  console.log('User - ', userData && userData.inBand);
+  const band = userData && userData.inBand;
+  console.log('User in band- ', band);
 
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -68,20 +69,26 @@ export default function Navbar() {
       onClose={handleMobileMenuClose}
     >
       {isAuthenticated && (
-        <Link
-          to={userData && userData.inBand ? '/band/profile' : '/userprofile'}
-        >
+        <Link to='/userprofile'>
           <MenuItem>
             <IconButton color='inherit'></IconButton>
             <p>Profile</p>
           </MenuItem>
         </Link>
       )}
-      {isAuthenticated && (
+      {isAuthenticated && band && (
         <Link to='/band/profile'>
           <MenuItem>
             <IconButton color='inherit'></IconButton>
             <p>Band Profile</p>
+          </MenuItem>
+        </Link>
+      )}
+      {isAuthenticated && (
+        <Link to={band ? '/createlfm' : 'createlfg'}>
+          <MenuItem>
+            <IconButton color='inherit'></IconButton>
+            <p>Create Listing</p>
           </MenuItem>
         </Link>
       )}
@@ -138,19 +145,12 @@ export default function Navbar() {
           <div className={classes.sectionDesktop}>
             {isAuthenticated && (
               <Typography className={classes.title} variant='subtitle1' noWrap>
-                <Link
-                  to={
-                    userData && userData.inBand
-                      ? '/userprofile'
-                      : '/userprofile'
-                  }
-                  className={classes.menuButton}
-                >
+                <Link to='/userprofile' className={classes.menuButton}>
                   Profile
                 </Link>
               </Typography>
             )}
-            {isAuthenticated && (
+            {isAuthenticated && band && (
               <Typography className={classes.title} variant='subtitle1' noWrap>
                 <Link to='/band/profile' className={classes.menuButton}>
                   Band Profile
@@ -159,7 +159,10 @@ export default function Navbar() {
             )}
             {isAuthenticated && (
               <Typography className={classes.title} variant='subtitle1' noWrap>
-                <Link to='/createlfm' className={classes.menuButton}>
+                <Link
+                  to={band ? '/createlfm' : 'createlfg'}
+                  className={classes.menuButton}
+                >
                   Create Listing
                 </Link>
               </Typography>

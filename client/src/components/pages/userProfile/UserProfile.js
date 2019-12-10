@@ -1,4 +1,6 @@
 import React, { useEffect, useContext, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+
 // import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 // import TextField from '@material-ui/core/TextField'
@@ -11,15 +13,26 @@ import UserCard from './userCard/UserCard';
 import UserForm from './userForm/UserForm';
 import UserInstruments from './userInstruments/UserInstruments';
 import UserMemberContext from '../../../context/userMember/userMemberContext';
+import AuthContext from '../../../context/auth/authContext';
 import { useStyles } from './userProfile.style';
 
 export default function UserProfile() {
   const classes = useStyles();
+  const authContext = useContext(AuthContext);
+  const { userData } = authContext;
   const userMemberContext = useContext(UserMemberContext);
   const { getUserMember, loading } = userMemberContext;
   const [refresh, setRefresh] = useState(0);
 
+  let history = useHistory();
+  function login() {
+    history.push('/login');
+  }
+
   useEffect(() => {
+    if (!userData) {
+      login();
+    }
     getUserMember();
   }, [refresh]);
 
