@@ -8,7 +8,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
 import Typography from '@material-ui/core/Typography';
 import { useStyles } from '../../createSignup.style';
 import { Fragment, useState, useContext } from 'react';
@@ -48,67 +48,67 @@ export default function CreateBandMember({ prevStep }) {
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
+          <PersonAddOutlinedIcon />
         </Avatar>
-        <Typography component='h1' variant='h2'>
-          Tell us about your bandmate...
+        <Typography className={classes.subHeader} component='h4' variant='h4'>
+          Tell us about your bandmate:
         </Typography>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
+            <Grid className={classes.formSpace} item xs={12}>
+              <TextField
+                className='adTextBoxHeight'
+                variant='outlined'
+                required
+                fullWidth
+                id='name'
+                label='First Name'
+                name='name'
+                value={newName}
+                onChange={e => setNewName(e.target.value)}
+              />
+            </Grid>
+            <Grid className={classes.formSpace} item xs={4}>
+              <TextField
+                className='adTextBoxHeight'
+                variant='outlined'
+                required
+                fullWidth
+                id='city'
+                label='City'
+                name='city'
+                value={newCity}
+                onChange={e => setNewCity(e.target.value)}
+              />
+            </Grid>
+            <Grid className={classes.formSpace} item xs={4}>
+              <TextField
+                className='adTextBoxHeight'
+                variant='outlined'
+                required
+                fullWidth
+                id='state'
+                label='State'
+                name='state'
+                value={newState}
+                onChange={e => setNewState(e.target.value)}
+              />
+            </Grid>
+            <Grid className={classes.formSpace} item xs={4}>
+              <TextField
+                className='adTextBoxHeight'
+                variant='outlined'
+                required
+                fullWidth
+                id='zipcode'
+                label='Zipcode'
+                name='zipcode'
+                value={newZipcode}
+                onChange={e => setNewZipcode(e.target.value)}
+              />
+            </Grid>
             <Grid item xs={12}>
-              <Grid item xs={12} sm={12}>
-                <TextField
-                  className='adTextBoxHeight'
-                  variant='outlined'
-                  required
-                  fullWidth
-                  id='name'
-                  label='First Name'
-                  name='name'
-                  value={newName}
-                  onChange={e => setNewName(e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={12} sm={12}>
-                <TextField
-                  className='adTextBoxHeight'
-                  variant='outlined'
-                  required
-                  fullWidth
-                  id='city'
-                  label='City'
-                  name='city'
-                  value={newCity}
-                  onChange={e => setNewCity(e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={12} sm={12}>
-                <TextField
-                  className='adTextBoxHeight'
-                  variant='outlined'
-                  required
-                  fullWidth
-                  id='state'
-                  label='State'
-                  name='state'
-                  value={newState}
-                  onChange={e => setNewState(e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={12} sm={12}>
-                <TextField
-                  className='adTextBoxHeight'
-                  variant='outlined'
-                  required
-                  fullWidth
-                  id='zipcode'
-                  label='Zipcode'
-                  name='zipcode'
-                  value={newZipcode}
-                  onChange={e => setNewZipcode(e.target.value)}
-                />
-              </Grid>
-              <FormControl className={classes.formControl}>
+              <FormControl className={classes.formControlInside}>
                 <InputLabel id='demo-simple-select-label'>
                   Main Instrument
                 </InputLabel>
@@ -127,41 +127,48 @@ export default function CreateBandMember({ prevStep }) {
                   })}
                 </Select>
               </FormControl>
-              <Grid item xs={12} sm={12}>
-                <TextField
-                  className='adTextBoxHeight'
-                  variant='outlined'
-                  required
-                  fullWidth
-                  id='profilePicture'
-                  label='Profile Picture'
-                  name='profilePicture'
-                  value={newPicture}
-                  onChange={e => setNewPicture(e.target.value)}
-                />
-              </Grid>
+            </Grid>
+            <Grid className={classes.formControl} item xs={12}>
+              <TextField
+                className='adTextBoxHeight'
+                variant='outlined'
+                required
+                fullWidth
+                id='profilePicture'
+                label='Profile Picture'
+                name='profilePicture'
+                value={newPicture}
+                onChange={e => setNewPicture(e.target.value)}
+              />
             </Grid>
           </Grid>
-          <Button
-            type='submit'
-            fullWidth
-            variant='contained'
-            color='primary'
-            className={classes.submit}
-            onClick={prevStep}
-          >
-            Back
-          </Button>
-          <Button
-            type='submit'
-            fullWidth
-            variant='contained'
-            color='primary'
-            className={classes.submit}
-            onClick={updateListingInProgress}
-          >
-            Next
-          </Button>
+          <Grid container spacing={2}>
+            <Grid item xs={5}>
+              <Button
+                type='submit'
+                fullWidth
+                variant='contained'
+                color='primary'
+                className={classes.submit}
+                onClick={prevStep}
+              >
+                Back
+              </Button>
+            </Grid>
+            <Grid item xs={2}></Grid>
+            <Grid item xs={5}>
+              <Button
+                type='submit'
+                fullWidth
+                variant='contained'
+                color='primary'
+                className={classes.submit}
+                onClick={updateListingInProgress}
+              >
+                Next
+              </Button>
+            </Grid>
+          </Grid>
         </form>
       </div>
     </Fragment>

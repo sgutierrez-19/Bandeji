@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import PostAddOutlinedIcon from '@material-ui/icons/PostAddOutlined';
 import Typography from '@material-ui/core/Typography';
 import { useStyles } from '../createLFM.style';
 import { Fragment, useState, useContext } from 'react';
@@ -29,10 +29,12 @@ export default function AdDescription({ prevStep, nextStep }) {
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
+          <PostAddOutlinedIcon />
         </Avatar>
-        <Typography component='h1' variant='h2'>
-          Tell everyone about the bank and what you are looking for:
+        <Typography className={classes.subHeader} component='h4' variant='h4'>
+          Tell everyone about the band and
+          <br />
+          describe the person you are looking for:
         </Typography>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
@@ -54,26 +56,33 @@ export default function AdDescription({ prevStep, nextStep }) {
               </Grid>
             </Grid>
           </Grid>
-          <Button
-            type='submit'
-            fullWidth
-            variant='contained'
-            color='primary'
-            className={classes.submit}
-            onClick={prevStep}
-          >
-            Back
-          </Button>
-          <Button
-            type='submit'
-            fullWidth
-            variant='contained'
-            color='primary'
-            className={classes.submit}
-            onClick={updateListingInProgress}
-          >
-            Finish
-          </Button>
+          <Grid container spacing={2}>
+            <Grid item xs={5}>
+              <Button
+                type='submit'
+                fullWidth
+                variant='contained'
+                color='primary'
+                className={classes.submit}
+                onClick={prevStep}
+              >
+                Back
+              </Button>
+            </Grid>
+            <Grid item xs={2}></Grid>
+            <Grid item xs={5}>
+              <Button
+                type='submit'
+                fullWidth
+                variant='contained'
+                color='primary'
+                className={classes.submit}
+                onClick={updateListingInProgress}
+              >
+                Finish
+              </Button>
+            </Grid>
+          </Grid>
         </form>
       </div>
     </Fragment>
