@@ -20,6 +20,10 @@ const useStyles = makeStyles(theme => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+    backgroundImage: 'linear-gradient(to right, #f37748 , #d56062)',
+    '&:hover': {
+      backgroundImage: 'linear-gradient(to right, #DD6D42 , #C2585A)'
+    },
     borderRadius: '2rem'
   },
   formControl: {

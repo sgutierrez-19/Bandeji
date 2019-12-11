@@ -32,7 +32,7 @@ export default function LandingPage() {
           <Typography variant='h1' align='center' className={classes.text}>
             <b>You!</b>
           </Typography>
-          <Link to='/signup' className={classes.title}>
+          <Link to='/signup' className={classes.link}>
             <Fab
               variant='extended'
               color='primary'

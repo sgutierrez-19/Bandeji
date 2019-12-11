@@ -57,7 +57,11 @@ const useStyles = makeStyles(theme => ({
   buttonPrimary: {
     margin: '2rem 0',
     marginLeft: '1.5rem',
-    color: 'white'
+    color: 'white',
+    backgroundImage: 'linear-gradient(to right, #95C99F, #6EB57B)',
+    '&:hover': {
+      backgroundImage: 'linear-gradient(to right, #7BBB87 , #5B9565)'
+    }
   },
   buttonDanger: {
     margin: '2rem 0',

@@ -32,10 +32,12 @@ export default function BandForm({ refreshPage }) {
   return (
     <form noValidate className={classes.form}>
       <Grid container spacing={4} alignContent='center'>
-        <CssBaseline />
-        <Typography variant='h3' align='center'>
-          Update your band
-        </Typography>
+        {/* <CssBaseline /> */}
+        <Grid item xs={12} sm={6} md={12}>
+          <Typography variant='h3' align='center'>
+            Update your band
+          </Typography>
+        </Grid>
         <Grid item xs={12} sm={6} md={12}>
           <TextField
             xs={12}

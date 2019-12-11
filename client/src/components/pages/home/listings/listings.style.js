@@ -32,6 +32,12 @@ const useStyles = makeStyles(theme => ({
   view: {
     margin: '1.5rem',
     width: '%'
+  },
+  button: {
+    backgroundImage: 'linear-gradient(to right, #f37748 , #d56062)',
+    '&:hover': {
+      backgroundImage: 'linear-gradient(to right, #DD6D42 , #C2585A)'
+    }
   }
 }));
 

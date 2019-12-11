@@ -22,10 +22,17 @@ const useStyles = makeStyles(theme => ({
     textAlign: 'center'
   },
   contact: {
+    backgroundImage: 'linear-gradient(to right, #f37748 , #d56062)',
+    '&:hover': {
+      backgroundImage: 'linear-gradient(to right, #DD6D42 , #C2585A)'
+    },
     margin: '2rem 1rem 0'
   },
   close: {
-    backgroundColor: 'black',
+    backgroundImage: 'linear-gradient(to right, #9CC1D6 , #78ABC7)',
+    '&:hover': {
+      backgroundImage: 'linear-gradient(to right, #90BAD1 , #6E9CB5)'
+    },
     margin: '2rem 1rem 0'
   }
 }));

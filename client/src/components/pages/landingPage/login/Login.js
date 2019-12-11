@@ -103,7 +103,7 @@ export default function Login(props) {
         </Button>
         <Grid container>
           <Grid item>
-            <Link href='/signup' variant='body2'>
+            <Link href='/signup' variant='body2' className={classes.link}>
               {"Don't have an account? Sign Up"}
             </Link>
           </Grid>

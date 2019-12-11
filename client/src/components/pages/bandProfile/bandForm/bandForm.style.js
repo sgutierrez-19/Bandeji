@@ -48,7 +48,11 @@ const useStyles = makeStyles(theme => ({
     borderRadius: '2rem'
   },
   button: {
-    margin: '3rem 3.5rem 2rem 0'
+    margin: '3rem 3.5rem 2rem 0',
+    backgroundImage: 'linear-gradient(to right, #95C99F, #6EB57B)',
+    '&:hover': {
+      backgroundImage: 'linear-gradient(to right, #7BBB87 , #5B9565)'
+    }
   },
   floatRight: {
     display: 'flex',
