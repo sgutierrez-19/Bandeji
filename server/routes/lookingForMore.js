@@ -13,7 +13,7 @@ router.get('/api/listings/lfm/general/:zipcode', async (req, res) => {
       where: {
         zipcode: req.params.zipcode
       },
-      include: [db.Band]
+      include: [{ model: db.Band, include: [db.User] }]
     });
     res.json(loadlfmDiscovery);
   } catch (err) {
@@ -87,7 +87,7 @@ router.post('/api/listings/lfm/search', async (req, res) => {
 
     const loadlfmDiscovery = await db.lfm.findAll({
       where: searchWhat,
-      include: [db.Band]
+      include: [{ model: db.Band, include: [db.User] }]
     });
     res.json(loadlfmDiscovery);
   } catch (err) {

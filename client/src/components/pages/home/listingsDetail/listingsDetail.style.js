@@ -6,7 +6,6 @@ const useStyles = makeStyles(theme => ({
     // backgroundColor: theme.palette.grey[800],
     // color: theme.palette.common.white,
     marginBottom: theme.spacing(4),
-    // backgroundImage: 'url(https://source.unsplash.com/random)',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
@@ -22,11 +21,14 @@ const useStyles = makeStyles(theme => ({
     textAlign: 'center'
   },
   contact: {
-    margin: '2rem 1rem 0'
+    margin: '2rem 1rem'
   },
   close: {
     backgroundColor: 'black',
-    margin: '2rem 1rem 0'
+    margin: '2rem 1rem'
+  },
+  typography: {
+    padding: theme.spacing(2)
   }
 }));
 
