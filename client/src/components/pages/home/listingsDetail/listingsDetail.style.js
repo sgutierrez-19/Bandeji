@@ -6,7 +6,6 @@ const useStyles = makeStyles(theme => ({
     // backgroundColor: theme.palette.grey[800],
     // color: theme.palette.common.white,
     marginBottom: theme.spacing(4),
-    // backgroundImage: 'url(https://source.unsplash.com/random)',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
@@ -33,7 +32,10 @@ const useStyles = makeStyles(theme => ({
     '&:hover': {
       backgroundImage: 'linear-gradient(to right, #90BAD1 , #6E9CB5)'
     },
-    margin: '2rem 1rem 0'
+    margin: '2rem 1rem'
+  },
+  typography: {
+    padding: theme.spacing(2)
   }
 }));
 

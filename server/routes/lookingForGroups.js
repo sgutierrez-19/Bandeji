@@ -69,7 +69,7 @@ router.get('/api/listings/lfg/general/:zipcode', async (req, res) => {
       where: {
         zipcode: req.params.zipcode
       },
-      include: [db.Member]
+      include: [{ model: db.Member, include: [db.User] }]
     });
     res.json(loadlfgDiscovery);
   } catch (err) {
@@ -91,7 +91,7 @@ router.post('/api/listings/lfg/search', async (req, res) => {
     if (instrument) searchWhat.instrument = instrument;
     const loadlfgDiscovery = await db.lfg.findAll({
       where: searchWhat,
-      include: [db.Member]
+      include: [{ model: db.Member, include: [db.User] }]
     });
     console.log('in route: ', searchWhat);
 

@@ -73,8 +73,8 @@ export default function Home() {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth='xl' className={classes.container}>
-          <Typography variant='h3' align='center' className={classes.title}>
-            Discover Local Musicians and Bands
+          <Typography variant='h4' align='center' className={classes.title}>
+            <strong>Discover Local Musicians and Bands</strong>
           </Typography>
           <Grid container spacing={3}>
             {/* Chart */}
