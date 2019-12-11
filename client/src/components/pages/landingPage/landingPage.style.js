@@ -5,8 +5,7 @@ const useStyles = makeStyles(theme => ({
     height: '100vh'
   },
   image: {
-    backgroundImage:
-      'url(http://www.mixdownmag.com.au/sites/default/files/images/og_image.jpg)',
+    backgroundImage: 'url(http://inn.spb.ru/images/400/DSC100490773.jpg)',
     backgroundRepeat: 'no-repeat',
     backgroundColor:
       theme.palette.type === 'dark'
@@ -50,7 +49,14 @@ const useStyles = makeStyles(theme => ({
   },
   button: {
     margin: '3rem auto',
-    alignItems: 'center'
+    backgroundImage: 'linear-gradient(to right, #f37748 , #d56062)',
+    '&:hover': {
+      backgroundImage: 'linear-gradient(to right, #DD6D42 , #C2585A)',
+      textDecoration: 'none !important'
+    }
+  },
+  link: {
+    textDecoration: 'none !important'
   }
 }));
 

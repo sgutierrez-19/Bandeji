@@ -120,7 +120,7 @@ export default function Navbar() {
 
   return (
     <div className={classes.grow}>
-      <AppBar position='static'>
+      <AppBar position='static' className={classes.root}>
         <Toolbar className={classes.appBar}>
           <Typography className={classes.title} variant='h5' noWrap>
             <Link to='/' className={classes.brand}>

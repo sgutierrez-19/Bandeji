@@ -1,6 +1,9 @@
 import { fade, makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
+  root: {
+    backgroundImage: 'linear-gradient(to right, #f37748 , #d56062)'
+  },
   appBar: {
     margin: '0 2%'
   },

@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { red, teal } from '@material-ui/core/colors';
-const danger = red[500];
+const danger = red[800];
 const success = teal[500];
 
 const useStyles = makeStyles(theme => ({
@@ -34,13 +34,21 @@ const useStyles = makeStyles(theme => ({
   buttonPrimary: {
     margin: '2rem 0',
     marginLeft: '1.5rem',
-    color: 'white'
+    color: 'white',
+    borderRadius: '2rem',
+    backgroundImage: 'linear-gradient(to right, #95C99F, #6EB57B)',
+    '&:hover': {
+      backgroundImage: 'linear-gradient(to right, #7BBB87 , #5B9565)'
+    }
   },
   buttonDanger: {
     margin: '2rem 0',
     marginLeft: '1.5rem',
     color: 'white',
-    backgroundColor: danger
+    backgroundImage: 'linear-gradient(to right, #C76769, #B15052)',
+    '&:hover': {
+      backgroundImage: 'linear-gradient(to right, #B15052 , #8E4142)'
+    }
   },
   buttonSuccess: {
     margin: '2rem 0',

@@ -46,6 +46,7 @@ export default function Listings({ listings }) {
               </CardContent>
               <CardContent className={classes.view}>
                 <Fab
+                  className={classes.button}
                   variant='extended'
                   color='primary'
                   aria-label='add'

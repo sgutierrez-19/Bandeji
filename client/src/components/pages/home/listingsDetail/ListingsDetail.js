@@ -110,7 +110,6 @@ export default function ListingsDetail({ listing }) {
                 : listing.Member.User.email}
             </Typography>
           </Popover>
-          ;
         </Grid>
         <Grid item xs={3}>
           <Fab
