@@ -10,10 +10,13 @@ On this app users can:
 
 - Create an account as a group or as an individual.
 - Individual members can:
-  - signup
-  - view local listings for bands looking for musicians
-  - and post listings as a musician looking for a band.
+  - Signup
+  - View local listings for bands looking for musicians
+  - Post listings as a musician looking for a band.
 - Group members can:
-  - sign up,
-  - add and edit members to their group (band),
-  - create listings looking for musicians.
+
+  - Sign up,
+  - Add and edit members to their group (band),
+  - Create listings looking for musicians.
+
+  [Click here to visit the live website.](https://bandeji.herokuapp.com/login)
