@@ -15,8 +15,8 @@ const useStyles = makeStyles(theme => ({
     position: 'relative',
     padding: theme.spacing(3),
     [theme.breakpoints.up('md')]: {
-      padding: theme.spacing(6),
-      paddingRight: 0
+      padding: theme.spacing(6)
+      // paddingRight: 0
     },
     textAlign: 'center'
   },
