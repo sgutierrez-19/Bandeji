@@ -41,6 +41,8 @@ In your MySQL Workbench run the code:
 
 ### Application:
 
+On your command line, run the following commands:
+
 - `Git clone git@github.com:sgutierrez-19/Bandeji.git`
 
 - `npm install`
